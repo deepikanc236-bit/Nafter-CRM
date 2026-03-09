@@ -126,8 +126,12 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise compression and caching
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# WhiteNoise compression and caching for Django 6.0+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # Email Settings (Gmail Example)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
