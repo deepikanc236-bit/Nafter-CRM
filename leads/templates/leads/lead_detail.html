@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ lead.first_name }} {{ lead.last_name }} | Profile{% endblock %}
+
+{% block breadcrumb %}
+<a href="{% url 'lead_list' %}">Leads</a> / Profile
+{% endblock %}
+
+{% block page_title %}{{ lead.first_name }} {{ lead.last_name }}{% endblock %}
+
+{% block header_actions %}
+<div class="actions">
+    <span class="status-badge status-{{ lead.status|lower }}" style="padding: 10px 20px; font-size: 0.9rem;">
+        {{ lead.get_status_display }}
+    </span>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-grid {
+        display: grid;
+        grid-template-columns: 2fr 1.2fr;
+        gap: 32px;
+        align-items: flex-start;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        margin-bottom: 24px;
+        color: var(--text-heading);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .detail-item {
+        margin-bottom: 24px;
+    }
+
+    .detail-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        letter-spacing: 0.05em;
+    }
+
+    .detail-value {
+        font-size: 1.05rem;
+        color: var(--text-heading);
+        font-weight: 600;
+    }
+
+    .sentiment-badge-large {
+        padding: 16px 28px;
+        border-radius: 20px;
+        font-weight: 800;
+        font-size: 1.5rem;
+        display: inline-block;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .sentiment-positive {
+        background: #f0fdf4;
+        color: #166534;
+    }
+
+    .sentiment-negative {
+        background: #fef2f2;
+        color: #991b1b;
+    }
+
+    .sentiment-neutral {
+        background: #f8fafc;
+        color: #475569;
+    }
+
+    .timeline {
+        position: relative;
+        padding-left: 36px;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: #f1f5f9;
+        border-radius: 3px;
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 32px;
+    }
+
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -41.5px;
+        top: 4px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--primary-dark);
+        border: 4px solid white;
+        box-shadow: 0 0 0 2px #f1f5f9;
+    }
+
+    .timeline-content {
+        background: #f8fafc;
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px solid #f1f5f9;
+    }
+
+    .timeline-content strong {
+        display: block;
+        font-size: 0.95rem;
+        color: var(--text-heading);
+        margin-bottom: 4px;
+    }
+
+    .timeline-time {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .status-new {
+        background: #e0f2fe;
+        color: #0369a1;
+    }
+
+    .status-contacted {
+        background: #fef9c3;
+        color: #854d0e;
+    }
+
+    .status-negotiation {
+        background: #f0fdf4;
+        color: #166534;
+    }
+
+    .status-closed {
+        background: #f1f5f9;
+        color: #475569;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-grid">
+    <div class="main-details">
+        <!-- Sentiment Analysis Section -->
+        <div class="card" style="border-top: 6px solid var(--primary-dark); margin-bottom: 32px;">
+            <div class="card-title">
+                <i class="fa-solid fa-brain" style="color: var(--primary-dark);"></i>
+                <span>AI Sentiment Analysis</span>
+            </div>
+            {% with latest_feedback=feedbacks.first %}
+            {% if latest_feedback %}
+            <div class="sentiment-badge-large sentiment-{{ latest_feedback.sentiment_label|lower }}">
+                {{ latest_feedback.sentiment_label }}
+            </div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600; margin-bottom: 16px;">
+                Confidence Score: {{ latest_feedback.sentiment_score|floatformat:2 }}
+            </div>
+            <p
+                style="color: var(--text-body); font-style: italic; line-height: 1.8; font-size: 1.1rem; background: #f8fafc; padding: 24px; border-radius: 20px; border: 1px solid #f1f5f9;">
+                "{{ latest_feedback.message }}"
+            </p>
+            {% else %}
+            <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+                <i class="fa-solid fa-comment-slash" style="font-size: 2.5rem; margin-bottom: 16px; opacity: 0.3;"></i>
+                <p>No sentiment analysis available for this lead yet.</p>
+            </div>
+            {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <i class="fa-solid fa-circle-info" style="color: var(--primary-dark);"></i>
+                Lead Information
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px;">
+                <div class="detail-item">
+                    <div class="detail-label">Company</div>
+                    <div class="detail-value">{{ lead.company_name|default:"Personal Lead" }}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Work Email</div>
+                    <div class="detail-value">{{ lead.work_email }}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Interest</div>
+                    <div class="detail-value">{{ lead.get_interest_display }}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Budget (INR)</div>
+                    <div class="detail-value">₹{{ lead.budget_inr_value|default:"0" }}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">AI Conversion Prob.</div>
+                    <div class="detail-value">{{ lead.conversion_probability }}%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Lead Score</div>
+                    <div class="detail-value">{{ lead.lead_score }} / 100</div>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Project Details & Requirements</div>
+                <div class="detail-value"
+                    style="line-height: 1.8; background: #f8fafc; padding: 24px; border-radius: 20px; color: var(--text-body); white-space: pre-wrap;">
+                    {{ lead.project_details|default:"No details provided." }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-details">
+        <div class="card">
+            <div class="card-title">
+                <i class="fa-solid fa-clock-rotate-left" style="color: var(--primary-dark);"></i>
+                Activity Timeline
+            </div>
+            <div class="timeline">
+                {% for activity in activities %}
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <strong>{{ activity.action }}</strong>
+                        <div class="timeline-time">{{ activity.timestamp|date:"M d, Y • H:i" }}</div>
+                    </div>
+                </div>
+                {% empty %}
+                {% endfor %}
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <strong>Lead Created</strong>
+                        <div class="timeline-time">{{ lead.created_at|date:"M d, Y • H:i" }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

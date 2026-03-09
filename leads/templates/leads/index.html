@@ -1,0 +1,339 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Nafter Web Technologies - Your Trusted Partner for Shopify, Digital Marketing & Google Business Solutions in Vellore.">
+    <title>Nafter Web Technologies | Digital Marketing & Web Development</title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'images/favicon_new.png' %}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-container">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{% url 'home' %}">Home <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'home' %}#hero">Overview</a></li>
+                    <li><a href="{% url 'home' %}#about">About Us</a></li>
+                    <li><a href="{% url 'home' %}#services">What We Do</a></li>
+                    <li><a href="{% url 'home' %}#partners">Our Partners</a></li>
+                    <li><a href="{% url 'home' %}#testimonials">Testimonials</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'about' %}">About <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'about' %}#story">Our Story</a></li>
+                    <li><a href="{% url 'about' %}#vision">Vision & Mission</a></li>
+                    <li><a href="{% url 'about' %}#process">Our Process</a></li>
+                    <li><a href="{% url 'about' %}#tech">Technology</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'services' %}">Services <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'services' %}#tech">Web Development</a></li>
+                    <li><a href="{% url 'services' %}#shopify">Shopify Expert</a></li>
+                    <li><a href="{% url 'services' %}#digital">Digital Marketing</a></li>
+                    <li><a href="{% url 'services' %}#seo">SEO Optimization</a></li>
+                    <li><a href="{% url 'services' %}#branding">Branding</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'portfolio' %}">Portfolio <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'portfolio' %}#projects">Our Projects</a></li>
+                    <li><a href="{% url 'portfolio' %}#careers">Careers</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'contact' %}">Contact <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'contact' %}#contact">Get in Touch</a></li>
+                    <li><a href="{% url 'contact' %}#info">Contact Info</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'feedback' %}">Feedback <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'feedback' %}#feedback">Rate Experience</a></li>
+                    <li><a href="{% url 'feedback' %}#faq">FAQ</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="nav-right">
+            <a href="tel:+918015795921" class="phone-link">
+                <i class="fas fa-phone-alt"></i> <span>+91 8015795921</span>
+            </a>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <h1>Your Trusted Partner for<br>Shopify, Digital Marketing <br>& Google Business Solutions</h1>
+        <p>Discover how businesses grow online with Nafter – your trusted partner for website development, Shopify
+            solutions, SEO services, and digital marketing in Vellore.</p>
+        <div style="margin-top: 2rem;">
+            <a href="{% url 'contact' %}" class="btn-glow">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Highlights -->
+    <section class="highlights-section">
+        <div class="highlights">
+            <div class="card">
+                <h3>21+</h3>
+                <p>Years of Experience</p>
+            </div>
+            <div class="card">
+                <h3>254+</h3>
+                <p>Successful Projects</p>
+            </div>
+            <div class="card">
+                <h3>Trusted</h3>
+                <p>By Top Brands</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <h2 class="section-title">Who We Are</h2>
+        <div class="container about-content">
+            <p>
+                Nafter Web Technologies is a leading digital marketing, web development, and Shopify solutions company
+                in Vellore. We specialize in Google Business listing, SEO services, and custom website design to help
+                brands grow online. Boost your digital presence with Nafterweb.com – your trusted web technology partner
+                in India.
+            </p>
+            <p>
+                Nafter Web Technologies is a leading IT company offering expert Shopify development in Vellore and
+                custom website development in Vellore. We help businesses grow with innovative digital solutions, from
+                eCommerce stores to modern web applications.
+            </p>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-carousel-section" id="partners">
+        <h2 class="section-title carousel-title">Proud to Work With</h2>
+        <div class="logo-carousel">
+            <div class="logo-track">
+                <!-- 1st Set (9 items) -->
+                <div class="logo-item"><img src="{% static 'images/partners/kafter.png' %}" alt="Kafter"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/october.png' %}" alt="October"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/milofit.png' %}" alt="MiloFit"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/mysore.png' %}" alt="Mysore Manzil"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/klift.png' %}" alt="The Klift"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/nrhomes.png' %}" alt="NR Homes"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/fashionhub.png' %}" alt="Fashion Hub"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/hrk.png' %}" alt="HRK Intermediate"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/drmamatha.png' %}" alt="Dr Mamatha"></div>
+
+                <!-- 2nd Set (Duplicate for loop) -->
+                <div class="logo-item"><img src="{% static 'images/partners/kafter.png' %}" alt="Kafter"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/october.png' %}" alt="October"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/milofit.png' %}" alt="MiloFit"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/mysore.png' %}" alt="Mysore Manzil"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/klift.png' %}" alt="The Klift"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/nrhomes.png' %}" alt="NR Homes"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/fashionhub.png' %}" alt="Fashion Hub"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/hrk.png' %}" alt="HRK Intermediate"></div>
+                <div class="logo-item"><img src="{% static 'images/partners/drmamatha.png' %}" alt="Dr Mamatha"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Do Best / Services -->
+    <section class="services-section" id="services">
+        <h2 class="section-title">What We Do Best</h2>
+        <p class="section-subtitle">Digital Solutions That Drive Real Results</p>
+
+        <div class="grid-container">
+            <!-- Service 1 -->
+            <div class="service-card">
+                <i class="fas fa-chart-line" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <h3>Performance Marketing</h3>
+                <p>Data Driven Strategies, Measurable Results. Maximize your ROAS with targeted campaigns.</p>
+            </div>
+            <!-- Service 2 -->
+            <div class="service-card">
+                <i class="fas fa-share-alt" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                <h3>Social Media Growth</h3>
+                <p>Build brand awareness & engage your audience effectively on platforms that matter.</p>
+            </div>
+            <!-- Service 3 -->
+            <div class="service-card">
+                <i class="fas fa-pen-nib" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Content Marketing</h3>
+                <p>Compelling content that drives engagement and builds authority for your brand.</p>
+            </div>
+            <!-- Service 4 -->
+            <div class="service-card">
+                <i class="fas fa-ad" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <h3>PPC & Paid Ads</h3>
+                <p>Strategic paid advertising to capture immediate traffic and leads.</p>
+            </div>
+            <!-- Service 5 -->
+            <div class="service-card">
+                <i class="fas fa-bullseye" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                <h3>Brand Strategy</h3>
+                <p>Defining your unique identity and positioning for long-term success.</p>
+            </div>
+            <!-- Service 6 -->
+            <div class="service-card">
+                <i class="fas fa-funnel-dollar" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Conversion Optimization</h3>
+                <p>Turning visitors into customers through optimized user journeys.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Nafter -->
+    <section class="why-choose">
+        <h2 class="section-title">Why Choose Nafter</h2>
+        <div class="grid-container">
+            <div class="choose-card">
+                <i class="fas fa-database" style="font-size: 2rem; color: var(--accent);"></i>
+                <h4>Data-Driven Approach</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Nafter Web Technologies follows a data-driven
+                    approach, combining analytics, SEO strategies, and digital marketing insights to maximize business
+                    growth.</p>
+            </div>
+            <div class="choose-card">
+                <i class="fas fa-lightbulb" style="font-size: 2rem; color: var(--secondary);"></i>
+                <h4>Creative & Innovative</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Driving business growth with innovative
+                    strategies, Nafter stands tall among the top software companies in Vellore.</p>
+            </div>
+            <div class="choose-card">
+                <i class="fas fa-file-contract" style="font-size: 2rem; color: var(--primary);"></i>
+                <h4>Transparent Reporting</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Nafter ensures transparent reporting, making us
+                    one of the best software companies in Vellore trusted for clarity and results.</p>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Elevate Your Digital Presence?</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.2rem;">Let’s create a custom strategy that
+            fits your business goals.</p>
+        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <a href="{% url 'contact' %}" class="btn-glow">Book a Free Consultation</a>
+            <a href="{% url 'services' %}" class="btn-glow" style="filter: hue-rotate(45deg);">How we help</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Unique Premium Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <!-- Left Side: Brand & Social -->
+            <div class="footer-col" style="text-align: left;">
+                <div class="logo-container" style="margin-bottom: 2rem;">
+                    <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+                </div>
+                <p class="footer-desc">
+                    Software solutions for<br>
+                    eCommerce, Digital Marketing,<br>
+                    SEO & Branding Strategy.
+                </p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/448383765016872/" class="social-btn"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/nafterwebtechnologies?igsh=MTBqOWNjbmUxazBlZw=="
+                        class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/+917200795921" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Center: Our Services -->
+            <div class="footer-col" style="text-align: center;">
+                <h4>Our Services</h4>
+                <ul class="footer-links-arrow">
+                    <li><a href="{% url 'services' %}">Social Media Marketing</a></li>
+                    <li><a href="{% url 'services' %}">SEO Optimization</a></li>
+                    <li><a href="{% url 'services' %}">PPC Advertising</a></li>
+                    <li><a href="{% url 'services' %}">Content Marketing</a></li>
+                    <li><a href="{% url 'services' %}">Branding Strategy</a></li>
+                    <li><a href="{% url 'services' %}">Email Marketing</a></li>
+                </ul>
+            </div>
+
+            <!-- Right Corner: Office & Branches -->
+            <div class="footer-col" style="text-align: right;">
+                <h4 style="margin-bottom: 1rem;">Vellore Office</h4>
+                <div class="address-block">
+                    <p>1st floor, SBI BANK Building,<br>Katpadi, Vellore,<br>Tamil Nadu 632006</p>
+                </div>
+                <div class="contact-row">+91 8015795921</div>
+                <div class="contact-row" style="color: var(--accent);">hello@nafterweb.com</div>
+
+                <h4 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem;">Our Branches</h4>
+                <div class="address-block">
+                    <p>Tirupati | vellore | Dubai | Jeddah| Oman</p>
+                </div>
+
+                <!-- Interactive 24/7 Support Badge -->
+                <a href="https://wa.me/+917200795921" class="support-badge"
+                    style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <i class="fas fa-headset"></i> 24/7 Support Available
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom"
+            style="margin-top: 5rem; border-top: 1px solid var(--glass-border); padding-top: 2rem; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 1rem;">&copy; 2026 Nafter Web Technologies. All Rights
+                Reserved.</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/particles.js' %}"></script>
+    <!-- WhatsApp Integration -->
+    <a href="https://wa.me/918015795921" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+
+</html>

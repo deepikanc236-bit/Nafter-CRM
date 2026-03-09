@@ -1,0 +1,493 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback | Nafter Web Technologies</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/favicon_new.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Specific Styles for Feedback Page */
+        .star-rating {
+            display: flex;
+            gap: 10px;
+            font-size: 2rem;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .star-rating i {
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .star-rating i.active {
+            color: #ffd700;
+            /* Gold */
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* FAQ Styles */
+        .faq-section {
+            padding: 8rem 5%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-container {
+            margin-top: 3rem;
+        }
+
+        .faq-item {
+            background: rgba(5, 15, 40, 0.95);
+            /* Deep Dark Blue */
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 30px rgba(0, 5, 20, 0.5);
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent);
+            background: rgba(10, 25, 60, 0.95);
+        }
+
+        .faq-question {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 700;
+            /* Bold */
+            font-size: 1.1rem;
+            color: #ffffff;
+            /* White */
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--accent);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(5, 15, 40, 0.95);
+            /* Match Background */
+            color: #ffffff;
+            /* White */
+            font-weight: 600;
+            /* Bold-ish */
+            line-height: 1.7;
+        }
+
+        .faq-answer-inner {
+            padding: 0 2rem 1.5rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="bg-animation"></div>
+
+    <nav>
+        <div class="logo-container">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{% url 'home' %}">Home <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'home' %}#hero">Overview</a></li>
+                    <li><a href="{% url 'home' %}#about">About Us</a></li>
+                    <li><a href="{% url 'home' %}#services">What We Do</a></li>
+                    <li><a href="{% url 'home' %}#partners">Our Partners</a></li>
+                    <li><a href="{% url 'home' %}#testimonials">Testimonials</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'about' %}">About <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'about' %}#story">Our Story</a></li>
+                    <li><a href="{% url 'about' %}#vision">Vision & Mission</a></li>
+                    <li><a href="{% url 'about' %}#process">Our Process</a></li>
+                    <li><a href="{% url 'about' %}#tech">Technology</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'services' %}">Services <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'services' %}#tech">Web Development</a></li>
+                    <li><a href="{% url 'services' %}#shopify">Shopify Expert</a></li>
+                    <li><a href="{% url 'services' %}#digital">Digital Marketing</a></li>
+                    <li><a href="{% url 'services' %}#seo">SEO Optimization</a></li>
+                    <li><a href="{% url 'services' %}#branding">Branding</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'portfolio' %}">Portfolio <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'portfolio' %}#projects">Our Projects</a></li>
+                    <li><a href="{% url 'portfolio' %}#careers">Careers</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'contact' %}">Contact <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'contact' %}#contact">Get in Touch</a></li>
+                    <li><a href="{% url 'contact' %}#info">Contact Info</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'feedback' %}" class="active">Feedback <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'feedback' %}#feedback">Rate Experience</a></li>
+                    <li><a href="{% url 'feedback' %}#faq">FAQ</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="nav-right">
+            <a href="tel:+918015795921" class="phone-link">
+                <i class="fas fa-phone-alt"></i> <span>+91 8015795921</span>
+            </a>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="feedback">
+        <h2 class="section-title">Share Your Review</h2>
+        <div class="contact-container" style="justify-content: center;">
+            <div class="contact-form" style="max-width: 600px; width: 100%;">
+                <form method="POST" action="{% url 'feedback' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" name="name" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Project Feedback</label>
+                        <textarea name="message" rows="8"
+                            placeholder="Tell us about your experience with our services..." required
+                            style="height: 15rem; font-size: 1.1rem;"></textarea>
+                    </div>
+
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+                        Note: Your feedback helps us improve our AI-driven service optimization.
+                    </p>
+
+                    <button type="submit" class="submit-btn" style="width: 100%;">Submit Feedback</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <!-- FAQ 1: General Services -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    What digital services does Nafter Web Technologies offer?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        We specialize in Web Development, Shopify E-commerce solutions, SEO Optimization, Digital
+                        Marketing, Branding Strategy, and Custom Software Development to help businesses grow online.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2: SEO -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    How can SEO help my business grow?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Our expert SEO strategies improve your website's ranking on search engines like Google, driving
+                        organic traffic, increasing visibility, and leading to higher conversion rates without paid ads.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3: Shopify -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you build custom e-commerce stores using Shopify?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Yes, we are Shopify experts. We create custom, responsive, and high-converting Shopify stores
+                        tailored to your brand's specific needs, ensuring a smooth shopping experience for your
+                        customers.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 4: Digital Marketing -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    How does your digital marketing approach differ?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        We use a data-driven approach, combining market research, competitor analysis, and creative
+                        content to build targeted campaigns that deliver real ROI, not just clicks.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5: Timeline -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    What is the typical timeline for a website project?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        The timeline varies by project complexity. A standard business website typically takes 2-4
+                        weeks, while complex e-commerce or custom web apps may take 6-10 weeks. We provide a detailed
+                        schedule during consultation.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 6: Support -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you provide support after the website is launched?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Absolutely. We offer ongoing maintenance, technical support, and security updates to ensure your
+                        website remains fast, secure, and up-to-date.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 7: Mobile Apps -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you develop mobile applications for Android and iOS?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Yes! We build high-performance native and cross-platform mobile apps using modern frameworks
+                        like
+                        Flutter and React Native to extend your business to mobile users.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 8: Website Redesign -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    My current website is outdated. Can you redesign it?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Definitely. We can modernize your existing website with a fresh design, better user experience
+                        (UX),
+                        mobile responsiveness, and improved SEO structure to boost its performance.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 9: Content Writing -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you provide content writing services?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Yes, our team of professional copywriters can create engaging, SEO-optimized content for your
+                        website, blogs, and marketing materials that resonates with your target audience.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 10: Consultation -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    Is the initial consultation free?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Yes, we offer a completely free initial consultation to discuss your project requirements,
+                        goals,
+                        and how we can help you achieve them. Book a call with us today!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unique Premium Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <!-- Left Side: Brand & Social -->
+            <div class="footer-col" style="text-align: left;">
+                <div class="logo-container" style="margin-bottom: 2rem;">
+                    <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+                </div>
+                <p class="footer-desc">
+                    Software solutions for<br>
+                    eCommerce, Digital Marketing,<br>
+                    SEO & Branding Strategy.
+                </p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/448383765016872/" class="social-btn"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/nafterwebtechnologies?igsh=MTBqOWNjbmUxazBlZw=="
+                        class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/+917200795921" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Center: Our Services -->
+            <div class="footer-col" style="text-align: center;">
+                <h4>Our Services</h4>
+                <ul class="footer-links-arrow">
+                    <li><a href="{% url 'services' %}#social">Social Media Marketing</a></li>
+                    <li><a href="{% url 'services' %}#seo">SEO Optimization</a></li>
+                    <li><a href="{% url 'services' %}#ppc">PPC Advertising</a></li>
+                    <li><a href="{% url 'services' %}#content">Content Marketing</a></li>
+                    <li><a href="{% url 'services' %}#branding">Branding Strategy</a></li>
+                    <li><a href="{% url 'services' %}#email">Email Marketing</a></li>
+                </ul>
+            </div>
+
+            <!-- Right Corner: Office & Branches -->
+            <div class="footer-col" style="text-align: right;">
+                <h4 style="margin-bottom: 1rem;">Vellore Office</h4>
+                <div class="address-block">
+                    <p>1st floor, SBI BANK Building,<br>Katpadi, Vellore,<br>Tamil Nadu 632006</p>
+                </div>
+                <div class="contact-row">+91 8015795921</div>
+                <div class="contact-row" style="color: var(--accent);">hello@nafterweb.com</div>
+
+                <h4 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem;">Our Branches</h4>
+                <div class="address-block">
+                    <p>Tirupati | vellore | Dubai | Jeddah| Oman</p>
+                </div>
+
+                <!-- Interactive 24/7 Support Badge -->
+                <a href="https://wa.me/+917200795921" class="support-badge"
+                    style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <i class="fas fa-headset"></i> 24/7 Support Available
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom"
+            style="margin-top: 5rem; border-top: 1px solid var(--glass-border); padding-top: 2rem; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 1rem;">&copy; 2026 Nafter Web Technologies. All Rights
+                Reserved.</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/particles.js' %}"></script>
+    <script>
+        // Inline script for Star Rating specific logic
+        document.addEventListener("DOMContentLoaded", () => {
+            const stars = document.querySelectorAll("#starRating i");
+            const ratingInput = document.getElementById("ratingValue");
+
+            stars.forEach(star => {
+                star.addEventListener("click", () => {
+                    const val = star.getAttribute("data-value");
+                    ratingInput.value = val;
+                    // Update visual
+                    stars.forEach(s => {
+                        if (s.getAttribute("data-value") <= val) {
+                            s.classList.add("active");
+                        } else {
+                            s.classList.remove("active");
+                        }
+                    });
+                });
+            });
+
+            const form = document.getElementById("feedbackForm");
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                console.log("Feedback Submitted:", Object.fromEntries(formData));
+
+                const btn = form.querySelector(".submit-btn");
+                const originalText = btn.innerText;
+                btn.innerText = "Thank You!";
+                btn.style.background = "#22c55e";
+
+                setTimeout(() => {
+                    form.reset();
+                    // Reset stars
+                    stars.forEach(s => s.classList.remove("active"));
+                    btn.innerText = originalText;
+                    btn.style.background = "";
+                }, 3000);
+            });
+
+            // FAQ Accordion Logic
+            const faqItems = document.querySelectorAll(".faq-item");
+            faqItems.forEach(item => {
+                const question = item.querySelector(".faq-question");
+                question.addEventListener("click", () => {
+                    const isActive = item.classList.contains("active");
+
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove("active");
+                    });
+
+                    // Toggle current item
+                    if (!isActive) {
+                        item.classList.add("active");
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- WhatsApp Integration -->
+    <a href="https://wa.me/918015795921" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+
+</html>

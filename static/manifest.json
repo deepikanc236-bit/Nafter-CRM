@@ -1,0 +1,20 @@
+{
+  "name": "Nafter AI CRM",
+  "short_name": "Nafter AI",
+  "start_url": "/dashboard/",
+  "display": "standalone",
+  "theme_color": "#115e3b",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/static/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

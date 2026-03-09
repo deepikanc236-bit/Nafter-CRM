@@ -1,0 +1,130 @@
+{% extends "admin/change_list.html" %}
+{% load admin_list i18n %}
+
+{% block content %}
+<style>
+    /* Kill Parent Limits - Surgical Strike */
+    #content,
+    #content-main {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+    }
+
+    .main {
+        width: 100% !important;
+        max-width: none !important;
+    }
+
+    /* The Master Flexbox Container */
+    .custom-changelist-container {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: flex-start !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        max-width: none !important;
+        gap: 24px !important;
+        padding: 20px 30px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Left Table Card (Force Stretch) */
+    .table-card {
+        flex-grow: 1 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        background: #ffffff !important;
+        border-radius: 16px !important;
+        padding: 24px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Right Filter Sidebar (Locked Width) */
+    .filter-card {
+        flex: 0 0 280px !important;
+        width: 280px !important;
+        background: #ffffff !important;
+        border-radius: 16px !important;
+        padding: 0 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+        overflow: hidden !important;
+    }
+
+    /* Override Django default styles for these specific blocks */
+    #changelist {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    #changelist-filter {
+        position: static !important;
+        width: 100% !important;
+        margin: 0 !important;
+        background: transparent !important;
+        border: none !important;
+    }
+
+    #changelist-filter h2 {
+        background: #115e3b !important;
+        color: white !important;
+        margin: 0 !important;
+        padding: 15px 20px !important;
+        font-size: 14px !important;
+    }
+
+    #changelist-filter ul {
+        padding: 15px 20px !important;
+    }
+
+    .changelist-form-container {
+        width: 100% !important;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1024px) {
+        .custom-changelist-container {
+            flex-direction: column !important;
+            padding: 15px !important;
+        }
+
+        .filter-card {
+            flex: 0 0 auto !important;
+            width: 100% !important;
+            margin-top: 20px !important;
+        }
+
+        .table-card {
+            padding: 15px !important;
+        }
+
+        table td,
+        table th {
+            white-space: normal !important;
+            padding: 10px !important;
+        }
+    }
+</style>
+
+<div class="custom-changelist-container">
+    <!-- Left: Table Card -->
+    <div class="table-card">
+        {% block result_list %}
+        {{ block.super }}
+        {% endblock %}
+    </div>
+
+    <!-- Right: Filter Card -->
+    {% if cl.has_filters %}
+    <div class="filter-card">
+        {% block filters %}
+        {{ block.super }}
+        {% endblock %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

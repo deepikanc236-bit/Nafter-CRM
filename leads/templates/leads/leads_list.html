@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Leads Overview | Nafter AI{% endblock %}
+
+{% block breadcrumb %}
+Leads
+{% endblock %}
+
+{% block page_title %}Active Leads{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hide Dashboard link on leads page */
+    .nav-link.dashboard-link {
+        display: none;
+    }
+
+    .dashboard-layout {
+        display: flex;
+        gap: 32px;
+        align-items: flex-start;
+    }
+
+    .leads-container {
+        flex: 1;
+        overflow: hidden;
+    }
+
+    /* Table Styles */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    th {
+        padding: 16px;
+        font-weight: 700;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+        border-bottom: 1px solid #f1f5f9;
+        background: #f8fafc;
+    }
+
+    td {
+        padding: 20px 16px;
+        font-size: 0.875rem;
+        color: var(--text-body);
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+    }
+
+    tr:hover td {
+        background-color: #f8fafc;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* Temperature Badges */
+    .temp-badge {
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        margin-left: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .temp-hot {
+        background: #fee2e2;
+        color: #dc2626;
+    }
+
+    .temp-warm {
+        background: #fef3c7;
+        color: #d97706;
+    }
+
+    .temp-cold {
+        background: #e0f2fe;
+        color: #0284c7;
+    }
+
+    /* Status Badges */
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .status-new {
+        background: #e0f2fe;
+        color: #0369a1;
+    }
+
+    .status-contacted {
+        background: #fef9c3;
+        color: #854d0e;
+    }
+
+    .status-negotiation {
+        background: #f0fdf4;
+        color: #166534;
+    }
+
+    .status-closed {
+        background: #f1f5f9;
+        color: #475569;
+    }
+
+    /* Sentiment Badges */
+    .sentiment-badge {
+        padding: 6px 12px;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .sentiment-positive {
+        background: #f0fdf4;
+        color: #166534;
+    }
+
+    .sentiment-negative {
+        background: #fef2f2;
+        color: #991b1b;
+    }
+
+    .sentiment-neutral {
+        background: #f8fafc;
+        color: #475569;
+    }
+
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Filter Sidebar */
+    .filter-sidebar {
+        flex: 0 0 280px;
+        position: sticky;
+        top: 32px;
+    }
+
+    @media (max-width: 1024px) {
+        .dashboard-layout {
+            flex-direction: column-reverse;
+            gap: 24px;
+        }
+
+        .filter-sidebar {
+            flex: 1;
+            width: 100%;
+            position: static;
+        }
+
+        .leads-container {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 640px) {
+
+        td,
+        th {
+            padding: 12px 8px;
+            font-size: 0.8rem;
+        }
+
+        .temp-badge {
+            margin-left: 5px;
+            padding: 2px 4px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <div class="leads-container card">
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Temperature</th>
+                        <th>Status</th>
+                        <th>Sentiment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lead in leads %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'lead_detail' lead.pk %}"
+                                style="text-decoration: none; color: var(--primary-dark); font-weight: 700;">
+                                {{ lead.first_name }} {{ lead.last_name }}
+                            </a>
+                        </td>
+                        <td>{{ lead.work_email }}</td>
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                <span style="font-weight: 800; font-size: 1.1rem; color: var(--text-heading);">{{
+                                    lead.lead_score }}</span>
+                                {% if lead.lead_score >= 70 %}
+                                <span class="temp-badge temp-hot">🔥 Hot</span>
+                                {% elif lead.lead_score >= 40 %}
+                                <span class="temp-badge temp-warm">Warm</span>
+                                {% else %}
+                                <span class="temp-badge temp-cold">❄️ Cold</span>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <span class="status-badge status-{{ lead.status|lower }}">
+                                {{ lead.get_status_display }}
+                            </span>
+                        </td>
+                        <td>
+                            {% with first_feedback=lead.feedback_set.first %}
+                            {% if first_feedback %}
+                            <span class="sentiment-badge sentiment-{{ first_feedback.sentiment_label|lower }}">
+                                {{ first_feedback.sentiment_label }}
+                            </span>
+                            {% else %}
+                            <span style="color: var(--text-muted); font-size: 0.75rem;">No Feedback</span>
+                            {% endif %}
+                            {% endwith %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5"
+                            style="text-align: center; padding: 48px; color: var(--text-muted); font-size: 1rem;">
+                            <i class="fa-solid fa-folder-open"
+                                style="display: block; font-size: 2rem; margin-bottom: 16px; opacity: 0.3;"></i>
+                            No leads found matching your criteria.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="filter-sidebar card">
+        <h3 style="margin-bottom: 24px; font-size: 1.1rem; font-weight: 800; color: var(--text-heading);">Filters</h3>
+        <form method="GET" action="{% url 'lead_list' %}">
+            <div class="filter-group">
+                <label class="filter-label">Status</label>
+                <select name="status" class="filter-select">
+                    <option value="All Statuses" {% if current_status=='All Statuses' %}selected{% endif %}>All Statuses
+                    </option>
+                    {% for choice in status_choices %}
+                    <option value="{{ choice }}" {% if current_status==choice %}selected{% endif %}>{{ choice }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Sort By</label>
+                <select name="sort" class="filter-select">
+                    <option value="Newest First" {% if current_sort=='Newest First' %}selected{% endif %}>Newest First
+                    </option>
+                    <option value="Oldest First" {% if current_sort=='Oldest First' %}selected{% endif %}>Oldest First
+                    </option>
+                    <option value="Conversion Probability" {% if current_sort=='Conversion Probability' %}selected{%
+                        endif %}>Conversion Probability</option>
+                    <option value="Score" {% if current_sort=='Score' %}selected{% endif %}>Score</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-apply">Apply Filters</button>
+            <a href="{% url 'lead_list' %}"
+                style="display: block; text-align: center; margin-top: 16px; color: var(--text-muted); text-decoration: none; font-size: 0.875rem; font-weight: 600;">Reset
+                All</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

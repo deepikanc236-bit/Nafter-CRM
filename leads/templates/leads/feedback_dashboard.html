@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Sentiment Analytics | Nafter AI{% endblock %}
+
+{% block breadcrumb %}
+Analytics
+{% endblock %}
+
+{% block page_title %}Sentiment Analytics{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hide Dashboard link on analytics page */
+    .nav-link.dashboard-link {
+        display: none;
+    }
+
+    .analytics-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 32px;
+        align-items: flex-start;
+    }
+
+    .stats-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stat-card {
+        padding: 24px;
+        text-align: left;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        letter-spacing: 0.1em;
+    }
+
+    .stat-value {
+        font-size: 2.5rem;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .pos {
+        color: #10b981;
+    }
+
+    .neu {
+        color: #64748b;
+    }
+
+    .neg {
+        color: #ef4444;
+    }
+
+    .chart-card {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chart-container {
+        height: 400px;
+        width: 100%;
+        position: relative;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="analytics-grid">
+    <div class="stats-sidebar">
+        <div class="stat-card card" style="border-left: 6px solid #10b981;">
+            <div class="stat-label">Positive Feedback</div>
+            <div class="stat-value pos">{{ positive }}</div>
+        </div>
+        <div class="stat-card card" style="border-left: 6px solid #64748b;">
+            <div class="stat-label">Neutral Samples</div>
+            <div class="stat-value neu">{{ neutral }}</div>
+        </div>
+        <div class="stat-card card" style="border-left: 6px solid #ef4444;">
+            <div class="stat-label">Negative Flags</div>
+            <div class="stat-value neg">{{ negative }}</div>
+        </div>
+    </div>
+
+    <div class="chart-card card">
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 32px; align-self: flex-start;">Overall Sentiment
+            Distribution</h3>
+        <div class="chart-container">
+            <canvas id="sentimentChart"></canvas>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const ctx = document.getElementById('sentimentChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Positive', 'Neutral', 'Negative'],
+                datasets: [{
+                    data: [{{ positive|default:0 }}, {{ neutral|default:0 }}, {{ negative|default:0 }}],
+        backgroundColor: ['#10b981', '#94a3b8', '#ef4444'],
+        borderWidth: 0,
+        hoverOffset: 25
+                }]
+            },
+        options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { padding: 30, font: { weight: '700', size: 14, family: 'Plus Jakarta Sans' }, usePointStyle: true }
+            }
+        },
+        cutout: '75%'
+    }
+        });
+    });
+</script>
+{% endblock %}

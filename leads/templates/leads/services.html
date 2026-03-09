@@ -1,0 +1,411 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Core Services | Nafter Web Technologies</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/service-page-styles.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/favicon_new.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-container">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{% url 'home' %}">Home <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'home' %}#hero">Overview</a></li>
+                    <li><a href="{% url 'home' %}#about">About Us</a></li>
+                    <li><a href="{% url 'home' %}#services">What We Do</a></li>
+                    <li><a href="{% url 'home' %}#partners">Our Partners</a></li>
+                    <li><a href="{% url 'home' %}#testimonials">Testimonials</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'about' %}">About <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'about' %}#story">Our Story</a></li>
+                    <li><a href="{% url 'about' %}#vision">Vision & Mission</a></li>
+                    <li><a href="{% url 'about' %}#process">Our Process</a></li>
+                    <li><a href="{% url 'about' %}#tech">Technology</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'services' %}" class="active">Services <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'services' %}#tech">Web Development</a></li>
+                    <li><a href="{% url 'services' %}#shopify">Shopify Expert</a></li>
+                    <li><a href="{% url 'services' %}#digital">Digital Marketing</a></li>
+                    <li><a href="{% url 'services' %}#seo">SEO Optimization</a></li>
+                    <li><a href="{% url 'services' %}#branding">Branding</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'portfolio' %}">Portfolio <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'portfolio' %}#projects">Our Projects</a></li>
+                    <li><a href="{% url 'portfolio' %}#careers">Careers</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'contact' %}">Contact <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'contact' %}#contact">Get in Touch</a></li>
+                    <li><a href="{% url 'contact' %}#info">Contact Info</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'feedback' %}">Feedback <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'feedback' %}#feedback">Rate Experience</a></li>
+                    <li><a href="{% url 'feedback' %}#faq">FAQ</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="nav-right">
+            <a href="tel:+918015795921" class="phone-link">
+                <i class="fas fa-phone-alt"></i> <span>+91 8015795921</span>
+            </a>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Our Core Services</h1>
+            <p class="subtitle">Digital Solutions That Drive Real Results</p>
+        </div>
+    </header>
+
+    <!-- Services Grid -->
+    <section class="services-content">
+        <div class="grid-container">
+
+            <!-- Service 1: Social Media -->
+            <div class="glass-service-card service-social-media" id="digital">
+                <div class="floating-icon-3d"><i class="fas fa-share-alt"></i></div>
+
+                <h3>Social Media Marketing</h3>
+                <p>Boost your brand visibility with expert Social Media Marketing services in Vellore, designed to drive
+                    engagement and conversions.</p>
+                <a href="#" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Service 2: Content Marketing -->
+            <div class="glass-service-card service-content" id="branding">
+                <div class="floating-icon-3d"><i class="fas fa-pen-nib"></i></div>
+
+                <h3>Content Marketing</h3>
+                <p>Elevate your online presence with powerful Content Marketing services in Vellore, crafted to attract
+                    and engage your audience.</p>
+                <a href="#" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Service 3: PPC Advertising -->
+            <div class="glass-service-card service-ppc" id="seo">
+                <div class="floating-icon-3d"><i class="fas fa-chart-line"></i></div>
+
+                <h3>PPC Advertising</h3>
+                <p>Drive instant traffic and leads with our expert PPC Advertising services in Vellore, tailored for
+                    maximum ROI.</p>
+                <a href="#" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Service 4: Email Marketing -->
+            <div class="glass-service-card service-email">
+                <div class="floating-icon-3d"><i class="fas fa-envelope-open-text"></i></div>
+
+                <h3>Email Marketing</h3>
+                <p>Reach your customers directly with result-driven Email Marketing services in Vellore that boost
+                    engagement and conversions.</p>
+                <a href="#" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Service 5: Shopify Development -->
+            <div class="glass-service-card service-shopify" id="shopify">
+                <div class="floating-icon-3d"><i class="fab fa-shopify"></i></div>
+
+                <h3>Shopify Development</h3>
+                <p>Build and scale your online store with expert Shopify Development services in Vellore, tailored for
+                    entrepreneurs and businesses.</p>
+                <a href="#" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Service 6: Web Development -->
+            <div class="glass-service-card service-webdev" id="tech">
+                <div class="floating-icon-3d"><i class="fas fa-code"></i></div>
+
+                <h3>Web Development</h3>
+                <p>Transform your ideas into reality with professional Web Development services in Vellore, crafted for
+                    speed, security, and scalability.</p>
+                <a href="#" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Custom Solution CTA -->
+        <div class="custom-solution-cta">
+            <h3>Need a custom solution?</h3>
+            <p>Let’s create a strategy tailored for your business.</p>
+            <a href="{% url 'contact' %}" class="btn-glow">Get a Free Strategy Call</a>
+        </div>
+    </section>
+
+    <!-- Team Commitment Section -->
+    <section class="commitment-section">
+        <div class="container commitment-container">
+            <div class="commitment-image" data-tilt>
+                <img src="{% static 'images/company-team.png' %}" alt="Our Dedicated Team">
+                <div class="image-overlay-glow"></div>
+            </div>
+            <div class="commitment-text">
+                <h2 class="section-title">Our Commitment to Excellence</h2>
+                <p>
+                    Our company is built on trust, transparency, and a strong commitment to our clients.
+                    We believe in delivering consistent quality through honest communication and ethical business
+                    practices.
+                    Our experienced team works with professionalism and dedication to ensure every project meets the
+                    highest standards.
+                    Customer satisfaction is our top priority, and we strive to build long-term relationships by
+                    standing by our promises.
+                    When you choose our company, you can be confident that you are partnering with a reliable team that
+                    genuinely cares about your success.
+                </p>
+                <div class="commitment-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Transparency</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Dedication</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Trends Section (New 3D/Holographic) -->
+    <section class="trends-section">
+        <div class="container">
+            <h2 class="section-title">Result-Driving Trends in 2026</h2>
+            <p class="section-desc"
+                style="text-align: center; margin-bottom: 3rem; color: var(--text-muted); font-size: 1.5rem;">Stay
+                ahead with the latest digital evolution.</p>
+
+            <div class="grid-container">
+                <!-- Trend 1 -->
+                <div class="holographic-card" data-tilt>
+                    <div class="holo-content">
+                        <i class="fas fa-robot floating-icon"></i>
+                        <h3>AI-Driven Marketing</h3>
+                        <p>Leveraging artificial intelligence for predictive analytics and automated customer journeys.
+                        </p>
+                    </div>
+                    <div class="holo-overlay"></div>
+                </div>
+
+                <!-- Trend 2 -->
+                <div class="holographic-card" data-tilt>
+                    <div class="holo-content">
+                        <i class="fas fa-microphone-alt floating-icon"></i>
+                        <h3>Voice Search Opt.</h3>
+                        <p>Optimizing content for the growing dominance of voice-activated search queries.</p>
+                    </div>
+                    <div class="holo-overlay"></div>
+                </div>
+
+                <!-- Trend 3 -->
+                <div class="holographic-card" data-tilt>
+                    <div class="holo-content">
+                        <i class="fas fa-video floating-icon"></i>
+                        <h3>Short-form Video</h3>
+                        <p>Capturing attention instantly with high-impact, bite-sized video content.</p>
+                    </div>
+                    <div class="holo-overlay"></div>
+                </div>
+            </div>
+
+            <!-- Trend 4 Centered -->
+            <div class="centered-trend-wrapper" style="display: flex; justify-content: center; margin-top: 2rem;">
+                <!-- Trend 4 -->
+                <div class="holographic-card" data-tilt style="max-width: 380px; width: 100%;">
+                    <div class="holo-content">
+                        <i class="fas fa-fingerprint floating-icon"></i>
+                        <h3>Hyper-Personalization</h3>
+                        <p>Delivering unique experiences to every user based on real-time data and behavior.</p>
+                    </div>
+                    <div class="holo-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Work Section -->
+    <section class="how-we-work">
+        <div class="container">
+            <p class="section-tag">How we work</p>
+            <p class="section-desc"
+                style="font-size: 25px; color: var(--text-muted); line-height: 1.6; margin-top: 2rem; text-align: justify; max-width: 1000px; margin-left: auto; margin-right: auto;">
+                The workflow of Nafter Web Technologies usually follows a clear and organized process to deliver quality
+                software solutions. It begins with requirement analysis, where the team discusses the client’s goals,
+                ideas, and expectations. Next comes planning and design, where project timelines, features, and user
+                interface layouts are prepared. After that, developers start coding and building the software, followed
+                by testing to find and fix bugs and ensure smooth performance. Once the project is approved, the
+                software is deployed for use, and the company continues with maintenance, updates, and technical support
+                to keep the system running effectively.
+            </p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <h2 class="section-title">Flexible Pricing Plans for<br>Every Business</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem;">Let’s Find the Right Strategy
+                for You!</p>
+
+            <div class="pricing-grid">
+                <!-- Starter -->
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3>Starter</h3>
+                        <p>Perfect for startups & small businesses</p>
+                    </div>
+                    <div class="price">$99</div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Basic SEO & Digital Marketing</li>
+                        <li><i class="fas fa-check"></i> Social Media Management (1 platform)</li>
+                        <li><i class="fas fa-check"></i> Monthly Performance Report</li>
+                    </ul>
+                    <a href="{% url 'contact' %}" class="btn-glow btn-small">Book a Free Consultation</a>
+                </div>
+
+                <!-- Growth -->
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="plan-header">
+                        <h3>Growth</h3>
+                        <p>Best for growing businesses ready to scale</p>
+                    </div>
+                    <div class="price">$299</div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Advanced SEO & Content Strategy</li>
+                        <li><i class="fas fa-check"></i> Social Media Management (3 platforms)</li>
+                        <li><i class="fas fa-check"></i> Bi-Weekly Reports & Analytics</li>
+                        <li><i class="fas fa-check"></i> Email Marketing Campaigns</li>
+                    </ul>
+                    <a href="{% url 'contact' %}" class="btn-glow">View Details</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3>Enterprise</h3>
+                        <p>Full scale marketing for maximum impact</p>
+                    </div>
+                    <div class="price">$399</div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Dedicated Account Manager</li>
+                        <li><i class="fas fa-check"></i> Priority Support 24/7</li>
+                        <li><i class="fas fa-check"></i> Customized Growth Strategy</li>
+                        <li><i class="fas fa-check"></i> Complete Digital Marketing Suite</li>
+                    </ul>
+                    <a href="{% url 'contact' %}" class="btn-glow btn-small">View Details</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unique Premium Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <!-- Left Side: Brand & Social -->
+            <div class="footer-col" style="text-align: left;">
+                <div class="logo-container" style="margin-bottom: 2rem;">
+                    <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+                </div>
+                <p class="footer-desc">
+                    Software solutions for<br>
+                    eCommerce, Digital Marketing,<br>
+                    SEO & Branding Strategy.
+                </p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/448383765016872/" class="social-btn"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/nafterwebtechnologies?igsh=MTBqOWNjbmUxazBlZw=="
+                        class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/+917200795921" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Center: Our Services -->
+            <div class="footer-col" style="text-align: center;">
+                <h4>Our Services</h4>
+                <ul class="footer-links-arrow">
+                    <li><a href="{% url 'services' %}">Social Media Marketing</a></li>
+                    <li><a href="{% url 'services' %}#seo">SEO Optimization</a></li>
+                    <li><a href="{% url 'services' %}#ppc">PPC Advertising</a></li>
+                    <li><a href="{% url 'services' %}#content">Content Marketing</a></li>
+                    <li><a href="{% url 'services' %}#branding">Branding Strategy</a></li>
+                    <li><a href="{% url 'services' %}#email">Email Marketing</a></li>
+                </ul>
+            </div>
+
+            <!-- Right Corner: Office & Branches -->
+            <div class="footer-col" style="text-align: right;">
+                <h4 style="margin-bottom: 1rem;">Vellore Office</h4>
+                <div class="address-block">
+                    <p>1st floor, SBI BANK Building,<br>Katpadi, Vellore,<br>Tamil Nadu 632006</p>
+                </div>
+                <div class="contact-row">+91 8015795921</div>
+                <div class="contact-row" style="color: var(--accent);">hello@nafterweb.com</div>
+
+                <h4 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem;">Our Branches</h4>
+                <div class="address-block">
+                    <p>Tirupati | vellore | Dubai | Jeddah| Oman</p>
+                </div>
+
+                <!-- Interactive 24/7 Support Badge -->
+                <a href="https://wa.me/+917200795921" class="support-badge"
+                    style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <i class="fas fa-headset"></i> 24/7 Support Available
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom"
+            style="margin-top: 5rem; border-top: 1px solid var(--glass-border); padding-top: 2rem; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 1rem;">&copy; 2026 Nafter Web Technologies. All Rights
+                Reserved.</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/particles.js' %}"></script>
+    <!-- WhatsApp Integration -->
+    <a href="https://wa.me/918015795921" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+
+</html>

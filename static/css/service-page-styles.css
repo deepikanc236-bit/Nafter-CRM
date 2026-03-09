@@ -1,0 +1,603 @@
+/* Service Page Specific Styles - Appended to main style.css */
+
+/* Page Header for Service Page */
+.page-header {
+    text-align: center;
+    padding: 4rem 5% 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #fff, var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-header .breadcrumb {
+    color: var(--accent);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.page-header .subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    max-width: 600px;
+}
+
+/* Services Content Section */
+.services-content {
+    padding: 3rem 5%;
+}
+
+/* Glass Service Cards */
+.glass-service-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2.5rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    transform-style: preserve-3d;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.glass-service-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 60%);
+    opacity: 0;
+    transform: translateZ(0);
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+.glass-service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(79, 70, 229, 0.4);
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.glass-service-card:hover::before {
+    opacity: 1;
+}
+
+.glass-service-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.glass-service-card p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.glass-service-card .read-more {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.glass-service-card .read-more:hover {
+    gap: 1rem;
+    color: #fff;
+}
+
+/* Custom Solution CTA */
+.custom-solution-cta {
+    text-align: center;
+    padding: 4rem 2rem;
+    margin: 4rem auto;
+    max-width: 800px;
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(168, 85, 247, 0.1));
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+}
+
+.custom-solution-cta h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.custom-solution-cta p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+/* Trends Section with 3D Cards */
+.trends-section {
+    padding: 5rem 5%;
+    background: radial-gradient(circle at 50% 50%, rgba(30, 30, 50, 0.4), transparent 70%);
+    perspective: 1000px;
+}
+
+.holographic-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.holographic-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 60%);
+    opacity: 0;
+    transform: translateZ(0);
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+.holographic-card:hover::before {
+    opacity: 1;
+}
+
+.holo-content {
+    transform: translateZ(30px);
+    position: relative;
+    z-index: 2;
+}
+
+.floating-icon {
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    animation: float 4s ease-in-out infinite;
+    text-shadow: 0 0 15px var(--accent);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.holo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(125deg, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.05) 40%, rgba(255, 255, 255, 0.0) 100%);
+    transform: translateZ(10px);
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+.holographic-card h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.holographic-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.holographic-card:nth-child(1) .floating-icon {
+    color: #f472b6;
+    text-shadow: 0 0 15px #f472b6;
+}
+
+.holographic-card:nth-child(2) .floating-icon {
+    color: #38bdf8;
+    text-shadow: 0 0 15px #38bdf8;
+}
+
+.holographic-card:nth-child(3) .floating-icon {
+    color: #34d399;
+    text-shadow: 0 0 15px #34d399;
+}
+
+.holographic-card:nth-child(4) .floating-icon {
+    color: #fbbf24;
+    text-shadow: 0 0 15px #fbbf24;
+}
+
+/* How We Work Section */
+.how-we-work {
+    padding: 4rem 5%;
+    text-align: center;
+}
+
+.how-we-work .section-tag {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    margin-bottom: 2rem;
+    display: inline-block;
+    position: relative;
+    background: linear-gradient(90deg, #fff, #4f46e5, #22d3ee, #fff);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shineFlow 5s linear infinite, floatText 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+}
+
+@keyframes shineFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 300% 50%;
+    }
+}
+
+@keyframes floatText {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.how-we-work h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.how-we-work .section-desc {
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+}
+
+/* Pricing Section */
+.pricing-section {
+    padding: 2rem 5% 5rem;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+}
+
+.pricing-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px rgba(79, 70, 229, 0.4);
+    border-color: var(--primary);
+}
+
+.pricing-card.featured {
+    border-color: var(--secondary);
+    background: rgba(168, 85, 247, 0.05);
+}
+
+.popular-badge {
+    position: absolute;
+    top: 20px;
+    right: -30px;
+    background: var(--secondary);
+    color: #fff;
+    padding: 0.5rem 3rem;
+    transform: rotate(45deg);
+    font-size: 0.8rem;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.plan-header h3 {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.plan-header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.pricing-card .price {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+}
+
+.pricing-card .features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+
+.pricing-card .features li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: #ddd;
+}
+
+.pricing-card .features li i {
+    color: var(--primary);
+    margin-right: 10px;
+}
+
+.pricing-card .btn-glow {
+    width: 100%;
+    margin-top: auto;
+}
+
+.btn-small {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+}
+
+/* --- Unique 3D Service Backgrounds & Popup Effects --- */
+
+.glass-service-card {
+    overflow: visible;
+    /* Allow 3D elements to pop out */
+    z-index: 1;
+}
+
+.floating-icon-3d {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 4rem;
+    opacity: 0.1;
+    transform: translateZ(20px) rotate(-15deg);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 0;
+}
+
+.glass-service-card:hover .floating-icon-3d {
+    opacity: 1;
+    transform: translateZ(50px) rotate(0deg) scale(1.2) translateY(-10px);
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Service 1: Social Media (Blue/Purple) */
+.service-social-media::before {
+    background: radial-gradient(circle at top right, rgba(34, 211, 238, 0.1), transparent 60%);
+}
+
+.service-social-media .floating-icon-3d {
+    color: #22d3ee;
+}
+
+.service-social-media:hover {
+    border-color: #22d3ee;
+    box-shadow: 0 20px 50px rgba(34, 211, 238, 0.2);
+}
+
+/* Service 2: Content Marketing (Pink/Rose) */
+.service-content::before {
+    background: radial-gradient(circle at top right, rgba(251, 113, 133, 0.1), transparent 60%);
+}
+
+.service-content .floating-icon-3d {
+    color: #fb7185;
+}
+
+.service-content:hover {
+    border-color: #fb7185;
+    box-shadow: 0 20px 50px rgba(251, 113, 133, 0.2);
+}
+
+/* Service 3: PPC Advertising (Gold/Amber) */
+.service-ppc::before {
+    background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.1), transparent 60%);
+}
+
+.service-ppc .floating-icon-3d {
+    color: #fbbf24;
+}
+
+.service-ppc:hover {
+    border-color: #fbbf24;
+    box-shadow: 0 20px 50px rgba(251, 191, 36, 0.2);
+}
+
+/* Service 4: Email Marketing (Sky Blue) */
+.service-email::before {
+    background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 60%);
+}
+
+.service-email .floating-icon-3d {
+    color: #38bdf8;
+}
+
+.service-email:hover {
+    border-color: #38bdf8;
+    box-shadow: 0 20px 50px rgba(56, 189, 248, 0.2);
+}
+
+/* Service 5: Shopify (Green) */
+.service-shopify::before {
+    background: radial-gradient(circle at top right, rgba(52, 211, 153, 0.1), transparent 60%);
+}
+
+.service-shopify .floating-icon-3d {
+    color: #34d399;
+}
+
+.service-shopify:hover {
+    border-color: #34d399;
+    box-shadow: 0 20px 50px rgba(52, 211, 153, 0.2);
+}
+
+/* Service 6: Web Dev (Indigo) */
+.service-webdev::before {
+    background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.1), transparent 60%);
+}
+
+.service-webdev .floating-icon-3d {
+    color: #6366f1;
+}
+
+.service-webdev:hover {
+    border-color: #6366f1;
+    box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
+}
+
+/* Commitment Section Styles */
+.commitment-section {
+    padding: 6rem 5%;
+    background: radial-gradient(circle at left bottom, rgba(79, 70, 229, 0.05), transparent 50%);
+}
+
+.commitment-container {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.commitment-image {
+    flex: 1;
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.commitment-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 24px;
+}
+
+.image-overlay-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(79, 70, 229, 0.2), transparent);
+    pointer-events: none;
+}
+
+.commitment-text {
+    flex: 1.2;
+}
+
+.commitment-text h2 {
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(90deg, #fff, var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.commitment-text p {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    text-align: justify;
+}
+
+.commitment-stats {
+    display: flex;
+    gap: 3rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+}
+
+.stat-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 992px) {
+    .commitment-container {
+        flex-direction: column;
+        gap: 3rem !important;
+    }
+
+    .commitment-text {
+        text-align: center;
+    }
+
+    .commitment-stats {
+        justify-content: center;
+    }
+}

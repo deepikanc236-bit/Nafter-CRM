@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials | Nafter Web Technologies</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="bg-animation"></div>
+
+    <nav>
+        <div class="logo">NAFTER</div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'services' %}">Services</a></li>
+            <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li><a href="{% url 'feedback' %}">Feedback</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <section>
+        <h2 class="section-title">Client Stories</h2>
+        <div class="grid-container" style="justify-content: center;">
+            <!-- Review 1: Happy Client -->
+            <div class="service-card" style="text-align: left;">
+                <div class="star-rating" style="margin-bottom: 0.5rem;">
+                    <i class="fas fa-star" style="color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></i>
+                    <i class="fas fa-star" style="color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></i>
+                    <i class="fas fa-star" style="color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></i>
+                    <i class="fas fa-star" style="color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></i>
+                    <i class="fas fa-star" style="color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></i>
+                </div>
+                <p style="font-style: italic; margin-bottom: 1rem;">"Nafter Web Technologies provided excellent service!
+                    The team was immediate in their response and the budget was perfect. Highly recommended for urgent
+                    projects."</p>
+                <h4 style="color: var(--primary);">Rajesh Kumar</h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">CEO, Alpha Traders</p>
+            </div>
+
+            <!-- Review 2: Angry Client -->
+            <div class="service-card" style="text-align: left;">
+                <div class="star-rating" style="margin-bottom: 0.5rem;">
+                    <i class="fas fa-star" style="color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></i>
+                    <i class="fas fa-star" style="color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></i>
+                    <i class="far fa-star" style="color: var(--text-muted);"></i>
+                    <i class="far fa-star" style="color: var(--text-muted);"></i>
+                    <i class="far fa-star" style="color: var(--text-muted);"></i>
+                </div>
+                <p style="font-style: italic; margin-bottom: 1rem;">"The project delivery was delayed by two weeks. The
+                    cost was too high for the quality provided. Very disappointed with the communication."</p>
+                <h4 style="color: var(--secondary);">Sarah Jenkins</h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Marketing Head</p>
+            </div>
+
+            <!-- Review 3: Neutral Client -->
+            <div class="service-card" style="text-align: left;">
+                <div class="star-rating" style="margin-bottom: 0.5rem;">
+                    <i class="fas fa-star" style="color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></i>
+                    <i class="fas fa-star" style="color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></i>
+                    <i class="fas fa-star" style="color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);"></i>
+                    <i class="far fa-star" style="color: var(--text-muted);"></i>
+                    <i class="far fa-star" style="color: var(--text-muted);"></i>
+                </div>
+                <p style="font-style: italic; margin-bottom: 1rem;">"The website design is okay, but the loading speed
+                    could be better. Average experience overall."</p>
+                <h4 style="color: var(--accent);">Arvinth S.</h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Freelancer</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Nafter Web Technologies. All Rights Reserved.</p>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

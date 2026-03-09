@@ -1,0 +1,364 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Contact Nafter Web Technologies - Get a free consultation for your AI and Web Development projects.">
+    <title>Contact Us | Nafter Web Technologies</title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'images/favicon_new.png' %}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        .contact-page-section {
+            padding: 8rem 5% 5rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .themed-contact-container {
+            width: 100%;
+            max-width: 1000px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--card-glow);
+        }
+
+        .form-title {
+            font-size: 3rem;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .themed-form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .themed-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .themed-input,
+        .themed-select,
+        .themed-textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .themed-input:focus,
+        .themed-select:focus,
+        .themed-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .themed-submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .themed-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .form-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Override style.css defaults for this specific form if needed */
+        select option {
+            background: #0f172a;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-container">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{% url 'home' %}">Home <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'home' %}#hero">Overview</a></li>
+                    <li><a href="{% url 'home' %}#about">About Us</a></li>
+                    <li><a href="{% url 'home' %}#services">What We Do</a></li>
+                    <li><a href="{% url 'home' %}#partners">Our Partners</a></li>
+                    <li><a href="{% url 'home' %}#testimonials">Testimonials</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'about' %}">About <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'about' %}#story">Our Story</a></li>
+                    <li><a href="{% url 'about' %}#vision">Vision & Mission</a></li>
+                    <li><a href="{% url 'about' %}#process">Our Process</a></li>
+                    <li><a href="{% url 'about' %}#tech">Technology</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'services' %}">Services <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'services' %}#tech">Web Development</a></li>
+                    <li><a href="{% url 'services' %}#shopify">Shopify Expert</a></li>
+                    <li><a href="{% url 'services' %}#digital">Digital Marketing</a></li>
+                    <li><a href="{% url 'services' %}#seo">SEO Optimization</a></li>
+                    <li><a href="{% url 'services' %}#branding">Branding</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'portfolio' %}">Portfolio <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'portfolio' %}#projects">Our Projects</a></li>
+                    <li><a href="{% url 'portfolio' %}#careers">Careers</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'contact' %}" class="active">Contact <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'contact' %}#contact">Get in Touch</a></li>
+                    <li><a href="{% url 'contact' %}#info">Contact Info</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'feedback' %}">Feedback <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'feedback' %}#feedback">Rate Experience</a></li>
+                    <li><a href="{% url 'feedback' %}#faq">FAQ</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="nav-right">
+            <a href="tel:+918015795921" class="phone-link">
+                <i class="fas fa-phone-alt"></i> <span>+91 8015795921</span>
+            </a>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Contact Section -->
+    <section class="contact-page-section">
+        <div class="themed-contact-container">
+            <h1 class="form-title">Let's Build the Future</h1>
+            <p class="form-subtitle">Fill out the form below and our experts will guide your digital transformation.</p>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="grid-2">
+                    <div class="themed-form-group">
+                        <label>First Name</label>
+                        <input type="text" name="first_name" class="themed-input" placeholder="Elon" required>
+                    </div>
+                    <div class="themed-form-group">
+                        <label>Last Name</label>
+                        <input type="text" name="last_name" class="themed-input" placeholder="Musk" required>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="themed-form-group">
+                        <label>Work Email</label>
+                        <input type="email" name="work_email" class="themed-input" placeholder="elon@tesla.com"
+                            required>
+                    </div>
+                    <div class="themed-form-group">
+                        <label>Company Name</label>
+                        <input type="text" name="company_name" class="themed-input" placeholder="SpaceX">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="themed-form-group">
+                        <label>Country</label>
+                        <select name="country" class="themed-select" required>
+                            <option value="" selected disabled>Select Country</option>
+                            <option value="US">United States</option>
+                            <option value="UAE">United Arab Emirates</option>
+                            <option value="DE">Germany</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="IN">India</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="themed-form-group">
+                        <label>Service Interest</label>
+                        <select name="interest" class="themed-select" required>
+                            <option value="" selected disabled>Choose Service</option>
+                            <option value="AI_STRAT">AI Strategy & Consulting</option>
+                            <option value="GEN_AI">Generative AI Solutions</option>
+                            <option value="AI_ENG">AI Engineering & MLOps</option>
+                            <option value="AGENT_ORCH">Autonomous Agents</option>
+                            <option value="AI_AUTO">Workflows & Automation</option>
+                            <option value="DRONE">Autonomous Drone Solutions</option>
+                            <option value="FULL_STACK">Full Stack Development</option>
+                            <option value="DIGITAL_MKT">AI Digital Marketing</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="themed-form-group">
+                    <label>Project Details & Budget Info</label>
+                    <textarea name="details" class="themed-textarea" rows="4"
+                        placeholder="Describe your vision, timeline, and budget (e.g. $15k or 20,000 AED)..."
+                        required></textarea>
+                </div>
+
+                <button type="submit" class="themed-submit-btn">Send Inquiry <i
+                        class="fas fa-paper-plane ms-2"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <!-- Left Side: Brand & Social -->
+            <div class="footer-col" style="text-align: left;">
+                <div class="logo-container" style="margin-bottom: 2rem;">
+                    <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+                </div>
+                <p class="footer-desc">
+                    Software solutions for<br>
+                    eCommerce, Digital Marketing,<br>
+                    SEO & Branding Strategy.
+                </p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/448383765016872/" class="social-btn"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/nafterwebtechnologies?igsh=MTBqOWNjbmUxazBlZw=="
+                        class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/+917200795921" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Center: Our Services -->
+            <div class="footer-col" style="text-align: center;">
+                <h4>Our Services</h4>
+                <ul class="footer-links-arrow">
+                    <li><a href="{% url 'services' %}">Social Media Marketing</a></li>
+                    <li><a href="{% url 'services' %}">SEO Optimization</a></li>
+                    <li><a href="{% url 'services' %}">PPC Advertising</a></li>
+                    <li><a href="{% url 'services' %}">Content Marketing</a></li>
+                    <li><a href="{% url 'services' %}">Branding Strategy</a></li>
+                    <li><a href="{% url 'services' %}">Email Marketing</a></li>
+                </ul>
+            </div>
+
+            <!-- Right Corner: Office & Branches -->
+            <div class="footer-col" style="text-align: right;">
+                <h4 style="margin-bottom: 1rem;">Vellore Office</h4>
+                <div class="address-block">
+                    <p>1st floor, SBI BANK Building,<br>Katpadi, Vellore,<br>Tamil Nadu 632006</p>
+                </div>
+                <div class="contact-row">+91 8015795921</div>
+                <div class="contact-row" style="color: var(--accent);">hello@nafterweb.com</div>
+
+                <h4 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem;">Our Branches</h4>
+                <div class="address-block">
+                    <p>Tirupati | vellore | Dubai | Jeddah| Oman</p>
+                </div>
+
+                <!-- Interactive 24/7 Support Badge -->
+                <a href="https://wa.me/+917200795921" class="support-badge"
+                    style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <i class="fas fa-headset"></i> 24/7 Support Available
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom"
+            style="margin-top: 5rem; border-top: 1px solid var(--glass-border); padding-top: 2rem; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 1rem;">&copy; 2026 Nafter Web Technologies. All Rights
+                Reserved.</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/particles.js' %}"></script>
+    <!-- WhatsApp Integration -->
+    <a href="https://wa.me/918015795921" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+
+</html>

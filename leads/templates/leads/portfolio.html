@@ -1,0 +1,415 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Nafter Web Technologies</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/favicon_new.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-container">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{% url 'home' %}">Home <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'home' %}#hero">Overview</a></li>
+                    <li><a href="{% url 'home' %}#about">About Us</a></li>
+                    <li><a href="{% url 'home' %}#services">What We Do</a></li>
+                    <li><a href="{% url 'home' %}#partners">Our Partners</a></li>
+                    <li><a href="{% url 'home' %}#testimonials">Testimonials</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'about' %}">About <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'about' %}#story">Our Story</a></li>
+                    <li><a href="{% url 'about' %}#vision">Vision & Mission</a></li>
+                    <li><a href="{% url 'about' %}#process">Our Process</a></li>
+                    <li><a href="{% url 'about' %}#tech">Technology</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'services' %}">Services <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'services' %}#tech">Web Development</a></li>
+                    <li><a href="{% url 'services' %}#shopify">Shopify Expert</a></li>
+                    <li><a href="{% url 'services' %}#digital">Digital Marketing</a></li>
+                    <li><a href="{% url 'services' %}#seo">SEO Optimization</a></li>
+                    <li><a href="{% url 'services' %}#branding">Branding</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'portfolio' %}" class="active">Portfolio <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'portfolio' %}#projects">Our Projects</a></li>
+                    <li><a href="{% url 'portfolio' %}#careers">Careers</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'contact' %}">Contact <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'contact' %}#contact">Get in Touch</a></li>
+                    <li><a href="{% url 'contact' %}#info">Contact Info</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'feedback' %}">Feedback <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'feedback' %}#feedback">Rate Experience</a></li>
+                    <li><a href="{% url 'feedback' %}#faq">FAQ</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="nav-right">
+            <a href="tel:+918015795921" class="phone-link">
+                <i class="fas fa-phone-alt"></i> <span>+91 8015795921</span>
+            </a>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="projects">
+        <h2 class="section-title">Projects, we are proud of</h2>
+        <p
+            style="text-align: center; max-width: 900px; margin: -1.5rem auto 4rem; font-size: 1.25rem; color: var(--text-muted); line-height: 1.8; font-weight: 400;">
+            We believe in working with complete sincerity and dedication on every project we take up. From understanding
+            client requirements to final execution, we focus on quality, transparency, and timely delivery. Each brand
+            we work with is treated as a long-term partner, and we put genuine effort into delivering results that
+            create real value and lasting trust.
+        </p>
+        <div class="portfolio-grid" id="portfolioContainer">
+
+            <!-- Project 1: Khan Tours & Travels -->
+            <div class="project-item" data-tilt data-tilt-scale="1.03">
+                <div class="project-img-wrapper">
+                    <img src="{% static 'images/project-travel.png' %}" alt="Khan Tours & Travels" class="project-img-file">
+                </div>
+                <div class="project-info">
+                    <h3>Khan Tours & Travels</h3>
+                    <p>Web Development, Wireframe & Prototyping</p>
+                </div>
+            </div>
+
+            <!-- Project 2: Milo Fitness -->
+            <div class="project-item" data-tilt data-tilt-scale="1.03">
+                <div class="project-img-wrapper">
+                    <img src="{% static 'images/project-fitness.png' %}" alt="Milo Fitness" class="project-img-file">
+                </div>
+                <div class="project-info">
+                    <h3>Milo Fitness</h3>
+                    <p>Web Development, Branding, Marketing</p>
+                </div>
+            </div>
+
+            <!-- Project 3: Sybiomics Technologies -->
+            <div class="project-item" data-tilt data-tilt-scale="1.03">
+                <div class="project-img-wrapper">
+                    <!-- Using uploaded industrial image for now, user can confirm -->
+                    <img src="{% static 'images/project-industrial.png' %}" alt="Sybiomics Technologies" class="project-img-file">
+                </div>
+                <div class="project-info">
+                    <h3>Sybiomics Technologies</h3>
+                    <p>Branding, User Research, Corporate Identity</p>
+                </div>
+            </div>
+
+            <!-- Project 4: Fashion Hub Vellore -->
+            <div class="project-item" data-tilt data-tilt-scale="1.03">
+                <div class="project-img-wrapper">
+                    <img src="{% static 'images/project-ecommerce.png' %}" alt="Fashion Hub Vellore" class="project-img-file">
+                </div>
+                <div class="project-info">
+                    <h3>Fashion Hub Vellore</h3>
+                    <p>Web Development, Ecommerce, Shopify</p>
+                </div>
+            </div>
+
+            <!-- Project 5: HRK Intermediate -->
+            <div class="project-item" data-tilt data-tilt-scale="1.03">
+                <div class="project-img-wrapper">
+                    <img src="{% static 'images/project-education.png' %}" alt="HRK Intermediate" class="project-img-file">
+                </div>
+                <div class="project-info">
+                    <h3>HRK Intermediate</h3>
+                    <p>UI & UX design, Branding, Marketing</p>
+                </div>
+            </div>
+
+            <!-- Project 6: Social Media Marketing -->
+            <div class="project-item" data-tilt data-tilt-scale="1.03">
+                <div class="project-img-wrapper">
+                    <!-- Using uploaded Buzzify image -->
+                    <img src="{% static 'images/project-social.png' %}" alt="Social Media Marketing" class="project-img-file">
+                </div>
+                <div class="project-info">
+                    <h3>Social Media Marketing</h3>
+                    <p>Front-End Development, Product Design</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    </section>
+
+    <!-- OUR TEAM Heading -->
+    <div class="team-heading-wrapper">
+        <h2 class="team-main-title">OUR TEAM</h2>
+    </div>
+
+    <div class="team-image-container">
+        <div class="team-img-frame">
+            <img src="{% static 'images/team-group.jpg' %}" alt="Nafter Team" class="team-group-photo">
+            <div class="team-overlay"></div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials" style="margin-bottom: 5rem;">
+        <h2 class="section-title">What Our Partners Say</h2>
+        <div class="testimonial-carousel-container">
+            <button class="carousel-btn prev-btn" id="prevTestimonial"><i class="fas fa-chevron-left"></i></button>
+
+            <div class="testimonial-track-wrapper">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <!-- Slide 1: Shahid -->
+                    <div class="testimonial-slide active">
+                        <div class="client-photo-wrapper">
+                            <img src="{% static 'images/testimonials/shahid.jpg' %}" alt="Shahid" class="client-photo">
+                        </div>
+                        <div class="testimonial-content-right">
+                            <p class="client-quote">"Nafter's SEO and content marketing expertise boosted our search
+                                rankings and organic traffic noticeably"</p>
+                            <div class="client-info">
+                                <h4>Shahid</h4>
+                                <span>Founder xgen Executives</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Monsoor Ali Sheik -->
+                    <div class="testimonial-slide">
+                        <div class="client-photo-wrapper">
+                            <img src="{% static 'images/testimonials/monsoor.jpg' %}" alt="Monsoor Ali Sheik" class="client-photo">
+                        </div>
+                        <div class="testimonial-content-right">
+                            <p class="client-quote">"Nafter's innovative approach revitalized our online presence,
+                                driving
+                                remarkable growth, outstanding!"</p>
+                            <div class="client-info">
+                                <h4>Monsoor Ali Sheik</h4>
+                                <span>CEO Codeon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Darbar khan -->
+                    <div class="testimonial-slide">
+                        <div class="client-photo-wrapper">
+                            <img src="{% static 'images/testimonials/darbar.jpg' %}" alt="Darbar khan" class="client-photo">
+                        </div>
+                        <div class="testimonial-content-right">
+                            <p class="client-quote">"Thanks to Nafter our social media engagement soared and our brand
+                                visibility Digitally improved tremendously."</p>
+                            <div class="client-info">
+                                <h4>Darbar khan</h4>
+                                <span>MD Khan Tour & Travels</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Rashid khan -->
+                    <div class="testimonial-slide">
+                        <div class="client-photo-wrapper">
+                            <img src="{% static 'images/testimonials/rashid.jpg' %}" alt="Rashid khan" class="client-photo">
+                        </div>
+                        <div class="testimonial-content-right">
+                            <p class="client-quote">"Working with Nafter was the best decision. Their digital marketing
+                                solutions increased our online sales significantly."</p>
+                            <div class="client-info">
+                                <h4>Rashid khan</h4>
+                                <span>MD Hrk Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-btn next-btn" id="nextTestimonial"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        <!-- Indicators -->
+        <div class="carousel-indicators" id="testimonialIndicators">
+            <span class="indicator active" data-slide="0"></span>
+            <span class="indicator" data-slide="1"></span>
+            <span class="indicator" data-slide="2"></span>
+            <span class="indicator" data-slide="3"></span>
+        </div>
+    </section>
+
+    <!-- Careers Section (Unique & 3D) -->
+    <section class="careers-section" id="careers">
+        <div class="careers-header">
+            <span class="careers-tag">career 🪐 Inclusive team</span>
+            <h2>Join Our Creative Force</h2>
+            <p>Nafter was born out of a desire to create lasting digital experiences with exceptional usability.
+                Careers at Nafter Web Technologies Join a dynamic team driving innovation in web and mobile solutions.
+                Collaborate, learn, and grow in a culture that values creativity and excellence.
+                Work on exciting projects that make a real impact. Shape your future with Nafter and be part of our
+                growth journey.</p>
+        </div>
+
+        <div class="job-grid">
+            <!-- Job 1 -->
+            <div class="job-card" data-tilt data-tilt-scale="1.05" data-tilt-max="15">
+                <div class="job-number">01</div>
+                <h3>Web Project Manager</h3>
+                <span class="job-type">Full-time</span>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="job-card" data-tilt data-tilt-scale="1.05" data-tilt-max="15">
+                <div class="job-number">02</div>
+                <h3>Content Strategist</h3>
+                <span class="job-type">Full-time</span>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="job-card" data-tilt data-tilt-scale="1.05" data-tilt-max="15">
+                <div class="job-number">03</div>
+                <h3>Social Media Manager</h3>
+                <span class="job-type">Full-time</span>
+            </div>
+
+            <!-- Job 4 -->
+            <div class="job-card" data-tilt data-tilt-scale="1.05" data-tilt-max="15">
+                <div class="job-number">04</div>
+                <h3>Data Analyst</h3>
+                <span class="job-type">Full-time</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unique Premium Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <!-- Left Side: Brand & Social -->
+            <div class="footer-col" style="text-align: left;">
+                <div class="logo-container" style="margin-bottom: 2rem;">
+                    <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+                </div>
+                <p class="footer-desc">
+                    Software solutions for<br>
+                    eCommerce, Digital Marketing,<br>
+                    SEO & Branding Strategy.
+                </p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/448383765016872/" class="social-btn"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/nafterwebtechnologies?igsh=MTBqOWNjbmUxazBlZw=="
+                        class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/+917200795921" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Center: Our Services -->
+            <div class="footer-col" style="text-align: center;">
+                <h4>Our Services</h4>
+                <ul class="footer-links-arrow">
+                    <li><a href="{% url 'services' %}">Social Media Marketing</a></li>
+                    <li><a href="{% url 'services' %}">SEO Optimization</a></li>
+                    <li><a href="{% url 'services' %}">PPC Advertising</a></li>
+                    <li><a href="{% url 'services' %}">Content Marketing</a></li>
+                    <li><a href="{% url 'services' %}">Branding Strategy</a></li>
+                    <li><a href="{% url 'services' %}">Email Marketing</a></li>
+                </ul>
+            </div>
+
+            <!-- Right Corner: Office & Branches -->
+            <div class="footer-col" style="text-align: right;">
+                <h4 style="margin-bottom: 1rem;">Vellore Office</h4>
+                <div class="address-block">
+                    <p>1st floor, SBI BANK Building,<br>Katpadi, Vellore,<br>Tamil Nadu 632006</p>
+                </div>
+                <div class="contact-row">+91 8015795921</div>
+                <div class="contact-row" style="color: var(--accent);">hello@nafterweb.com</div>
+
+                <h4 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem;">Our Branches</h4>
+                <div class="address-block">
+
+                    <p>Tirupati | vellore | Dubai | Jeddah| Oman</p>
+                </div>
+
+                <!-- Interactive 24/7 Support Badge -->
+                <a href="https://wa.me/+917200795921" class="support-badge"
+                    style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <i class="fas fa-headset"></i> 24/7 Support Available
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom"
+            style="margin-top: 5rem; border-top: 1px solid var(--glass-border); padding-top: 2rem; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 1rem;">&copy; 2026 Nafter Web Technologies. All Rights
+                Reserved.</p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/particles.js' %}"></script>
+
+    <style>
+        /* Portfolio Specific Styles */
+        .project-img-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1e1e2e;
+            overflow: hidden;
+        }
+
+        .project-placeholder {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .project-img-file {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-item:hover .project-img-file {
+            transform: scale(1.1);
+        }
+    </style>
+    <!-- WhatsApp Integration -->
+    <a href="https://wa.me/918015795921" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+
+</html>

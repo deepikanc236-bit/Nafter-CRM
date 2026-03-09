@@ -1,0 +1,8 @@
+venv/
+*.pyc
+__pycache__/
+db.sqlite3
+staticfiles/
+.env
+.vscode/
+test.txt

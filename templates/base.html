@@ -1,0 +1,329 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SaaS CRM | Nafter AI{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <meta name="theme-color" content="#115e3b">
+    <link rel="apple-touch-icon" href="{% static 'images/logo.png' %}">
+
+    <style>
+        :root {
+            --sidebar-width: 240px;
+            --primary-dark: #115e3b;
+            --primary-light: #d1fae5;
+            --secondary: #0d1e21;
+            --bg-body: #f1f4f9;
+            --white: #ffffff;
+            --text-heading: #0f172a;
+            --text-body: #475569;
+            --text-muted: #94a3b8;
+            --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 4px 10px -2px rgba(0, 0, 0, 0.02);
+            --card-shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--white);
+            border-right: 1px solid #f1f5f9;
+            padding: 24px 20px;
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            padding-left: 10px;
+            text-decoration: none;
+        }
+
+        .logo-box {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary-dark), #1a7a4f);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.4rem;
+            box-shadow: 0 8px 16px rgba(17, 94, 59, 0.2);
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 18px;
+            text-decoration: none;
+            color: var(--text-body);
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-link:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            transform: scale(1.02);
+        }
+
+        .nav-link.active {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            box-shadow: 0 10px 20px -5px rgba(17, 94, 59, 0.3);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 24px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .btn-logout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px;
+            background-color: #fff1f2;
+            color: #e11d48;
+            border: none;
+            border-radius: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-logout:hover {
+            background-color: #ffe4e6;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-container {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 32px 40px;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Common Card Styles */
+        .card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+            transition: var(--transition);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 0px;
+            }
+
+            .sidebar {
+                left: -280px;
+                width: 280px;
+                transition: transform 0.3s ease;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .sidebar.active {
+                left: 0;
+                transform: translateX(280px);
+            }
+
+            .main-container {
+                margin-left: 0;
+                padding: 24px 20px;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .header-section {
+                flex-direction: row;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .header-section {
+                margin-bottom: 24px;
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <aside class="sidebar">
+        <a href="{% url 'dashboard' %}" class="logo-container">
+            <div class="logo-box">N</div>
+            <span class="logo-text">Nafter AI</span>
+        </a>
+
+        <nav class="nav-list">
+            <a href="{% url 'dashboard' %}"
+                class="nav-link dashboard-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                <i class="fa-solid fa-house"></i> Dashboard
+            </a>
+            <a href="{% url 'lead_list' %}"
+                class="nav-link {% if 'lead' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="fa-solid fa-users"></i> Leads
+            </a>
+            <a href="{% url 'kanban' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'kanban' %}active{% endif %}">
+                <i class="fa-solid fa-chart-column"></i> Kanban
+            </a>
+            <a href="{% url 'feedback_dashboard' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'feedback_dashboard' %}active{% endif %}">
+                <i class="fa-solid fa-chart-line"></i> Analytics
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            {% if request.user.is_superuser %}
+            <a href="/admin/" class="nav-link" style="margin-bottom: 12px; color: var(--text-muted);">
+                <i class="fa-solid fa-arrow-left"></i> Admin Panel
+            </a>
+            {% endif %}
+
+            <form method="post" action="{% url 'admin:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
+            </form>
+        </div>
+    </aside>
+
+    <main class="main-container">
+        <div class="header-section">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <button class="mobile-toggle" id="mobile-sidebar-toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <div class="breadcrumb" style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">
+                        {% block breadcrumb %}Overview{% endblock %}
+                    </div>
+                    <h1 class="page-title"
+                        style="font-size: 1.75rem; font-weight: 800; color: var(--text-heading); letter-spacing: -0.5px;">
+                        {% block page_title %}Dashboard{% endblock %}</h1>
+                </div>
+            </div>
+            {% block header_actions %}{% endblock %}
+        </div>
+
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 99; backdrop-filter: blur(4px);">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleBtn = document.getElementById('mobile-sidebar-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            if (toggleBtn && sidebar && overlay) {
+                toggleBtn.addEventListener('click', function () {
+                    sidebar.classList.add('active');
+                    overlay.style.display = 'block';
+                });
+
+                overlay.addEventListener('click', function () {
+                    sidebar.classList.remove('active');
+                    overlay.style.display = 'none';
+                });
+            }
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

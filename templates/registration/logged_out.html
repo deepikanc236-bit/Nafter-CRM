@@ -1,0 +1,27 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin_custom.css' %}">
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login-page{% endblock %}
+
+{% block content %}
+<div class="login-box">
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="{% url 'admin:index' %}" class="h1"><b>Nafter AI</b></a>
+        </div>
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">{% trans 'Logged out' %}</p>
+            <div class="text-center">
+                <p>{% trans "Thanks for spending some quality time with the Web site today." %}</p>
+                <div class="mt-4">
+                    <a href="{% url 'admin:login' %}" class="btn btn-primary btn-block">{% trans 'Log in again' %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

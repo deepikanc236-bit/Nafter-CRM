@@ -1,0 +1,427 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Nafter Web Technologies</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/favicon_new.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-container">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{% url 'home' %}">Home <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'home' %}#hero">Overview</a></li>
+                    <li><a href="{% url 'home' %}#about">About Us</a></li>
+                    <li><a href="{% url 'home' %}#services">What We Do</a></li>
+                    <li><a href="{% url 'home' %}#partners">Our Partners</a></li>
+                    <li><a href="{% url 'home' %}#testimonials">Testimonials</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'about' %}" class="active">About <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'about' %}#story">Our Story</a></li>
+                    <li><a href="{% url 'about' %}#vision">Vision & Mission</a></li>
+                    <li><a href="{% url 'about' %}#process">Our Process</a></li>
+                    <li><a href="{% url 'about' %}#tech">Technology</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'services' %}">Services <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'services' %}#tech">Web Development</a></li>
+                    <li><a href="{% url 'services' %}#shopify">Shopify Expert</a></li>
+                    <li><a href="{% url 'services' %}#digital">Digital Marketing</a></li>
+                    <li><a href="{% url 'services' %}#seo">SEO Optimization</a></li>
+                    <li><a href="{% url 'services' %}#branding">Branding</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'portfolio' %}">Portfolio <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'portfolio' %}#projects">Our Projects</a></li>
+                    <li><a href="{% url 'portfolio' %}#careers">Careers</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'contact' %}">Contact <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'contact' %}#contact">Get in Touch</a></li>
+                    <li><a href="{% url 'contact' %}#info">Contact Info</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'feedback' %}">Feedback <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'feedback' %}#feedback">Rate Experience</a></li>
+                    <li><a href="{% url 'feedback' %}#faq">FAQ</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="nav-right">
+            <a href="tel:+918015795921" class="phone-link">
+                <i class="fas fa-phone-alt"></i> <span>+91 8015795921</span>
+            </a>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <p class="hero-subtitle">Architecting the Future of Digital</p>
+                <h1 class="hero-title">Innovating at the intersection of <span class="highlight-text">luxury
+                        design</span> and advanced technology.</h1>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="experience-section">
+            <div class="experience-container">
+                <div class="experience-text">
+                    <div class="experience-number glitter-text">21+</div>
+                    <p class="experience-caption">Years of Experience on<br>Digital Marketing Services</p>
+                    <p class="experience-description">With 21+ years of experience in Digital Marketing Services, we
+                        bring deep industry knowledge and proven strategies that drive measurable results. Our expertise
+                        spans SEO, PPC, social media, content marketing, and performance-driven campaigns. We focus on
+                        understanding business goals to deliver customized, data-backed solutions. Over the years, we’ve
+                        adapted to evolving digital trends and technologies. This experience allows us to create
+                        impactful, sustainable growth for brands across industries.</p>
+                </div>
+                <div class="experience-visual">
+                    <div class="experience-image-wrapper">
+                        <img src="{% static 'images/experience_team.png' %}" alt="Nafter Digital Marketing Team"
+                            class="experience-img">
+                    </div>
+                    <!-- CTA Card moved below image -->
+                    <div class="experience-cta-box">
+                        <p>Partner with Nafter & take your brand to the next level.</p>
+                        <a href="{% url 'contact' %}" class="strategy-btn">Let's Talk Strategy <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intro Section -->
+        <section class="intro-section" style="padding-bottom: 0;" id="story">
+            <div class="container">
+                <div class="glass-card">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Who We Are & What Drives Us</h2>
+                    <p style="font-size: 1.2rem; color: var(--text-main); margin-bottom: 25px; line-height: 1.8;">
+                        At Nafter, we specialize in crafting innovative digital marketing strategies that drive real
+                        business growth. Our expertise ensures your brand stays ahead in the competitive digital
+                        landscape.
+                    </p>
+                    <p style="font-size: 1.1rem; color: var(--text-muted); font-style: italic;">
+                        Get to know the passionate team behind the strategies, the values that guide us, and the mission
+                        that fuels our growth.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expertise Section -->
+        <section class="expertise-section">
+            <div class="container">
+                <h2 class="section-title">Our Expertise</h2>
+                <div class="expertise-grid">
+                    <div class="expertise-item">
+                        <div class="expertise-icon-box">
+                            <i class="fas fa-ad"></i>
+                        </div>
+                        <h3>PPC & Paid Ads</h3>
+                    </div>
+                    <div class="expertise-item">
+                        <div class="expertise-icon-box">
+                            <i class="fas fa-chess-knight"></i>
+                        </div>
+                        <h3>Brand Strategy</h3>
+                    </div>
+                    <div class="expertise-item">
+                        <div class="expertise-icon-box">
+                            <i class="fas fa-funnel-dollar"></i>
+                        </div>
+                        <h3>Conversion Optimization</h3>
+                    </div>
+                    <div class="expertise-item">
+                        <div class="expertise-icon-box">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Performance Marketing</h3>
+                    </div>
+                    <div class="expertise-item">
+                        <div class="expertise-icon-box">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Social Media Growth</h3>
+                    </div>
+                    <div class="expertise-item">
+                        <div class="expertise-icon-box">
+                            <i class="fas fa-pen-nib"></i>
+                        </div>
+                        <h3>Content Marketing</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision/Mission Section -->
+        <section class="container" style="padding: 100px 20px;" id="vision">
+            <div style="text-align: center; margin-bottom: 5rem;">
+                <h2
+                    style="font-size: 3.5rem; font-weight: 900; color: #ffffff; letter-spacing: 1px; margin-bottom: 1.5rem;">
+                    The Principles That Define Us</h2>
+                <p
+                    style="font-size: 1.1rem; color: var(--text-muted); max-width: 850px; margin: 0 auto; line-height: 1.8; margin-bottom: 2rem;">
+                    In the fast-paced digital world, choosing the right marketing partner makes all the difference.
+                    At Nafter, we don’t just create campaigns—we craft strategies that deliver measurable success.
+                </p>
+
+                <!-- Principles Horizontal Carousel -->
+                <div class="principles-carousel-container">
+                    <div class="principles-carousel">
+                        <!-- Card 1 -->
+                        <div class="principle-card">
+                            <div class="card-3d-bg"></div>
+                            <div class="card-content">
+                                <h3>Innovation & Integrity</h3>
+                                <p>Every decision is backed by real-time analytics for maximum impact lorem ipsum dolor
+                                    sit consectetur adipiscing elit ut elit tellus luctus nec.</p>
+                            </div>
+                            <a href="#" class="read-more-btn">
+                                Read More
+                                <div class="arrow-box">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="principle-card">
+                            <div class="card-3d-bg"></div>
+                            <div class="card-content">
+                                <h3>Collaboration</h3>
+                                <p>Cutting-edge marketing techniques to keep you ahead of the competition lorem ipsum
+                                    dolor sit awsa consectetur adipiscing elit ut elit.</p>
+                            </div>
+                            <a href="#" class="read-more-btn">
+                                Read More
+                                <div class="arrow-box">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="principle-card">
+                            <div class="card-3d-bg"></div>
+                            <div class="card-content">
+                                <h3>Result Driven</h3>
+                                <p>Clear insights and performance tracking, so you always know your ROI lorem ipsum dolo
+                                    consectetur adipiscing elit ut elit tellus luctus nec.</p>
+                            </div>
+                            <a href="#" class="read-more-btn">
+                                Read More
+                                <div class="arrow-box">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title"
+                    style="color: #ffffff; font-weight: 800; left: auto; transform: none; display: block;">Our Motive
+                </h2>
+            </div>
+            <div class="grid-2">
+                <div class="tilt-card">
+                    <i class="fas fa-rocket card-icon"></i>
+                    <h3>Our Mission</h3>
+                    <p style="color: var(--text-muted); margin-top: 15px;">To propel businesses into the next era with
+                        high-performance, visually stunning web solutions that define authority and trust.</p>
+                </div>
+                <div class="tilt-card">
+                    <i class="fas fa-eye card-icon"></i>
+                    <h3>Our Vision</h3>
+                    <p style="color: var(--text-muted); margin-top: 15px;">To become the global standard for premium web
+                        technology, where every pixel serves a purpose and every interaction delights.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Process -->
+        <section class="process-section" id="process">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <h2 class="section-title" style="left: auto; transform: none; display: block;">Our Process</h2>
+                    <p
+                        style="color: var(--text-muted); font-size: 18px; max-width: 900px; margin: 0 auto; line-height: 1.8;">
+                        Our process begins with understanding your business goals and target audience. We then develop a
+                        customized digital marketing strategy based on data and market insights. Clear planning and
+                        execution ensure every campaign is aligned with measurable objectives. Continuous monitoring and
+                        optimization help improve performance and ROI. Finally, detailed reporting keeps you informed
+                        and guides future growth decisions.</p>
+                </div>
+
+                <div class="process-grid">
+                    <div class="process-card">
+                        <div class="step-number glitter-blue">01</div>
+                        <h3>Discovery</h3>
+                        <p>Our discovery process uncovers insights to shape a strategic, tailored solution for your
+                            project.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="step-number glitter-blue">02</div>
+                        <h3>Design</h3>
+                        <p>Our design transforms ideas into visually compelling, user-centered experiences.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="step-number glitter-blue">03</div>
+                        <h3>Development</h3>
+                        <p>Our development process builds robust, high-performance solutions tailored to your needs.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="step-number glitter-blue">04</div>
+                        <h3>Launch</h3>
+                        <p>With precision and support, we ensure a smooth, impactful launch for your product.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Showcase -->
+        <section class="tech-showcase-section" style="padding-top: 80px;" id="tech">
+            <div class="container" style="text-align: center; margin-bottom: 3rem;">
+                <h2 class="section-title"
+                    style="color: #ffffff; font-weight: 900; left: auto; transform: none; display: block; font-size: 3.5rem;">
+                    Technology</h2>
+            </div>
+            <div class="tech-track">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Three.js</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">WebGL</span>
+                <span class="tech-tag">Next.js</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">AI Integration</span>
+                <!-- Duplicate for infinite scroll -->
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Three.js</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">WebGL</span>
+                <span class="tech-tag">Next.js</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">AI Integration</span>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Ready to Elevate Your Brand?</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 1.2rem;">Join the future of web
+                technology with Nafter.</p>
+            <a href="{% url 'contact' %}" class="btn-glow">Start Project</a>
+        </section>
+    </main>
+
+    <!-- Unique Premium Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <!-- Left Side: Brand & Social -->
+            <div class="footer-col" style="text-align: left;">
+                <div class="logo-container" style="margin-bottom: 2rem;">
+                    <img src="{% static 'images/logo.png' %}" alt="Nafter Logo" class="nav-logo">
+                </div>
+                <p class="footer-desc">
+                    Software solutions for<br>
+                    eCommerce, Digital Marketing,<br>
+                    SEO & Branding Strategy.
+                </p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/448383765016872/" class="social-btn"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/nafterwebtechnologies?igsh=MTBqOWNjbmUxazBlZw=="
+                        class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/+917200795921" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Center: Our Services -->
+            <div class="footer-col" style="text-align: center;">
+                <h4>Our Services</h4>
+                <ul class="footer-links-arrow">
+                    <li><a href="#">Social Media Marketing</a></li>
+                    <li><a href="#">SEO Optimization</a></li>
+                    <li><a href="#">PPC Advertising</a></li>
+                    <li><a href="#">Content Marketing</a></li>
+                    <li><a href="#">Branding Strategy</a></li>
+                    <li><a href="#">Email Marketing</a></li>
+                </ul>
+            </div>
+
+            <!-- Right Corner: Office & Branches -->
+            <div class="footer-col" style="text-align: right;">
+                <h4 style="margin-bottom: 1rem;">Vellore Office</h4>
+                <div class="address-block">
+                    <p>1st floor, SBI BANK Building,<br>Katpadi, Vellore,<br>Tamil Nadu 632006</p>
+                </div>
+                <div class="contact-row">+91 8015795921</div>
+                <div class="contact-row" style="color: var(--accent);">hello@nafterweb.com</div>
+
+                <h4 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem;">Our Branches</h4>
+                <div class="address-block">
+                    <p>Tirupati | vellore | Dubai | Jeddah| Oman</p>
+                </div>
+
+                <!-- Interactive 24/7 Support Badge -->
+                <a href="https://wa.me/+917200795921" class="support-badge"
+                    style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <i class="fas fa-headset"></i> 24/7 Support Available
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom"
+            style="margin-top: 5rem; border-top: 1px solid var(--glass-border); padding-top: 2rem; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 1rem;">&copy; 2026 Nafter Web Technologies. All Rights
+                Reserved.</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/particles.js' %}"></script>
+    <!-- WhatsApp Integration -->
+    <a href="https://wa.me/918015795921" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+
+</html>

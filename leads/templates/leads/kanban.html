@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Pipeline Kanban | Nafter AI{% endblock %}
+
+{% block breadcrumb %}
+Kanban
+{% endblock %}
+
+{% block page_title %}Lead Pipeline{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hide Dashboard link on kanban page */
+    .nav-link.dashboard-link {
+        display: none;
+    }
+
+    .kanban-board {
+        display: flex;
+        gap: 32px;
+        overflow-x: auto;
+        padding-bottom: 20px;
+        align-items: flex-start;
+    }
+
+    .kanban-column {
+        background-color: #f1f5f9;
+        border-radius: 20px;
+        min-width: 240px;
+        width: 240px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        max-height: 80vh;
+        border: 1px solid #e2e8f0;
+    }
+
+    .column-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 0 4px;
+    }
+
+    .column-header h3 {
+        font-size: 0.8rem;
+        font-weight: 800;
+        color: var(--primary-dark);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .count-badge {
+        background: var(--white);
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        color: var(--text-heading);
+    }
+
+    .kanban-list {
+        min-height: 200px;
+        flex-grow: 1;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+
+    .lead-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        cursor: grab;
+        transition: var(--transition);
+        border: 1px solid transparent;
+    }
+
+    .lead-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        border-color: var(--primary-light);
+    }
+
+    .lead-card:active {
+        cursor: grabbing;
+    }
+
+    .lead-card h4 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text-heading);
+        margin-bottom: 4px;
+    }
+
+    .lead-company {
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid #f8fafc;
+    }
+
+    .budget {
+        font-weight: 800;
+        color: var(--primary-dark);
+        font-size: 0.85rem;
+    }
+
+    .service-badge {
+        background: #f1f5f9;
+        color: var(--text-body);
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-size: 0.7rem;
+        font-weight: 700;
+    }
+
+    .drag-over {
+        background-color: var(--primary-light);
+        border: 2px dashed var(--primary-dark);
+        box-shadow: inset 0 0 20px rgba(17, 94, 59, 0.05);
+    }
+
+    .dragging {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="kanban-board">
+    {% for status, leads_list in columns.items %}
+    <div class="kanban-column dropzone" data-status="{{ status }}">
+        <div class="column-header">
+            <h3>{{ status }}</h3>
+            <span class="count-badge">{{ leads_list.count }}</span>
+        </div>
+        <div id="status-{{ status }}" class="kanban-list">
+            {% for lead in leads_list %}
+            <div class="lead-card draggable-card" draggable="true" data-lead-id="{{ lead.id }}">
+                <h4>{{ lead.first_name }} {{ lead.last_name }}</h4>
+                <span class="lead-company">
+                    {% if lead.company_name %}{{ lead.company_name }}{% else %}Personal Lead{% endif %}
+                </span>
+                <div class="card-footer">
+                    <span class="budget">₹{{ lead.budget_inr_value|default:"0" }}</span>
+                    <span class="service-badge">{{ lead.interest|default:"General" }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const draggables = document.querySelectorAll('.draggable-card');
+        const dropzones = document.querySelectorAll('.dropzone');
+
+        draggables.forEach(card => {
+            card.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', e.target.dataset.leadId);
+                e.target.classList.add('dragging');
+                const sourceColumn = e.target.closest('.dropzone');
+                if (sourceColumn) {
+                    e.target.dataset.sourceStatus = sourceColumn.dataset.status;
+                }
+            });
+
+            card.addEventListener('dragend', (e) => {
+                e.target.classList.remove('dragging');
+            });
+        });
+
+        dropzones.forEach(zone => {
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('drag-over');
+            });
+
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('drag-over');
+            });
+
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('drag-over');
+
+                const leadId = e.dataTransfer.getData('text/plain');
+                const card = document.querySelector(`[data-lead-id="${leadId}"]`);
+
+                if (!card) return;
+
+                const list = zone.querySelector('.kanban-list');
+                const newStatus = zone.dataset.status;
+                const oldStatus = card.dataset.sourceStatus;
+
+                if (newStatus === oldStatus) return;
+
+                list.appendChild(card);
+                updateBadgeCount(oldStatus, -1);
+                updateBadgeCount(newStatus, 1);
+                card.dataset.sourceStatus = newStatus;
+
+                const formData = new FormData();
+                formData.append('lead_id', leadId);
+                formData.append('status', newStatus);
+
+                fetch('{% url "update_lead_status" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            alert('Update failed: ' + (data.message || 'Error occurred'));
+                            location.reload();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch Error:', error);
+                        location.reload();
+                    });
+            });
+        });
+
+        function updateBadgeCount(status, change) {
+            const zone = document.querySelector(`.dropzone[data-status="${status}"]`);
+            if (zone) {
+                const badge = zone.querySelector('.count-badge');
+                if (badge) {
+                    badge.textContent = Math.max(0, parseInt(badge.textContent) + change);
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
