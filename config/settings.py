@@ -28,14 +28,12 @@ SECRET_KEY = "django-insecure-$*ukm3g^w9-&8yc3yvg9+x1d=#nfrd+u($r5cslu&rk%6ylo#w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.22', '192.168.1.5', '127.0.0.1', 'localhost', '.render.com', '.railway.app']
+ALLOWED_HOSTS = ['192.168.1.22', '192.168.1.5', '127.0.0.1', 'localhost', '.render.com', '.railway.app', '.koyeb.app', '.b4a.run', '.back4app.io']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    
-    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -54,6 +52,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "leads.middleware.AdminRedirectMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -143,37 +142,10 @@ EMAIL_HOST_PASSWORD = 'your-app-password' # Replace with your app password
 DEFAULT_FROM_EMAIL = 'support@nafterweb.com'
 MANAGEMENT_EMAIL = 'manager@nafterweb.com'
 
+# For automated email links (Update this with your live domain when you host it!)
+SITE_URL = 'http://127.0.0.1:8000'
+
 
 # Authentication Settings
 LOGIN_URL = '/admin/login/'
-LOGIN_REDIRECT_URL = '/kanban/'
-
-JAZZMIN_SETTINGS = {
-    "site_title": "Nafter AI Admin",
-    "site_header": "Nafter AI",
-    "site_brand": "Nafter AI CRM",
-    "welcome_sign": "Welcome to Nafter AI Enterprise",
-    "copyright": "Nafter AI",
-    "custom_css": "admin_custom.css", 
-    "use_google_fonts": True,
-    "show_recent_actions": False,
-    "topmenu_links": [
-        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "Kanban Board", "url": "kanban", "icon": "fas fa-columns"},
-        {"name": "Dashboard", "url": "/dashboard/", "icon": "fas fa-chart-line"},
-    ],
-    "custom_links": {
-        "leads": [{
-            "name": "Kanban Board", 
-            "url": "kanban", 
-            "icon": "fas fa-columns",
-        }]
-    },
-}
-
-JAZZMIN_UI_TWEAKS = {
-    "theme": "flatly",
-    "navbar": "navbar-dark",
-    "sidebar": "sidebar-dark-success",
-    "container": "container-fluid",
-}
+LOGIN_REDIRECT_URL = '/dashboard/'
