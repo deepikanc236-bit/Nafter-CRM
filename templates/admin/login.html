@@ -7,36 +7,39 @@
 
 {% block extrastyle %}{{ block.super }}
 <link rel="stylesheet" href="{% static 'admin_custom.css' %}">
-<style>
-    body.login-page {
-        background: #f1f5f9 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        height: 100vh !important;
-        margin: 0 !important;
-    }
-
-    .login-auth-container {
-        width: 100% !important;
-        max-width: 420px !important;
-        padding: 20px !important;
-    }
-
-    /* Hide the branding panel completely as requested */
-    .login-branding-panel {
-        display: none !important;
-    }
-</style>
 {% endblock %}
 
+
 {% block content %}
-<div class="login-auth-container">
-    <div class="login-logo" style="margin-bottom: 30px; text-align: center;">
-        <a href="/" style="color: #115e3b; font-weight: 800; font-size: 2.2rem; letter-spacing: -1px;">
-            Nafter AI
-        </a>
+<div class="premium-auth-container">
+    <div class="premium-auth-card">
+        <div class="premium-auth-logo-wrapper">
+            <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 30C20 24.4772 24.4772 20 30 20H70C75.5228 20 80 24.4772 80 30V70C80 75.5228 75.5228 80 70 80H30C24.4772 80 20 75.5228 20 70V30Z" stroke="#0d462f" stroke-width="8"/>
+                <path d="M40 40H60V60H40V40Z" fill="#0d462f"/>
+            </svg>
+            <h1 class="premium-auth-title">Nafter AI</h1>
+            <p class="premium-auth-subtitle">Enterprise CRM Solution</p>
+        </div>
+
+        <h2>Sign In</h2>
+        <form action="{{ app_path }}" method="post" id="login-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">Username:</label>
+                <input type="text" name="username" class="form-control" placeholder="Enter your username" autofocus required id="id_username">
+            </div>
+            <div class="form-group">
+                <label for="id_password">Password:</label>
+                <input type="password" name="password" class="form-control" placeholder="••••••••••••" required id="id_password">
+            </div>
+            
+            {% if form.errors %}
+            <p style="color: #ef4444; font-size: 0.875rem; text-align: left; margin-top: -10px; margin-bottom: 20px;">{{ form.non_field_errors }}</p>
+            {% endif %}
+            
+            <button type="submit" class="btn-premium">Log in</button>
+        </form>
     </div>
-    {{ block.super }}
 </div>
 {% endblock %}

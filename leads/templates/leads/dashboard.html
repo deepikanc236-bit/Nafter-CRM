@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static lead_extras %}
 
 {% block title %}Dashboard | Nafter AI{% endblock %}
 
@@ -46,20 +46,22 @@
     }
 
     .stat-card {
-        background: white;
+        background: var(--glass-bg);
         border-radius: 24px;
         padding: 24px;
         display: flex;
         align-items: center;
         gap: 20px;
         box-shadow: var(--card-shadow);
-        border: 1px solid rgba(0, 0, 0, 0.02);
+        border: 1px solid var(--glass-border);
         transition: var(--transition);
+        backdrop-filter: blur(10px);
     }
 
     .stat-card:hover {
         transform: translateY(-5px);
-        box-shadow: var(--card-shadow-hover);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        border-color: rgba(52, 211, 153, 0.3);
     }
 
     .stat-icon {
@@ -73,23 +75,23 @@
     }
 
     .icon-leads {
-        background: #eff6ff;
-        color: #3b82f6;
+        background: rgba(59, 130, 246, 0.1);
+        color: #60a5fa;
     }
 
     .icon-hot {
-        background: #fff1f2;
-        color: #e11d48;
+        background: rgba(225, 29, 72, 0.1);
+        color: #fb7185;
     }
 
     .icon-value {
-        background: #f0fdf4;
-        color: #16a34a;
+        background: rgba(16, 185, 129, 0.1);
+        color: #34d399;
     }
 
     .icon-conv {
-        background: #faf5ff;
-        color: #9333ea;
+        background: rgba(147, 51, 234, 0.1);
+        color: #c084fc;
     }
 
     .stat-info h3 {
@@ -98,13 +100,13 @@
         font-weight: 600;
         margin-bottom: 4px;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
     }
 
     .stat-info p {
         font-size: 1.5rem;
         font-weight: 800;
-        color: var(--text-heading);
+        color: #0d462f; /* Dark emerald for visibility on light cards */
     }
 
     .charts-container {
@@ -115,13 +117,15 @@
     }
 
     .chart-card {
-        background: white;
+        background: var(--glass-bg);
         border-radius: 28px;
         padding: 30px;
         box-shadow: var(--card-shadow);
         height: 400px;
         display: flex;
         flex-direction: column;
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
     }
 
     .chart-header {
@@ -134,15 +138,17 @@
     .chart-title {
         font-size: 1.1rem;
         font-weight: 700;
-        color: var(--text-heading);
+        color: #1e293b; /* Dark slate */
     }
 
     .table-card {
-        background: white;
+        background: var(--glass-bg);
         border-radius: 28px;
         padding: 30px;
         box-shadow: var(--card-shadow);
         overflow: hidden;
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
     }
 
     .table-responsive {
@@ -211,7 +217,7 @@
         </div>
         <div class="stat-info">
             <h3>Total Pipeline</h3>
-            <p>₹{{ total_value|divisibleby:1000|yesno:",k,M" }}{{ total_value }}</p> <!-- Simplified for now -->
+            <p>₹{{ total_value|smart_rupee }}</p>
         </div>
     </div>
     <div class="stat-card">
@@ -288,13 +294,15 @@
         new Chart(leadCtx, {
             type: 'bar',
             data: {
-                labels: [{% for item in lead_stats %}"{{ item.service }}"{% if not forloop.last %}, {% endif %}{% endfor %}],
+                labels: [{% for item in lead_stats %}'{{ item.service }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
         datasets: [{
             label: 'Number of Leads',
             data: [{% for item in lead_stats %}{{ item.count }}{% if not forloop.last %}, {% endif %} {% endfor %}],
-    backgroundColor: '#3b82f6',
-        borderRadius: 8,
-            barThickness: 30,
+    backgroundColor: 'rgba(59, 130, 246, 0.5)',
+        borderColor: '#60a5fa',
+            borderWidth: 2,
+                borderRadius: 12,
+                    barThickness: 30,
                 }]
             },
     options: {
@@ -302,8 +310,15 @@
             maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
         scales: {
-            y: { beginAtZero: true, grid: { display: false } },
-            x: { grid: { display: false } }
+            y: {
+                beginAtZero: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                ticks: { color: '#94a3b8' }
+            },
+            x: {
+                grid: { display: false },
+                ticks: { color: '#94a3b8' }
+            }
         }
     }
         });

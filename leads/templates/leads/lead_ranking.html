@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% load static lead_extras %}
+
+{% block title %}Lead Score Rankings | Nafter AI{% endblock %}
+
+{% block breadcrumb %}
+<a href="{% url 'dashboard' %}">Dashboard</a> / Rankings
+{% endblock %}
+
+{% block page_title %}Lead Score Rankings{% endblock %}
+
+{% block extra_css %}
+<style>
+    .ranking-card {
+        background: var(--glass-bg);
+        border-radius: 28px;
+        padding: 40px;
+        box-shadow: var(--card-shadow);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
+    }
+
+    .rank-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+    }
+
+    .rank-table th {
+        padding: 15px 20px;
+        color: var(--text-muted);
+        font-weight: 700;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        border-bottom: 2px solid var(--glass-border);
+    }
+
+    .rank-row {
+        background: rgba(255, 255, 255, 0.03);
+        transition: var(--transition);
+        border-radius: 16px;
+    }
+
+    .rank-row:hover {
+        transform: scale(1.01) translateX(5px);
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .rank-row td {
+        padding: 20px;
+        font-weight: 600;
+        color: var(--text-main);
+    }
+
+    .rank-row td:first-child {
+        border-radius: 16px 0 0 16px;
+        font-weight: 800;
+        color: var(--primary);
+        font-size: 1.2rem;
+        width: 80px;
+        text-align: center;
+    }
+
+    .rank-row td:last-child {
+        border-radius: 0 16px 16px 0;
+    }
+
+    .score-badge {
+        padding: 10px 20px;
+        border-radius: 14px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        background: var(--primary-gradient);
+        color: white;
+        box-shadow: 0 8px 15px rgba(16, 185, 129, 0.3);
+        display: inline-block;
+        min-width: 60px;
+        text-align: center;
+    }
+
+    .medal-icon {
+        font-size: 1.4rem;
+    }
+
+    .gold { color: #facc15; }
+    .silver { color: #94a3b8; }
+    .bronze { color: #b45309; }
+
+    .client-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .client-name {
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--text-main);
+    }
+
+    .client-company {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+        .rank-table th:nth-child(3),
+        .rank-table td:nth-child(3) {
+            display: none;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="ranking-card">
+    <table class="rank-table">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Lead / Company</th>
+                <th>Industry/Service</th>
+                <th style="text-align: center;">Score</th>
+                <th>Freshness</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lead in leads %}
+            <tr class="rank-row">
+                <td>
+                    {% if forloop.counter == 1 %}
+                        <i class="fa-solid fa-medal medal-icon gold"></i>
+                    {% elif forloop.counter == 2 %}
+                        <i class="fa-solid fa-medal medal-icon silver"></i>
+                    {% elif forloop.counter == 3 %}
+                        <i class="fa-solid fa-medal medal-icon bronze"></i>
+                    {% else %}
+                        #{{ forloop.counter }}
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="client-info">
+                        <a href="{% url 'lead_detail' lead.pk %}" class="client-name" style="text-decoration: none; color: inherit;">
+                            {{ lead.first_name }} {{ lead.last_name }}
+                        </a>
+                        <span class="client-company">{{ lead.company_name|default:"Independent" }}</span>
+                    </div>
+                </td>
+                <td>
+                    <span style="font-size: 0.9rem; color: var(--text-muted);">{{ lead.service|default:"General" }}</span>
+                </td>
+                <td style="text-align: center;">
+                    <div class="score-badge">
+                        {{ lead.lead_score }}
+                    </div>
+                </td>
+                <td>
+                    {% with freshness=lead.get_freshness_status %}
+                        {% if freshness == 'hot' %}
+                        <span style="color: #ef4444; font-weight: 800; font-size: 0.8rem;">🔥 HOT</span>
+                        {% elif freshness == 'warm' %}
+                        <span style="color: #f59e0b; font-weight: 800; font-size: 0.8rem;">WARM</span>
+                        {% else %}
+                        <span style="color: #10b981; font-weight: 800; font-size: 0.8rem;">SETTLED</span>
+                        {% endif %}
+                    {% endwith %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center; padding: 50px; color: var(--text-muted);">
+                    No leads available to rank.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

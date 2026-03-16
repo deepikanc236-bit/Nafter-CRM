@@ -10,79 +10,80 @@ Kanban
 
 {% block extra_css %}
 <style>
-    /* Hide Dashboard link on kanban page */
-    .nav-link.dashboard-link {
-        display: none;
-    }
 
     .kanban-board {
         display: flex;
         gap: 32px;
         overflow-x: auto;
-        padding-bottom: 20px;
+        padding-bottom: 30px;
         align-items: flex-start;
     }
 
     .kanban-column {
-        background-color: #f1f5f9;
-        border-radius: 20px;
+        background: rgba(255,255,255,0.85);
+        border-radius: 24px;
         min-width: 240px;
         width: 240px;
-        padding: 16px;
+        padding: 24px;
         display: flex;
         flex-direction: column;
-        max-height: 80vh;
-        border: 1px solid #e2e8f0;
+        max-height: 90vh;
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
+        overflow-x: hidden;
     }
 
     .column-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
         padding: 0 4px;
     }
 
     .column-header h3 {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         font-weight: 800;
-        color: var(--primary-dark);
+        color: var(--text-main);
         text-transform: uppercase;
-        letter-spacing: 0.1em;
+        letter-spacing: 2px;
     }
 
     .count-badge {
-        background: var(--white);
-        padding: 4px 12px;
+        background: var(--primary-gradient);
+        padding: 4px 14px;
         border-radius: 50px;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         font-weight: 800;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        color: var(--text-heading);
+        color: white;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     }
 
     .kanban-list {
         min-height: 200px;
         flex-grow: 1;
         overflow-y: auto;
+        overflow-x: hidden;
         padding-right: 4px;
     }
 
     .lead-card {
-        background: var(--white);
-        border-radius: 16px;
-        padding: 16px;
-        margin-bottom: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        background: rgba(255, 255, 255, 0.3);
+        color: var(--text-main);
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         cursor: grab;
         transition: var(--transition);
-        border: 1px solid transparent;
+        border: 1px solid var(--glass-border);
     }
 
     .lead-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-        border-color: var(--primary-light);
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        border-color: rgba(52, 211, 153, 0.3);
+        background: rgba(255, 255, 255, 0.08);
     }
 
     .lead-card:active {
@@ -90,53 +91,59 @@ Kanban
     }
 
     .lead-card h4 {
-        font-size: 0.95rem;
+        font-size: 1rem;
         font-weight: 700;
-        color: var(--text-heading);
-        margin-bottom: 4px;
+        color: var(--text-main);
+        margin-bottom: 6px;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     .lead-company {
         color: var(--text-muted);
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         font-weight: 600;
         display: block;
-        margin-bottom: 12px;
+        margin-bottom: 15px;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     .card-footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 12px;
-        padding-top: 12px;
-        border-top: 1px solid #f8fafc;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid var(--glass-border);
+        flex-wrap: wrap;
+        gap: 8px;
     }
 
     .budget {
         font-weight: 800;
-        color: var(--primary-dark);
-        font-size: 0.85rem;
+        color: var(--text-main);
+        font-size: 0.9rem;
     }
 
     .service-badge {
-        background: #f1f5f9;
-        color: var(--text-body);
-        padding: 4px 8px;
-        border-radius: 8px;
-        font-size: 0.7rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-muted);
+        padding: 5px 10px;
+        border-radius: 10px;
+        font-size: 0.75rem;
         font-weight: 700;
+        border: 1px solid var(--glass-border);
     }
 
     .drag-over {
-        background-color: var(--primary-light);
-        border: 2px dashed var(--primary-dark);
-        box-shadow: inset 0 0 20px rgba(17, 94, 59, 0.05);
+        background: rgba(16, 185, 129, 0.1);
+        border: 2px dashed var(--primary);
     }
 
     .dragging {
-        opacity: 0.5;
-        transform: scale(0.95);
+        opacity: 0.4;
+        transform: scale(0.9);
     }
 </style>
 {% endblock %}

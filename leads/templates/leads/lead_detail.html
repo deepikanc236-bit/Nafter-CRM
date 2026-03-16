@@ -27,13 +27,20 @@
     }
 
     .card-title {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         font-weight: 800;
-        margin-bottom: 24px;
-        color: var(--text-heading);
+        margin-bottom: 30px;
+        color: var(--text-main);
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 15px;
+    }
+
+    .card-title i {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 1.4rem;
     }
 
     .detail-item {
@@ -41,43 +48,48 @@
     }
 
     .detail-label {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         font-weight: 700;
         color: var(--text-muted);
         text-transform: uppercase;
-        margin-bottom: 6px;
-        letter-spacing: 0.05em;
+        margin-bottom: 8px;
+        letter-spacing: 1.5px;
     }
 
     .detail-value {
-        font-size: 1.05rem;
-        color: var(--text-heading);
+        font-size: 1.1rem;
+        color: var(--text-main);
         font-weight: 600;
     }
 
     .sentiment-badge-large {
-        padding: 16px 28px;
-        border-radius: 20px;
+        padding: 20px 35px;
+        border-radius: 24px;
         font-weight: 800;
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         display: inline-block;
-        margin-bottom: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+        margin-bottom: 24px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
     }
 
     .sentiment-positive {
-        background: #f0fdf4;
-        color: #166534;
+        background: rgba(52, 211, 153, 0.1);
+        color: #34d399;
+        border-color: rgba(52, 211, 153, 0.2);
     }
 
     .sentiment-negative {
-        background: #fef2f2;
-        color: #991b1b;
+        background: rgba(248, 113, 113, 0.1);
+        color: #f87171;
+        border-color: rgba(248, 113, 113, 0.2);
     }
 
     .sentiment-neutral {
-        background: #f8fafc;
-        color: #475569;
+        background: rgba(148, 163, 184, 0.1);
+        color: #94a3b8;
+        border-color: rgba(148, 163, 184, 0.2);
     }
 
     .timeline {
@@ -91,8 +103,8 @@
         left: 0;
         top: 0;
         bottom: 0;
-        width: 3px;
-        background: #f1f5f9;
+        width: 2px;
+        background: var(--glass-border);
         border-radius: 3px;
     }
 
@@ -104,61 +116,135 @@
     .timeline-item::before {
         content: '';
         position: absolute;
-        left: -41.5px;
-        top: 4px;
+        left: -42px;
+        top: 8px;
         width: 14px;
         height: 14px;
         border-radius: 50%;
-        background: var(--primary-dark);
-        border: 4px solid white;
-        box-shadow: 0 0 0 2px #f1f5f9;
+        background: var(--bg-dark);
+        border: 3px solid var(--primary);
+        z-index: 1;
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
     }
 
     .timeline-content {
-        background: #f8fafc;
-        padding: 16px;
-        border-radius: 16px;
-        border: 1px solid #f1f5f9;
+        background: #ffffff;
+        padding: 20px 24px;
+        border-radius: 20px;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
     }
 
-    .timeline-content strong {
-        display: block;
-        font-size: 0.95rem;
-        color: var(--text-heading);
-        margin-bottom: 4px;
+    .timeline-content::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--primary);
+        opacity: 0.5;
+    }
+
+    .timeline-content:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: var(--primary);
+        transform: translateX(5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .timeline-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .timeline-action {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-main);
+    }
+
+    .timeline-actor {
+        font-size: 0.8rem;
+        color: var(--primary);
+        background: rgba(16, 185, 129, 0.1);
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-weight: 600;
     }
 
     .timeline-time {
         font-size: 0.8rem;
         color: var(--text-muted);
         font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .activity-type {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+
+    .type-status_change {
+        background: #facc15;
+        box-shadow: 0 0 8px #facc15;
+    }
+
+    .type-assignment_change {
+        background: #3b82f6;
+        box-shadow: 0 0 8px #3b82f6;
+    }
+
+    .type-note_added {
+        background: #a855f7;
+        box-shadow: 0 0 8px #a855f7;
+    }
+
+    .type-system_update {
+        background: #10b981;
+        box-shadow: 0 0 8px #10b981;
     }
 
     .status-badge {
-        padding: 6px 12px;
-        border-radius: 9999px;
-        font-size: 0.75rem;
+        padding: 8px 16px;
+        border-radius: 14px;
+        font-size: 0.85rem;
         font-weight: 700;
+        border: 1px solid transparent;
+        color: var(--text-main);
     }
 
     .status-new {
-        background: #e0f2fe;
-        color: #0369a1;
+        background: rgba(59, 130, 246, 0.2);
+        color: var(--text-main);
+        border-color: rgba(59, 130, 246, 0.3);
     }
 
     .status-contacted {
-        background: #fef9c3;
-        color: #854d0e;
+        background: rgba(234, 179, 8, 0.2);
+        color: var(--text-main);
+        border-color: rgba(234, 179, 8, 0.3);
     }
 
     .status-negotiation {
-        background: #f0fdf4;
-        color: #166534;
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--text-main);
+        border-color: rgba(16, 185, 129, 0.3);
     }
 
     .status-closed {
-        background: #f1f5f9;
-        color: #475569;
+        background: rgba(148, 163, 184, 0.1);
+        color: #94a3b8;
+        border-color: rgba(148, 163, 184, 0.2);
     }
 </style>
 {% endblock %}
@@ -167,9 +253,9 @@
 <div class="profile-grid">
     <div class="main-details">
         <!-- Sentiment Analysis Section -->
-        <div class="card" style="border-top: 6px solid var(--primary-dark); margin-bottom: 32px;">
+        <div class="card" style="border-top: 6px solid var(--primary); margin-bottom: 32px;">
             <div class="card-title">
-                <i class="fa-solid fa-brain" style="color: var(--primary-dark);"></i>
+                <i class="fa-solid fa-brain"></i>
                 <span>AI Sentiment Analysis</span>
             </div>
             {% with latest_feedback=feedbacks.first %}
@@ -177,16 +263,17 @@
             <div class="sentiment-badge-large sentiment-{{ latest_feedback.sentiment_label|lower }}">
                 {{ latest_feedback.sentiment_label }}
             </div>
-            <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600; margin-bottom: 16px;">
+            <div style="font-size: 1rem; color: var(--text-muted); font-weight: 600; margin-bottom: 16px;">
                 Confidence Score: {{ latest_feedback.sentiment_score|floatformat:2 }}
             </div>
             <p
-                style="color: var(--text-body); font-style: italic; line-height: 1.8; font-size: 1.1rem; background: #f8fafc; padding: 24px; border-radius: 20px; border: 1px solid #f1f5f9;">
+                style="color: white; font-style: italic; line-height: 1.8; font-size: 1.15rem; background: rgba(255,255,255,0.03); padding: 24px; border-radius: 20px; border: 1px solid var(--glass-border);">
                 "{{ latest_feedback.message }}"
             </p>
             {% else %}
             <div style="text-align: center; padding: 40px; color: var(--text-muted);">
-                <i class="fa-solid fa-comment-slash" style="font-size: 2.5rem; margin-bottom: 16px; opacity: 0.3;"></i>
+                <i class="fa-solid fa-comment-slash"
+                    style="font-size: 3rem; margin-bottom: 20px; color: var(--primary); opacity: 0.3;"></i>
                 <p>No sentiment analysis available for this lead yet.</p>
             </div>
             {% endif %}
@@ -195,7 +282,7 @@
 
         <div class="card">
             <div class="card-title">
-                <i class="fa-solid fa-circle-info" style="color: var(--primary-dark);"></i>
+                <i class="fa-solid fa-circle-info"></i>
                 Lead Information
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px;">
@@ -213,7 +300,8 @@
                 </div>
                 <div class="detail-item">
                     <div class="detail-label">Budget (INR)</div>
-                    <div class="detail-value">₹{{ lead.budget_inr_value|default:"0" }}</div>
+                    <div class="detail-value" style="color: var(--accent);">₹{{ lead.budget_inr_value|default:"0" }}
+                    </div>
                 </div>
                 <div class="detail-item">
                     <div class="detail-label">AI Conversion Prob.</div>
@@ -227,7 +315,7 @@
             <div class="detail-item">
                 <div class="detail-label">Project Details & Requirements</div>
                 <div class="detail-value"
-                    style="line-height: 1.8; background: #f8fafc; padding: 24px; border-radius: 20px; color: var(--text-body); white-space: pre-wrap;">
+                    style="line-height: 1.8; background: rgba(255,255,255,0.1); padding: 24px; border-radius: 20px; color: var(--text-main); white-space: pre-wrap; border: 1px solid var(--glass-border);">
                     {{ lead.project_details|default:"No details provided." }}</div>
             </div>
         </div>
@@ -236,27 +324,123 @@
     <div class="sidebar-details">
         <div class="card">
             <div class="card-title">
-                <i class="fa-solid fa-clock-rotate-left" style="color: var(--primary-dark);"></i>
+                <i class="fa-solid fa-clock-rotate-left"></i>
                 Activity Timeline
             </div>
+            
+            {% if is_manager %}
+            <!-- Assignment Management for Sales Managers -->
+            <div class="card" style="border-left: 4px solid var(--accent); margin-bottom: 32px;">
+                <div class="card-title">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Manual Assignment
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Current Assignee</div>
+                    <div class="detail-value" id="current-assignee">
+                        {% if lead.assigned_user %}
+                            {{ lead.assigned_user.username }}
+                        {% else %}
+                            <span style="color: var(--text-muted);">Unassigned</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label class="detail-label">Assign To Executive</label>
+                    <div style="display: flex; gap: 10px;">
+                        <select id="assignee-select" class="form-control" style="height: 50px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-main);">
+                            <option value="">Select Executive...</option>
+                            {% for user in assignable_users %}
+                                <option value="{{ user.id }}" {% if lead.assigned_user == user %}selected{% endif %}>
+                                    {{ user.username }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <button id="assign-btn" class="btn-premium" style="width: auto; padding: 0 20px; height: 50px; margin-top: 0;">Assign</button>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
             <div class="timeline">
                 {% for activity in activities %}
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <strong>{{ activity.action }}</strong>
-                        <div class="timeline-time">{{ activity.timestamp|date:"M d, Y • H:i" }}</div>
+                        <div class="timeline-header">
+                            <span class="timeline-action">
+                                <span class="activity-type type-{{ activity.action_type }}"></span>
+                                {{ activity.action }}
+                            </span>
+                            {% if activity.changed_by %}
+                            <span class="timeline-actor">
+                                <i class="fa-solid fa-user-check"></i> {{ activity.changed_by.username }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        <div class="timeline-time">
+                            <i class="fa-regular fa-clock"></i> {{ activity.timestamp|date:"M d, Y • H:i" }}
+                        </div>
                     </div>
                 </div>
                 {% empty %}
-                {% endfor %}
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <strong>Lead Created</strong>
-                        <div class="timeline-time">{{ lead.created_at|date:"M d, Y • H:i" }}</div>
-                    </div>
+                <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    <i class="fa-solid fa-timeline" style="font-size: 2rem; margin-bottom: 10px; opacity: 0.3;"></i>
+                    <p>Initialization in progress...</p>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const assignBtn = document.getElementById('assign-btn');
+        const assigneeSelect = document.getElementById('assignee-select');
+        const currentAssigneeDisplay = document.getElementById('current-assignee');
+
+        if (assignBtn && assigneeSelect) {
+            assignBtn.addEventListener('click', function () {
+                const userId = assigneeSelect.value;
+                if (!userId) {
+                    alert('Please select an executive first.');
+                    return;
+                }
+
+                assignBtn.disabled = true;
+                assignBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+                fetch("{% url 'assign_lead' lead.id %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: `user_id=${userId}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const selectedText = assigneeSelect.options[assigneeSelect.selectedIndex].text;
+                        if (currentAssigneeDisplay) currentAssigneeDisplay.textContent = selectedText;
+                        alert('Lead assigned successfully!');
+                        location.reload(); // Reload to update timeline
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                })
+                .finally(() => {
+                    assignBtn.disabled = false;
+                    assignBtn.innerText = 'Assign';
+                });
+            });
+        }
+    });
+</script>
 {% endblock %}

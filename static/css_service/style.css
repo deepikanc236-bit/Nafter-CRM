@@ -139,8 +139,9 @@ body {
     line-height: 1.1;
     background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
+    text-shadow: 0 0 15px rgba(168, 85, 247, 0.5); /* Optimized Glow */
 }
 
 .hero p {
@@ -549,6 +550,7 @@ footer p {
     margin-bottom: 1rem;
     background: linear-gradient(90deg, #fff, #a5b4fc);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -706,6 +708,7 @@ footer p {
     margin-bottom: 0.5rem;
     background: linear-gradient(90deg, #fff, var(--secondary));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
 }

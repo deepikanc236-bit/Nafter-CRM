@@ -19,12 +19,11 @@ class Lead(models.Model):
         ('AI_STRAT', 'AI Strategy & Consulting'),
         ('GEN_AI', 'Generative AI Solutions'),
         ('AI_ENG', 'AI Engineering & MLOps'),
-        ('AGENT_ORCH', 'Autonomous Agent Orchestration'),
-        ('AI_AUTO', 'AI Workflow Automation'),
+        ('AGENT_ORCH', 'Autonomous Agents'),
+        ('AI_AUTO', 'Workflows & Automation'),
         ('DRONE', 'Autonomous Drone Solutions'),
         ('FULL_STACK', 'Full Stack Development'),
         ('DIGITAL_MKT', 'AI Digital Marketing'),
-        ('GCC', 'GCC Setup'),
         ('Other', 'Other'),
     ]
 
@@ -61,30 +60,10 @@ class Lead(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.__old_status = self.status
-        self.__old_assigned_user = self.assigned_user
 
     def save(self, *args, **kwargs):
         is_new = self._state.adding
         
-        # Audit Log
-        if is_new:
-            # We'll create the record after super().save() to have an ID
-            pass
-        else:
-            if self.__old_status != self.status:
-                LeadActivity.objects.create(
-                    lead=self,
-                    action=f"Status changed from {self.__old_status} to {self.status}"
-                )
-            if self.__old_assigned_user != self.assigned_user:
-                action_text = f"Assigned to {self.assigned_user}" if self.assigned_user else "Unassigned"
-                LeadActivity.objects.create(
-                    lead=self,
-                    action=action_text
-                )
         
         # Feature 3: High-Value Notifications (> 10 Lakhs)
         if self.budget_inr_value and self.budget_inr_value > 1000000:
@@ -96,13 +75,45 @@ class Lead(models.Model):
                 from .views import send_high_value_alerts
                 send_high_value_alerts(self)
                 
+        if not is_new:
+            old_instance = Lead.objects.get(pk=self.pk)
+            if old_instance.status != 'Closed' and self.status == 'Closed':
+                from .views import send_feedback_email
+                send_feedback_email(self)
+
         super().save(*args, **kwargs)
         
-        if is_new:
-            LeadActivity.objects.create(
-                lead=self,
-                action="Lead created from contact form"
-            )
+
+    def get_freshness_status(self):
+        """Returns hot, warm, or cold based on aging."""
+        from django.utils import timezone
+        diff = timezone.now() - self.created_at
+        if diff.days < 1: return 'hot'
+        if diff.days < 2: return 'warm'
+        return 'cold'
+
+    @staticmethod
+    def get_role_restricted_queryset(user, queryset=None):
+        if queryset is None:
+            queryset = Lead.objects.all()
+        
+        group_names = [g.name.lower() for g in user.groups.all()]
+        
+        # Superusers and Sales Managers can see all leads
+        if user.is_superuser or 'sales managers' in group_names:
+            return queryset
+            
+        # Senior Sales Executives: ₹5,00,000 - ₹1,000,000
+        if 'senior sales executives' in group_names:
+            return queryset.filter(budget_inr_value__gte=500000, budget_inr_value__lte=1000000)
+            
+        # Sales Executives: < ₹5,00,000
+        if 'sales executives' in group_names:
+            return queryset.filter(budget_inr_value__lt=500000)
+            
+        # If no specific role or just a generic user, protect the data
+        # Only show what is specifically assigned to them
+        return queryset.filter(assigned_user=user)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.company_name or 'Personal'}"
@@ -127,7 +138,8 @@ class LeadActivity(models.Model):
     ]
     
     lead = models.ForeignKey(Lead, on_delete=models.CASCADE, related_name='activities')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    changed_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Changed By")
+    action_type = models.CharField(max_length=50, choices=ACTION_CHOICES, default='system_update')
     action = models.CharField(max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)
 

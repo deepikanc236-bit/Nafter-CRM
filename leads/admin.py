@@ -7,7 +7,7 @@ from .models import Lead, Feedback, LeadActivity
 class LeadActivityInline(admin.TabularInline):
     model = LeadActivity
     extra = 0
-    readonly_fields = ('action', 'user', 'timestamp')
+    readonly_fields = ('action', 'changed_by', 'timestamp')
     can_delete = False
 
 @admin.register(Lead)
@@ -47,7 +47,7 @@ class LeadAdmin(admin.ModelAdmin):
             if old_obj.status != obj.status:
                 LeadActivity.objects.create(
                     lead=obj,
-                    user=request.user,
+                    changed_by=request.user,
                     action=f"Status changed to {obj.status} (via Admin)"
                 )
             # Track Assignment Change
@@ -55,7 +55,7 @@ class LeadAdmin(admin.ModelAdmin):
                 new_user = obj.assigned_user.username if obj.assigned_user else "Unassigned"
                 LeadActivity.objects.create(
                     lead=obj,
-                    user=request.user,
+                    changed_by=request.user,
                     action=f"Lead assigned to {new_user} (via Admin)"
                 )
         else:
@@ -70,7 +70,7 @@ class LeadAdmin(admin.ModelAdmin):
             # Now that it has an ID
             LeadActivity.objects.create(
                 lead=obj,
-                user=request.user,
+                changed_by=request.user,
                 action="Lead Created (via Admin)"
             )
 
@@ -79,33 +79,19 @@ class LeadAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         # Feature 1: Role-Based Access Control (RBAC)
         qs = super().get_queryset(request)
-        
-        # Superusers and Sales Managers can see all leads
-        if request.user.is_superuser or request.user.groups.filter(name='Sales Managers').exists():
-            return qs
-            
-        # Senior Sales Executives: ₹5,00,000 - ₹10,00,000
-        if request.user.groups.filter(name='Senior Sales Executives').exists():
-            return qs.filter(budget_inr_value__gte=500000, budget_inr_value__lte=1000000)
-            
-        # Sales Executives: < ₹5,00,000
-        if request.user.groups.filter(name='Sales Executives').exists():
-            return qs.filter(budget_inr_value__lt=500000)
-            
-        # If no role, return empty queryset for safety (or handle as needed)
-        return qs.none()
+        return Lead.get_role_restricted_queryset(request.user, qs)
 
     @admin.display(description="Lead Aging")
     def lead_aging_badge(self, obj):
         now = timezone.now()
         diff = now - obj.created_at
         
-        if diff.total_seconds() < 86400: # 24h
-            return format_html('<span style="color: #28a745; font-weight: bold;">{}</span>', "🔥 Hot")
-        elif diff.total_seconds() < 172800: # 48h
+        if diff.days < 1: # Within 24 hours
+            return format_html('<span style="color: #dc3545; font-weight: bold;">{}</span>', "🔥 Hot")
+        elif diff.days < 2: # Within 48 hours
             return format_html('<span style="color: #fd7e14; font-weight: bold;">{}</span>', "⚠️ Warm")
-        else:
-            return format_html('<span style="color: #dc3545; font-weight: bold;">{}</span>', "❄️ Cold")
+        else: # 3rd day onwards
+            return format_html('<span style="color: #28a745; font-weight: bold;">{}</span>', "❄️ Cold")
 
     list_filter = ("service", "priority", "status", "created_at", "country")
     search_fields = ("first_name", "last_name", "work_email", "project_details", "company_name")
@@ -132,6 +118,14 @@ class LeadAdmin(admin.ModelAdmin):
         for lead in queryset:
             lead.status = 'Closed' # Matching new status choices
             lead.save()
+            
+            # Record the move to Closed with actor
+            LeadActivity.objects.create(
+                lead=lead,
+                changed_by=request.user,
+                action_type='status_change',
+                action="Status changed to Closed (via Admin Action)"
+            )
             
             # Send Email
             subject = "Project Completed! We'd love your feedback"

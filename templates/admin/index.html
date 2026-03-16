@@ -1,0 +1,94 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin/css/dashboard.css' %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block content %}
+<div id="content-main" style="display: flex; gap: 30px; align-items: flex-start;">
+    <div class="dashboard-tables" style="flex: 3; min-width: 0;">
+        <div class="dashboard-header" style="margin-bottom: 40px; text-align: left;">
+            <h1 style="font-size: 1.1rem; font-weight: 800; color: #facc15; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 5px;">Welcome, {{ user.get_short_name|default:user.get_username }}</h1>
+            <p style="color: #64748b; font-size: 1rem; font-weight: 600;">Manage your leads and site administration from here.</p>
+        </div>
+    
+        {% if app_list %}
+            <div class="app-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 24px;">
+                {% for app in app_list %}
+                    <div class="app-card module" style="margin-bottom: 0 !important;">
+                        <caption>
+                            <a href="{{ app.app_url }}" class="section" title="{{ app.name }}">
+                                {{ app.name }}
+                            </a>
+                        </caption>
+                        <div class="card-content" style="padding: 20px;">
+                            <table style="width: 100%;">
+                                {% for model in app.models %}
+                                    <tr class="model-{{ model.object_name|lower }}">
+                                        {% if model.admin_url %}
+                                            <th scope="row"><a href="{{ model.admin_url }}">{{ model.name }}</a></th>
+                                        {% else %}
+                                            <th scope="row">{{ model.name }}</th>
+                                        {% endif %}
+    
+                                        <td style="text-align: right;">
+                                            {% if model.add_url %}
+                                                <a href="{{ model.add_url }}" class="addlink" style="color: #115e3b; font-weight: 600; text-decoration: none; margin-right: 15px;">{% translate 'Add' %}</a>
+                                            {% endif %}
+                                            {% if model.admin_url %}
+                                                {% if model.view_only %}
+                                                    <a href="{{ model.admin_url }}" class="viewlink" style="color: #64748b; font-weight: 600; text-decoration: none;">{% translate 'View' %}</a>
+                                                {% else %}
+                                                    <a href="{{ model.admin_url }}" class="changelink" style="color: #64748b; font-weight: 600; text-decoration: none;">{% translate 'Change' %}</a>
+                                                {% endif %}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>{% translate 'You don’t have permission to view or edit anything.' %}</p>
+        {% endif %}
+    </div>
+
+    <div id="content-related" style="flex: 1; min-width: 300px; background: #ffffff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
+        <div class="module" id="recent-actions-module" style="box-shadow: none !important; padding: 0 !important; margin: 0 !important;">
+            <h2 style="background: #115e3b; color: white; padding: 12px 20px; border-radius: 20px 20px 0 0; margin: 0 0 15px 0; font-size: 1rem; text-transform: uppercase;">{% translate 'Recent actions' %}</h2>
+            <div class="card-content">
+                {% load log %}
+                {% get_admin_log 15 as admin_log for_user user %}
+                {% if not admin_log %}
+                    <p style="color: #64748b;">{% translate 'None available' %}</p>
+                {% else %}
+                    <ul class="actionlist" style="list-style: none; padding: 0; margin: 0;">
+                    {% for entry in admin_log %}
+                        <li class="{% if entry.is_addition %}addlink{% elif entry.is_change %}changelink{% else %}deletelink{% endif %}" style="margin-bottom: 12px; font-size: 0.9rem; color: #ffffff !important;">
+                            {% if entry.is_deletion or not entry.get_admin_url %}
+                                {{ entry.object_repr }}
+                            {% else %}
+                                <a href="{{ entry.get_admin_url }}" style="color: #ffffff !important; font-weight: 700; text-decoration: none;">{{ entry.object_repr }}</a>
+                            {% endif %}
+                            <br>
+                            {% if entry.content_type %}
+                                <span class="mini quiet" style="color: rgba(255, 255, 255, 0.8) !important;">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+                            {% else %}
+                                <span class="mini quiet" style="color: rgba(255, 255, 255, 0.8) !important;">{% translate 'Unknown content type' %}</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}

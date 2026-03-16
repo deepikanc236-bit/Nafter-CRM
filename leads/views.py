@@ -16,47 +16,14 @@ import re
 
 def extract_smart_budget(text):
     """
-    Extracts budget from text, handling Indian (Lakh/Crore) and International (K/M) suffixes.
-    Returns the normalized INR value as an integer.
+    Consolidated budget extraction using the NLP utility.
     """
     if not text:
         return 0
-        
-    # 1. Clean and Normalize
-    text = text.lower().replace(',', '')
     
-    # 2. Multiplier Mapping
-    multipliers = {
-        'lakh': 100_000, 'lakhs': 100_000, 'lac': 100_000, 'lacs': 100_000,
-        'cr': 10_000_000, 'crore': 10_000_000, 'crores': 10_000_000,
-        'm': 1_000_000, 'million': 1_000_000, 'millions': 1_000_000,
-        'k': 1_000
-    }
-    
-    # 3. Currency Rates (if symbols are present, otherwise assume INR)
-    rates = {'$': 83, 'usd': 83, 'aed': 22, 'eur': 90, '€': 90, '£': 105, 'inr': 1, '₹': 1}
-    
-    # 4. Regex Pattern
-    # Matches: number (optional decimal) + space (optional) + suffix + word boundary
-    # Also optionally matches currency symbols/codes
-    pattern = r'(?P<currency>[\$€₹]|usd|aed|eur|gbp|inr)?\s*(?P<number>\d+(?:\.\d+)?)\s*(?P<suffix>lakhs?|lacs?|crores?|cr|millions?|m|k)?\b'
-    
-    match = re.search(pattern, text)
-    if match:
-        val = float(match.group('number'))
-        suffix = match.group('suffix')
-        currency = match.group('currency')
-        
-        # Apply Multiplier
-        if suffix:
-            val *= multipliers.get(suffix, 1)
-            
-        # Apply Currency Conversion
-        rate = rates.get(currency, 1) # Default to 1 (assume INR)
-        
-        return int(val * rate)
-        
-    return 0
+    from .nlp_utils import extract_lead_info
+    data = extract_lead_info(text)
+    return data.get('budget_inr_value', 0)
 
 def role_required(view_func):
     """
@@ -114,6 +81,46 @@ def send_high_value_alerts(lead):
     except Exception as e:
         print(f"Email Error: {e}")
 
+def send_feedback_email(lead):
+    """
+    Sends an automated feedback request email to the customer when a lead is closed.
+    """
+    try:
+        from django.conf import settings
+        site_url = getattr(settings, 'SITE_URL', 'http://127.0.0.1:8000')
+        feedback_url = f"{site_url}/feedback/"
+        
+        subject = f"We'd love your feedback, {lead.first_name}!"
+        message = f"""
+Hi {lead.first_name},
+
+Thank you for choosing Nafter AI for your project! Now that we've closed this phase, we'd love to hear about your experience.
+
+Your feedback helps us improve our AI-driven services and ensure we're delivering the best possible value to our partners.
+
+Please take a moment to share your thoughts here: {feedback_url}
+
+Best regards,
+The Nafter AI Team
+        """
+        
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [lead.work_email],
+            fail_silently=False,
+        )
+        
+        # Record the email activity
+        LeadActivity.objects.create(
+            lead=lead,
+            action_type='system_update',
+            action=f"Automated feedback email sent to {lead.work_email}"
+        )
+    except Exception as e:
+        print(f"Error sending feedback email: {e}")
+
 def home(request):
     return render(request, "leads/index.html")
 
@@ -141,10 +148,33 @@ def contact(request):
         
         if existing_lead:
             is_returning = True
-            engagement_score = existing_lead.engagement_score + 20
+            engagement_score = existing_lead.engagement_score + 25
+            
+            # Record the repeat interest
+            LeadActivity.objects.create(
+                lead=existing_lead,
+                action_type='system_update',
+                action=f"Returning lead detected: {email}. Engagement score increased."
+            )
         
         # Sentiment Analysis for Probability
         sentiment_score, sentiment_label = analyze_sentiment(details)
+
+        # Apply score boost for returning customers
+        base_lead_score = nlp_data.get('lead_score', 0)
+        final_priority = nlp_data.get('priority', 'Medium')
+        
+        if is_returning:
+            # Boost score by 20, cap at 100
+            base_lead_score = min(base_lead_score + 20, 100)
+            
+            # Recalculate priority based on new score
+            if base_lead_score >= 70 or nlp_data.get('urgency') == 'High':
+                final_priority = 'High'
+            elif base_lead_score >= 40:
+                final_priority = 'Medium'
+            else:
+                final_priority = 'Low'
 
         new_lead = Lead.objects.create(
             first_name=request.POST.get("first_name"),
@@ -159,9 +189,9 @@ def contact(request):
             budget=nlp_data.get('budget'), 
             budget_inr_value=extract_smart_budget(details), 
             timeline=nlp_data.get('timeline'),
-            lead_score=nlp_data.get('lead_score', 0),
+            lead_score=base_lead_score,
             project_details=details,
-            priority=nlp_data.get('priority', 'Medium'),
+            priority=final_priority,
             
             # New Features
             is_returning=is_returning,
@@ -181,18 +211,21 @@ def dashboard(request):
     from datetime import timedelta
     from django.db.models import Sum, Avg
     
+    # RBAC Filtering
+    base_qs = Lead.get_role_restricted_queryset(request.user)
+    
     # Lead Distribution
-    lead_stats = Lead.objects.values('service').annotate(count=Count('id'))
-    priority_stats = Lead.objects.values('priority').annotate(count=Count('id'))
+    lead_stats = base_qs.values('service').annotate(count=Count('id'))
+    priority_stats = base_qs.values('priority').annotate(count=Count('id'))
     
     # KPI Calculations
-    total_leads = Lead.objects.count()
+    total_leads = base_qs.count()
     
     last_24h = timezone.now() - timedelta(days=1)
-    hot_leads_count = Lead.objects.filter(created_at__gte=last_24h).count()
+    hot_leads_count = base_qs.filter(created_at__gte=last_24h).count()
     
-    total_value = Lead.objects.aggregate(Sum('budget_inr_value'))['budget_inr_value__sum'] or 0
-    avg_conversion = Lead.objects.aggregate(Avg('conversion_probability'))['conversion_probability__avg'] or 0
+    total_value = base_qs.aggregate(Sum('budget_inr_value'))['budget_inr_value__sum'] or 0
+    avg_conversion = base_qs.aggregate(Avg('conversion_probability'))['conversion_probability__avg'] or 0
     
     # Pre-process stats for template to avoid |default issues
     lead_stats_list = list(lead_stats)
@@ -217,6 +250,13 @@ def dashboard(request):
         'avg_conversion': round(avg_conversion, 1)
     }
     return render(request, 'leads/dashboard.html', context)
+    
+
+@role_required
+def lead_ranking(request):
+    """View to list leads ranked by their lead score."""
+    leads = Lead.get_role_restricted_queryset(request.user).order_by('-lead_score')
+    return render(request, 'leads/lead_ranking.html', {'leads': leads})
 
 
 def feedback(request):
@@ -238,7 +278,7 @@ def feedback(request):
 
 @role_required
 def kanban_board(request):
-    leads = Lead.objects.all()
+    leads = Lead.get_role_restricted_queryset(request.user)
     columns = {
         'New': leads.filter(status='New'),
         'Contacted': leads.filter(status='Contacted'),
@@ -256,8 +296,17 @@ def update_lead_status(request):
         new_status = request.POST.get('status')
         try:
             lead = Lead.objects.get(id=lead_id)
+            old_status = lead.status
             lead.status = new_status
             lead.save()
+            
+            # Record the manual status change with actor
+            LeadActivity.objects.create(
+                lead=lead,
+                changed_by=request.user,
+                action_type='status_change',
+                action=f"Status changed from {old_status} to {new_status}"
+            )
             return JsonResponse({'success': True})
         except Lead.DoesNotExist:
             return JsonResponse({'success': False, 'message': 'Lead not found'})
@@ -283,7 +332,8 @@ class LeadListView(ListView):
     context_object_name = 'leads'
 
     def get_queryset(self):
-        queryset = Lead.objects.all().prefetch_related('feedback_set').order_by('-created_at')
+        queryset = Lead.get_role_restricted_queryset(self.request.user)
+        queryset = queryset.prefetch_related('feedback_set').order_by('-created_at')
         
         # Filtering
         status_filter = self.request.GET.get('status')
@@ -315,8 +365,84 @@ class LeadDetailView(DetailView):
     template_name = 'leads/lead_detail.html'
     context_object_name = 'lead'
 
+    def get_queryset(self):
+        return Lead.get_role_restricted_queryset(self.request.user)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['feedbacks'] = self.object.feedback_set.all().order_by('-created_at')
         context['activities'] = self.object.activities.all().order_by('-timestamp')
+        
+        # Add assignable users if the current user is a Sales Manager
+        group_names = [g.name.lower() for g in self.request.user.groups.all()]
+        if 'sales managers' in group_names:
+            from django.contrib.auth.models import User
+            context['assignable_users'] = User.objects.filter(
+                groups__name__in=['Sales Executives', 'Senior Sales Executives']
+            ).distinct()
+            context['is_manager'] = True
         return context
+
+@login_required
+@csrf_exempt
+def assign_lead(request, lead_id):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        group_names = [g.name.lower() for g in request.user.groups.all()]
+        
+        # Only Managers can assign
+        if 'sales managers' not in group_names:
+            return JsonResponse({'success': False, 'message': 'Permission denied'})
+            
+        try:
+            lead = Lead.objects.get(id=lead_id)
+            from django.contrib.auth.models import User
+            new_assignee = User.objects.get(id=user_id)
+            
+            old_assignee_name = lead.assigned_user.username if lead.assigned_user else "None"
+            lead.assigned_user = new_assignee
+            lead.save()
+            
+            # Record the manual assignment
+            LeadActivity.objects.create(
+                lead=lead,
+                changed_by=request.user,
+                action_type='assignment_change',
+                action=f"Manual Assignment: Transferred from {old_assignee_name} to {new_assignee.username}"
+            )
+            
+            return JsonResponse({'success': True})
+        except (Lead.DoesNotExist, User.DoesNotExist):
+            return JsonResponse({'success': False, 'message': 'Lead or User not found'})
+            
+    return JsonResponse({'success': False, 'message': 'Invalid request'})
+
+@role_required
+def export_leads_csv(request):
+    """
+    Exports all leads to a CSV file.
+    """
+    import csv
+    from django.http import HttpResponse
+    
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="leads_export_{datetime.now().strftime("%Y%m%d_%H%M%S")}.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow([
+        'ID', 'First Name', 'Last Name', 'Work Email', 'Company Name', 
+        'Country', 'Interest', 'Status', 'Budget (INR)', 'Lead Score', 
+        'Conversion Prob (%)', 'Priority', 'Created At'
+    ])
+    
+    leads = Lead.get_role_restricted_queryset(request.user)
+    for lead in leads:
+        writer.writerow([
+            lead.id, lead.first_name, lead.last_name, lead.work_email, lead.company_name,
+            lead.country, lead.interest, lead.status,
+            lead.budget_inr_value, lead.lead_score, lead.conversion_probability,
+            lead.priority, lead.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        ])
+        
+    return response

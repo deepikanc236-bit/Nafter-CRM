@@ -1,0 +1,340 @@
+/* =========================================
+   1. FORCE THE ENTIRE SIDEBAR EMERALD GREEN
+   ========================================= */
+body:not(.login-page):not(.logout-page):not(.logged-out) .main-sidebar,
+body:not(.login-page):not(.logout-page):not(.logged-out) aside.main-sidebar,
+body:not(.login-page):not(.logout-page):not(.logged-out) .sidebar-dark-success,
+body:not(.login-page):not(.logout-page):not(.logged-out) .sidebar-dark-primary,
+body:not(.login-page):not(.logout-page):not(.logged-out) #header {
+    background-color: #0a7954 !important;
+    /* Bright emerald green */
+    position: fixed !important;
+    width: 250px !important;
+    height: 100vh !important;
+    z-index: 1000 !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Global Prevent Horizontal Scroll */
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+/* GLOBAL HIDE SIDEBAR/HEADER ON AUTH PAGES - NUCLEAR FIX */
+body.login-page .main-sidebar,
+body.logout-page .main-sidebar,
+body.logged-out .main-sidebar,
+body.login-page aside.main-sidebar,
+body.logout-page aside.main-sidebar,
+body.logged-out aside.main-sidebar,
+body.login-page #header,
+body.logout-page #header,
+body.logged-out #header,
+body.login-page .main-header,
+body.logout-page .main-header,
+body.logged-out .main-header,
+body.login-page .main-footer,
+body.logout-page .main-footer,
+body.logged-out .main-footer,
+body.login-page .content-header,
+body.login-page .breadcrumbs,
+body.login-page .brand-link,
+body.login-page .login-logo,
+body.login-page .logo-box,
+body.login-page #site-name,
+body.logout-page .brand-link,
+body.logout-page .login-logo,
+body.logout-page .logo-box,
+body.logout-page #site-name,
+body.logged-out .brand-link,
+body.logged-out .login-logo,
+body.logged-out .logo-box,
+body.logged-out #site-name,
+body.login-page .control-sidebar,
+body.logout-page .control-sidebar,
+body.login-page [class*="sidebar"],
+body.logout-page [class*="sidebar"],
+body.logged-out [class*="sidebar"] {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    z-index: -9999 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+}
+
+/* Force Content Wrapper to take full width on Auth Pages */
+body.login-page .content-wrapper,
+body.logout-page .content-wrapper,
+body.logged-out .content-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+body.login-page .wrapper,
+body.logout-page .wrapper,
+body.logged-out .wrapper {
+    background: transparent !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Force Jazzmin top menu buttons to be emerald green on white bar */
+body:not(.login-page):not(.logout-page):not(.logged-out) .main-header {
+    background-color: #ffffff !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    margin-left: 250px !important;
+    width: calc(100% - 250px) !important;
+    position: sticky !important;
+    top: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    z-index: 1030 !important;
+    min-height: 57px !important;
+    transition: none !important;
+}
+
+/* Fix dashboard content width and remove gaps */
+body:not(.login-page):not(.logout-page):not(.logged-out) .content-wrapper {
+    margin-left: 250px !important;
+    width: calc(100% - 250px) !important;
+    min-height: 100vh !important;
+    background-color: #f7f9fa !important;
+    padding-bottom: 50px !important;
+    padding-right: 0 !important; /* Remove right gap */
+    transition: none !important;
+}
+
+body:not(.login-page):not(.logout-page):not(.logged-out) .content {
+    padding: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    overflow-x: hidden !important; /* Force prevent horizontal scroll at content level */
+}
+
+/* TARGETED DASHBOARD INDEX FIXES (DO NOT AFFECT OTHER PAGES) */
+body.dashboard .content-wrapper,
+body.dashboard .content,
+body.dashboard .container-fluid {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+body.dashboard .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+}
+
+body.dashboard .col-lg-9 {
+    flex: 0 0 72% !important;
+    max-width: 72% !important;
+}
+
+body.dashboard .col-lg-3 {
+    flex: 0 0 28% !important;
+    max-width: 28% !important;
+}
+
+body.dashboard .card {
+    margin-bottom: 20px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* =========================================
+   NEW PREMIUM CENTERED AUTH DESIGN
+   ========================================= */
+body.login-page, body.logout-page {
+    background: radial-gradient(circle at top right, #0d462f, #051a10) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+}
+
+.premium-auth-container {
+    width: 100% !important;
+    max-width: 500px !important; /* Adjusted slightly */
+    padding: 20px !important;
+    z-index: 1000 !important;
+}
+
+.premium-auth-card {
+    background: #ffffff !important;
+    padding: 50px 40px !important; /* Adjusted padding */
+    border-radius: 40px !important;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4) !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+.premium-auth-logo-wrapper {
+    margin-bottom: 30px !important;
+}
+
+.premium-auth-logo-wrapper svg {
+    margin-bottom: 20px !important;
+}
+
+.premium-auth-title {
+    color: #0d462f !important;
+    font-size: 2.8rem !important; /* Slightly smaller for better fit */
+    font-weight: 800 !important;
+    margin-bottom: 5px !important;
+    letter-spacing: -1.5px !important;
+}
+
+.premium-auth-subtitle {
+    color: #64748b !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 35px !important;
+}
+
+.premium-auth-card h2 {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    margin-bottom: 30px !important;
+    text-align: left !important;
+}
+
+.premium-auth-card .form-group {
+    text-align: left !important;
+    margin-bottom: 25px !important;
+}
+
+.premium-auth-card label {
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: #475569 !important;
+    margin-bottom: 10px !important;
+    display: block !important;
+}
+
+.premium-auth-card .form-control {
+    width: 100% !important;
+    height: 60px !important;
+    background: #f8fafc !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+    padding: 0 20px !important;
+    font-size: 1rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.premium-auth-card .form-control:focus {
+    background: #ffffff !important;
+    border-color: #0d462f !important;
+    box-shadow: 0 4px 15px rgba(13, 70, 47, 0.05) !important;
+    outline: none !important;
+}
+
+.premium-auth-card .btn-premium {
+    width: 100% !important;
+    height: 60px !important;
+    background: #0d462f !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 50px !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    margin-top: 10px !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+.premium-auth-card .btn-premium:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 30px rgba(13, 70, 47, 0.3) !important;
+    background: #0a3d28 !important;
+}
+
+/* Dashbord and Card Spacing Fixes */
+.card, .info-box, .small-box, .card-body {
+    margin-bottom: 20px !important;
+    width: 100% !important;
+}
+
+.row {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+.col-md-3, .col-md-4, .col-md-6, .col-md-8, .col-md-9, .col-md-12 {
+    padding: 5px !important; /* Reduced from 10px */
+}
+
+/* Specifically shrink the dashboard boxes to prevent overflow */
+.dashboard .card {
+    max-width: 100% !important;
+}
+
+#content-main .row {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+/* Force Table Width & Scroll Handling */
+.table-responsive {
+    width: 100% !important;
+    overflow-x: auto !important;
+    border: none !important;
+    margin: 0 !important;
+}
+
+#content-main, #changelist {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Force Table Width & Scroll Handling */
+.table-responsive {
+    width: 100% !important;
+    overflow-x: auto !important;
+    border: none !important;
+}
+
+table#result_list, .table {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .premium-auth-card {
+        padding: 40px 25px !important;
+        border-radius: 25px !important;
+    }
+    
+    .premium-auth-title {
+        font-size: 2.2rem !important;
+    }
+}

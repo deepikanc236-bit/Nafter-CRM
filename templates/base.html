@@ -10,23 +10,24 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="manifest" href="{% static 'manifest.json' %}">
-    <meta name="theme-color" content="#115e3b">
+    <meta name="theme-color" content="#10b981">
     <link rel="apple-touch-icon" href="{% static 'images/logo.png' %}">
 
     <style>
         :root {
-            --sidebar-width: 240px;
-            --primary-dark: #115e3b;
-            --primary-light: #d1fae5;
-            --secondary: #0d1e21;
-            --bg-body: #f1f4f9;
-            --white: #ffffff;
-            --text-heading: #0f172a;
-            --text-body: #475569;
-            --text-muted: #94a3b8;
-            --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 4px 10px -2px rgba(0, 0, 0, 0.02);
-            --card-shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+            --sidebar-width: 260px;
+            --bg-dark: #f8fafc;
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --secondary: #34d399;
+            --accent: #6ee7b7;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
         }
 
         * {
@@ -37,53 +38,55 @@
         }
 
         body {
-            background-color: var(--bg-body);
-            color: var(--text-body);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             display: flex;
             min-height: 100vh;
             overflow-x: hidden;
+            background-image: none;
         }
 
         /* Sidebar Styles */
         .sidebar {
             width: var(--sidebar-width);
-            background-color: var(--white);
-            border-right: 1px solid #f1f5f9;
-            padding: 24px 20px;
+            background: #ffffff;
+            border-right: 1px solid var(--glass-border);
+            padding: 30px 20px;
             height: 100vh;
             position: fixed;
             display: flex;
             flex-direction: column;
-            z-index: 100;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 40px;
+            gap: 15px;
+            margin-bottom: 50px;
             padding-left: 10px;
             text-decoration: none;
         }
 
         .logo-box {
-            width: 42px;
-            height: 42px;
-            background: linear-gradient(135deg, var(--primary-dark), #1a7a4f);
-            border-radius: 12px;
+            width: 45px;
+            height: 45px;
+            background: var(--primary-gradient);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 800;
-            font-size: 1.4rem;
-            box-shadow: 0 8px 16px rgba(17, 94, 59, 0.2);
+            font-size: 1.5rem;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
         }
 
         .logo-text {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            color: var(--text-heading);
+            color: var(--text-main);
             letter-spacing: -0.5px;
         }
 
@@ -91,101 +94,167 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 12px 18px;
+            gap: 15px;
+            padding: 14px 20px;
             text-decoration: none;
-            color: var(--text-body);
-            border-radius: 16px;
+            color: var(--text-muted);
+            border-radius: 18px;
             font-weight: 600;
             font-size: 0.95rem;
             transition: var(--transition);
+            border: 1px solid transparent;
         }
 
         .nav-link i {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             width: 24px;
             text-align: center;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-link:hover {
-            background-color: var(--primary-light);
-            color: var(--primary-dark);
-            transform: scale(1.02);
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--text-main);
+            border-color: rgba(16, 185, 129, 0.2);
+            transform: translateX(5px);
         }
 
         .nav-link.active {
-            background-color: var(--primary-dark);
-            color: var(--white);
-            box-shadow: 0 10px 20px -5px rgba(17, 94, 59, 0.3);
+            background: var(--primary-gradient);
+            color: rgb(121, 233, 136);
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+        }
+
+        .nav-link.active i {
+            -webkit-text-fill-color: rgb(77, 161, 119);
+            background: none;
         }
 
         .sidebar-footer {
             margin-top: auto;
-            padding-top: 24px;
-            border-top: 1px solid #f1f5f9;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-admin {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 14px;
+            background: rgba(16, 185, 129, 0.05);
+            color: var(--primary);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .btn-admin:hover {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
         }
 
         .btn-logout {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             width: 100%;
-            padding: 14px;
-            background-color: #fff1f2;
-            color: #e11d48;
-            border: none;
-            border-radius: 16px;
+            padding: 16px;
+            background: rgba(225, 29, 72, 0.1);
+            color: #fb7185;
+            border: 1px solid rgba(225, 29, 72, 0.2);
+            border-radius: 18px;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
         }
 
         .btn-logout:hover {
-            background-color: #ffe4e6;
-            transform: translateY(-2px);
+            background: rgba(225, 29, 72, 0.2);
+            transform: scale(0.98);
         }
 
         /* Main Content */
         .main-container {
             margin-left: var(--sidebar-width);
             flex: 1;
-            padding: 32px 40px;
+            padding: 40px 60px;
             min-height: 100vh;
             transition: var(--transition);
+            position: relative;
         }
 
         .header-section {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: 40px;
         }
 
         .mobile-toggle {
             display: none;
-            background: none;
-            border: none;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
             font-size: 1.5rem;
             color: white;
+            padding: 10px;
+            border-radius: 12px;
             cursor: pointer;
             z-index: 1001;
         }
 
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            background: var(--glass-bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 8px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -1px;
+            /* gradient removed for better contrast */
+        }
+
         /* Common Card Styles */
         .card {
-            background: var(--white);
-            border-radius: 24px;
-            padding: 24px;
+            background: var(--glass-bg);
+            border-radius: 28px;
+            padding: 30px;
             box-shadow: var(--card-shadow);
-            border: 1px solid rgba(0, 0, 0, 0.02);
+            border: 1px solid var(--glass-border);
             transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            border-color: rgba(79, 70, 229, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
         }
 
         /* Responsive Styles */
@@ -195,20 +264,19 @@
             }
 
             .sidebar {
-                left: -280px;
-                width: 280px;
-                transition: transform 0.3s ease;
-                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+                left: -300px;
+                width: 300px;
+                transition: transform 0.4s ease;
             }
 
             .sidebar.active {
                 left: 0;
-                transform: translateX(280px);
+                transform: translateX(300px);
             }
 
             .main-container {
                 margin-left: 0;
-                padding: 24px 20px;
+                padding: 30px 20px;
             }
 
             .mobile-toggle {
@@ -223,11 +291,11 @@
 
         @media (max-width: 640px) {
             .page-title {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
 
             .header-section {
-                margin-bottom: 24px;
+                margin-bottom: 30px;
             }
         }
     </style>
@@ -247,12 +315,16 @@
                 <i class="fa-solid fa-house"></i> Dashboard
             </a>
             <a href="{% url 'lead_list' %}"
-                class="nav-link {% if 'lead' in request.resolver_match.url_name %}active{% endif %}">
+                class="nav-link {% if request.resolver_match.url_name == 'lead_list' or request.resolver_match.url_name == 'lead_detail' %}active{% endif %}">
                 <i class="fa-solid fa-users"></i> Leads
             </a>
             <a href="{% url 'kanban' %}"
                 class="nav-link {% if request.resolver_match.url_name == 'kanban' %}active{% endif %}">
                 <i class="fa-solid fa-chart-column"></i> Kanban
+            </a>
+            <a href="{% url 'lead_ranking' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'lead_ranking' %}active{% endif %}">
+                <i class="fa-solid fa-trophy"></i> Ranking
             </a>
             <a href="{% url 'feedback_dashboard' %}"
                 class="nav-link {% if request.resolver_match.url_name == 'feedback_dashboard' %}active{% endif %}">
@@ -261,9 +333,9 @@
         </nav>
 
         <div class="sidebar-footer">
-            {% if request.user.is_superuser %}
-            <a href="/admin/" class="nav-link" style="margin-bottom: 12px; color: var(--text-muted);">
-                <i class="fa-solid fa-arrow-left"></i> Admin Panel
+            {% if request.user.is_staff %}
+            <a href="/admin/" class="btn-admin">
+                <i class="fa-solid fa-gauge-high"></i> Admin Panel
             </a>
             {% endif %}
 
@@ -283,11 +355,10 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div>
-                    <div class="breadcrumb" style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">
+                    <div class="breadcrumb">
                         {% block breadcrumb %}Overview{% endblock %}
                     </div>
-                    <h1 class="page-title"
-                        style="font-size: 1.75rem; font-weight: 800; color: var(--text-heading); letter-spacing: -0.5px;">
+                    <h1 class="page-title">
                         {% block page_title %}Dashboard{% endblock %}</h1>
                 </div>
             </div>

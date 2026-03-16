@@ -10,7 +10,7 @@
     <title>Nafter Web Technologies | Digital Marketing & Web Development</title>
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.3">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{% static 'images/favicon_new.png' %}">
@@ -59,11 +59,14 @@
             <li>
                 <a href="{% url 'services' %}">Services <i class="fas fa-chevron-down"></i></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{% url 'services' %}#tech">Web Development</a></li>
-                    <li><a href="{% url 'services' %}#shopify">Shopify Expert</a></li>
-                    <li><a href="{% url 'services' %}#digital">Digital Marketing</a></li>
-                    <li><a href="{% url 'services' %}#seo">SEO Optimization</a></li>
-                    <li><a href="{% url 'services' %}#branding">Branding</a></li>
+                    <li><a href="{% url 'services' %}#consulting">AI Strategy & Consulting</a></li>
+                    <li><a href="{% url 'services' %}#genai">Generative AI Solutions</a></li>
+                    <li><a href="{% url 'services' %}#mlops">AI Engineering & MLOps</a></li>
+                    <li><a href="{% url 'services' %}#agents">Autonomous Agents</a></li>
+                    <li><a href="{% url 'services' %}#automation">Workflows & Automation</a></li>
+                    <li><a href="{% url 'services' %}#drone">Autonomous Drone Solutions</a></li>
+                    <li><a href="{% url 'services' %}#fullstack">Full Stack Development</a></li>
+                    <li><a href="{% url 'services' %}#mkt">AI Digital Marketing</a></li>
                 </ul>
             </li>
             <li>
@@ -101,10 +104,8 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <h1>Your Trusted Partner for<br>Shopify, Digital Marketing <br>& Google Business Solutions</h1>
-        <p>Discover how businesses grow online with Nafter – your trusted partner for website development, Shopify
-            solutions, SEO services, and digital marketing in Vellore.</p>
+        <h1>Architecting the Future with<br>Autonomous AI & Intelligent<br>Digital Solutions</h1>
+        <p>Empower your enterprise with Nafter – your trusted partner for AI Strategy, Autonomous Agents, Generative AI Solutions, and intelligent digital transformation.</p>
         <div style="margin-top: 2rem;">
             <a href="{% url 'contact' %}" class="btn-glow">Get Started</a>
         </div>
@@ -186,39 +187,39 @@
         <div class="grid-container">
             <!-- Service 1 -->
             <div class="service-card">
-                <i class="fas fa-chart-line" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                <h3>Performance Marketing</h3>
-                <p>Data Driven Strategies, Measurable Results. Maximize your ROAS with targeted campaigns.</p>
+                <i class="fas fa-brain" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <h3>AI Strategy & Consulting</h3>
+                <p>Developing strategic AI roadmaps and advisory for seamless enterprise-wide AI integration.</p>
             </div>
             <!-- Service 2 -->
             <div class="service-card">
-                <i class="fas fa-share-alt" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
-                <h3>Social Media Growth</h3>
-                <p>Build brand awareness & engage your audience effectively on platforms that matter.</p>
+                <i class="fas fa-robot" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                <h3>Autonomous Agents</h3>
+                <p>Building self-operating AI systems that handle complex workflows with high efficiency.</p>
             </div>
             <!-- Service 3 -->
             <div class="service-card">
-                <i class="fas fa-pen-nib" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
-                <h3>Content Marketing</h3>
-                <p>Compelling content that drives engagement and builds authority for your brand.</p>
+                <i class="fas fa-magic" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Generative AI Solutions</h3>
+                <p>Custom LLMs and creative AI solutions tailored for content, code, and customer interaction.</p>
             </div>
             <!-- Service 4 -->
             <div class="service-card">
-                <i class="fas fa-ad" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                <h3>PPC & Paid Ads</h3>
-                <p>Strategic paid advertising to capture immediate traffic and leads.</p>
+                <i class="fas fa-cogs" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <h3>Workflows & Automation</h3>
+                <p>Intelligent process automation to eliminate bottlenecks and optimize operational scale.</p>
             </div>
             <!-- Service 5 -->
             <div class="service-card">
-                <i class="fas fa-bullseye" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
-                <h3>Brand Strategy</h3>
-                <p>Defining your unique identity and positioning for long-term success.</p>
+                <i class="fas fa-microchip" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                <h3>AI Engineering & MLOps</h3>
+                <p>Scalable deployment and management of machine learning models for production environments.</p>
             </div>
             <!-- Service 6 -->
             <div class="service-card">
-                <i class="fas fa-funnel-dollar" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
-                <h3>Conversion Optimization</h3>
-                <p>Turning visitors into customers through optimized user journeys.</p>
+                <i class="fas fa-bullhorn" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>AI Digital Marketing</h3>
+                <p>Precision marketing strategies powered by AI for hyper-personalized customer engagement.</p>
             </div>
         </div>
     </section>
@@ -291,12 +292,12 @@
             <div class="footer-col" style="text-align: center;">
                 <h4>Our Services</h4>
                 <ul class="footer-links-arrow">
-                    <li><a href="{% url 'services' %}">Social Media Marketing</a></li>
-                    <li><a href="{% url 'services' %}">SEO Optimization</a></li>
-                    <li><a href="{% url 'services' %}">PPC Advertising</a></li>
-                    <li><a href="{% url 'services' %}">Content Marketing</a></li>
-                    <li><a href="{% url 'services' %}">Branding Strategy</a></li>
-                    <li><a href="{% url 'services' %}">Email Marketing</a></li>
+                    <li><a href="{% url 'services' %}#mkt">AI Digital Marketing</a></li>
+                    <li><a href="{% url 'services' %}#consulting">AI Strategy & Consulting</a></li>
+                    <li><a href="{% url 'services' %}#genai">Generative AI Solutions</a></li>
+                    <li><a href="{% url 'services' %}#mlops">AI Engineering & MLOps</a></li>
+                    <li><a href="{% url 'services' %}#agents">Autonomous Agents</a></li>
+                    <li><a href="{% url 'services' %}#automation">Workflows & Automation</a></li>
                 </ul>
             </div>
 
@@ -328,8 +329,8 @@
                 Reserved.</p>
         </div>
     </footer>
-    <script src="{% static 'js/script.js' %}"></script>
-    <script src="{% static 'js/particles.js' %}"></script>
+    <script src="{% static 'js/script.js' %}?v=1.3"></script>
+    <script src="{% static 'js/particles.js' %}?v=1.3"></script>
     <!-- WhatsApp Integration -->
     <a href="https://wa.me/918015795921" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>

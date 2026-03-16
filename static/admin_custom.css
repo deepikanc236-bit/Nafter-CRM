@@ -1,371 +1,741 @@
-/* =========================================
-   1. FORCE THE ENTIRE SIDEBAR GREEN
-   ========================================= */
-.main-sidebar,
-aside.main-sidebar,
-.sidebar-dark-success,
-.sidebar-dark-primary {
-    background-color: #115e3b !important;
+/* --- CUSTOM ADMIN DASHBOARD STYLES --- */
+
+:root {
+    --sidebar-width: 250px;
+    --primary-green: #115e3b;
+    --bg-body: #f4f7f6;
+    --white: #ffffff;
+    --text-heading: #1f2937;
+    --text-body: #4b5563;
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --border-radius: 20px;
+    --transition: all 0.3s ease;
 }
 
-.brand-link {
-    background-color: #0d4a2e !important;
-    color: white !important;
-    border-bottom: 1px solid #0a3d25 !important;
-    padding: 15px !important;
+/* 1. Layout Transformation (Fixed Sidebar & Fluid Content) */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-body) !important;
+    min-height: 100vh;
+    overflow-x: hidden !important; /* Stop the scrolling */
 }
 
-/* Force Jazzmin top menu buttons to be white for better visibility */
-.main-header.navbar .navbar-nav .nav-link {
-    color: white !important;
+#container {
+    display: flex !important;
+    flex-direction: row !important;
+    min-height: 100vh !important;
+    width: 100% !important;
 }
 
-.main-header.navbar .navbar-nav .nav-link:hover {
-    color: #f1f5f9 !important;
+/* Sidebar Styling (Solid Green per target) */
+#header {
+    width: var(--sidebar-width) !important;
+    height: 100vh !important;
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    background: var(--primary-green) !important;
+    border-right: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 24px 16px !important;
+    z-index: 1000 !important;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1) !important;
+    box-sizing: border-box !important;
 }
 
-.sidebar a {
-    color: #d1fae5 !important;
-    font-size: 1.05rem !important;
+/* Main Content Area (Fluid & Wide) */
+#main, .content-wrapper {
+    margin-left: var(--sidebar-width) !important;
+    width: calc(100% - var(--sidebar-width)) !important;
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+    box-sizing: border-box !important;
+    background: var(--bg-body) !important;
+    padding-left: 0 !important; /* Defeat any inner paddings */
 }
 
-.sidebar a:hover {
-    color: white !important;
-    background-color: rgba(255, 255, 255, 0.1) !important;
+#content {
+    padding: 25px !important;
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important; /* Prevent double margins */
 }
 
-/* =========================================
-   2. FIX THE RED ARROW DEAD SPACE
-   ========================================= */
-#content-related {
-    display: none !important;
-    /* Hide Recent Actions */
-}
-
-/* Force the main content to expand into the empty space */
-.col-md-9,
-.col-lg-9,
 #content-main {
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
+    width: 100% !important;
+    max-width: none !important;
+    flex: 1 !important;
+    margin-left: 0 !important; /* Prevent double margins */
 }
 
-/* Stretch the whole container wider */
-.content .container,
-.content .container-fluid {
-    max-width: 98% !important;
-    padding-top: 20px !important;
-}
-
-body {
-    overflow-x: hidden !important;
-    background-color: #f1f5f9 !important;
-    /* Cleaner background */
-}
-
-/* =========================================
-   3. ENLARGE THE BOXES & MAKE THEM PREMIUM
-   ========================================= */
-.card {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
-    border-radius: 12px !important;
+/* 2. Card Aesthetics (Full Width) */
+.module, .change-form, .changelist-form-container, form#changelist-form {
+    background: var(--white) !important;
     border: none !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: var(--card-shadow) !important;
+    padding: 0 !important;
     margin-bottom: 30px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important; /* Allow internal scrolling if table is huge, but card itself is wide */
 }
 
-.card-header {
-    background-color: #ffffff !important;
-    border-bottom: 2px solid #f1f5f9 !important;
-    padding: 20px 24px !important;
-    border-radius: 12px 12px 0 0 !important;
-}
-
-.card-title {
-    font-size: 1.4rem !important;
-    font-weight: 800 !important;
-    color: #0f172a !important;
-}
-
-/* Enlarge the rows inside the boxes */
-.table td,
-.table th {
-    padding: 20px 24px !important;
-    font-size: 1.1rem !important;
-    vertical-align: middle !important;
-}
-
-/* Thicker, more professional buttons */
-.btn {
-    padding: 10px 20px !important;
+/* Header Background Color */
+.module caption, .inline-group h2, #changelist-filter h2 {
+    background-color: var(--primary-green) !important;
+    color: #ffffff !important;
+    padding: 15px 24px !important;
     font-weight: 700 !important;
-    font-size: 0.95rem !important;
-    letter-spacing: -1px !important;
+    font-size: 16px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+    margin: 0 !important;
+}
+
+.module table, .module .flex-container {
+    padding: 20px !important;
+}
+
+/* Branding & Logo */
+#branding h1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.logo-box {
+    background: white;
+    color: var(--primary-green);
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+
+.logo-text {
+    color: white !important;
+    font-weight: 800 !important;
+    font-size: 1.35rem !important;
+    letter-spacing: -0.5px;
+}
+
+/* 3. Broad & Wide Tables (Match target screenshot) */
+#changelist, 
+#changelist-form {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+}
+
+/* Unified Filters & Side-by-Side Layout */
+.wide-changelist-layout {
+    display: flex !important;
+    flex-direction: row !important; /* Force side-by-side */
+    gap: 30px !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.results-container {
+    flex: 1 !important;
+    min-width: 0 !important; /* Prevent overflow push */
+}
+
+.filter-sidebar-card {
+    flex: 0 0 240px !important; /* Narrower sidebar for more table room */
+    width: 240px !important;
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    box-shadow: var(--card-shadow) !important;
+    overflow: hidden !important;
+    order: 2 !important; /* Lock to the right */
+}
+
+#changelist-filter h2 {
+    background-color: var(--primary-green) !important;
+    color: #ffffff !important;
+    padding: 15px 24px !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin: 0 !important;
+}
+
+#changelist-filter ul {
+    margin: 0 !important;
+    padding: 15px !important;
+    list-style: none !important;
+}
+
+#changelist-filter li {
+    margin-bottom: 8px !important;
+}
+
+#changelist-filter a {
+    color: #64748b !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    font-size: 0.9rem !important;
+    transition: var(--transition) !important;
+}
+
+#changelist-filter a:hover, #changelist-filter .selected a {
+    color: var(--primary-green) !important;
+    font-weight: 700 !important;
+}
+
+/* Breadcrumbs & Navigation */
+/* Breadcrumbs & Navigation */
+.breadcrumbs {
+    background: transparent !important;
+    padding: 0 0 25px 0 !important;
+    font-size: 14px !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+}
+
+.breadcrumbs a {
+    color: var(--primary-green) !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    transition: var(--transition) !important;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: none !important;
+    opacity: 0.8 !important;
+}
+
+/* Global Sticky Top Header */
+.top-header-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(244, 247, 246, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Aligned to left */
+    gap: 20px;
+    width: 100%;
+}
+
+.top-header-bar h1 {
+    margin: 0 !important;
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    color: var(--primary-green) !important;
+}
+
+.back-dashboard-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    color: var(--primary-green) !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+    padding: 10px 20px !important;
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+    transition: var(--transition) !important;
+    border: 1px solid rgba(17, 94, 59, 0.1) !important;
+}
+
+.back-dashboard-btn:hover {
+    transform: translateX(-5px) !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+    background: var(--primary-green) !important;
+    color: #ffffff !important;
+}
+
+.results {
+    width: 100% !important;
+    overflow-x: auto !important; /* Enable horizontal scroll for broad tables */
+    background: var(--white) !important;
+    border-radius: 20px !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+}
+
+.results table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+}
+
+.results thead th {
+    background: transparent !important;
+    color: var(--primary-green) !important; /* Green text headers per target */
+    padding: 12px 15px !important; /* Reduced padding */
+    text-transform: uppercase !important;
+    font-size: 0.8rem !important; /* Slightly smaller headers */
+    font-weight: 800 !important;
+    border-bottom: 2px solid #f1f5f9 !important;
+    text-align: left !important;
+}
+
+.results tr {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+.results tr:nth-child(even) {
+    background-color: #f8fafc !important; /* Alternating row color */
+}
+
+.results td {
+    padding: 10px 12px !important; /* Tighter padding */
+    border-bottom: 1px solid #f1f5f9 !important;
+    color: #475569 !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    word-break: break-word !important; /* Allow long words to break if needed */
+}
+
+/* Ensure Search & Filter are also broad */
+#changelist-search {
+    width: 100% !important;
+    max-width: none !important;
+    margin-bottom: 20px !important;
+}
+
+#changelist-search input[type="text"] {
+    width: calc(100% - 150px) !important;
+    max-width: 800px !important;
+}
+
+
+
+#user-tools {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-top: 30px !important;
+}
+
+#user-tools a, .sidebar-nav a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    padding: 14px 20px !important;
+    border-radius: 12px !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    font-weight: 600 !important;
+    transition: var(--transition) !important;
+    font-size: 14px !important;
+}
+
+#user-tools a:hover, .sidebar-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+/* 4. Button Styling (Nafter Green Gradient) */
+.button, input[type=submit], .submit-row a.deletelink, .addlink, .changelink {
+    background: linear-gradient(135deg, #115e3b 0%, #1a8e59 100%) !important;
+    color: white !important;
+    border-radius: 50px !important;
+    padding: 12px 30px !important;
+    font-weight: 700 !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(17, 94, 59, 0.2) !important;
+    transition: var(--transition) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.button:hover, input[type=submit]:hover {
+    background: linear-gradient(135deg, #1a8e59 0%, #115e3b 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(17, 94, 59, 0.3) !important;
+}
+
+
+/* 5. Recent Actions Polish */
+.actionlist li {
+    padding: 10px 20px !important;
+    border-radius: 30px !important;
+    margin-bottom: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    padding-left: 45px !important;
+}
+
+.actionlist li::before {
+    position: absolute !important;
+    left: 15px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    font-size: 14px !important;
+}
+
+.actionlist .addlink {
+    background: linear-gradient(135deg, #115e3b 0%, #1a8e59 100%) !important;
+    color: white !important;
+}
+.actionlist .addlink::before { content: "\f067" !important; color: white !important; }
+
+.actionlist .changelink {
+    background: linear-gradient(135deg, #115e3b 0%, #1a8e59 100%) !important;
+    color: white !important;
+}
+.actionlist .changelink::before { content: "\f044" !important; color: white !important; }
+
+.actionlist .deletelink {
+    background: #fee2e2 !important;
+    color: #ef4444 !important;
+}
+.actionlist .deletelink::before { content: "\f00d" !important; color: #ef4444 !important; }
+.actionlist .deletelink a { color: #ef4444 !important; }
+
+.actionlist li a {
+    color: white !important;
+    font-weight: 700 !important;
 }
 
 /* =========================================
-   4. FORMAL & PLEASANT FULL-WIDTH LAYOUT
+   6. ADMIN FORMS & CHANGE PAGES
    ========================================= */
 
-/* 1. Force the page to use the full width of your monitor */
-.content-wrapper,
-.content,
-.container-fluid {
+.change-form #content-main,
+#content-main > form {
+    display: block !important;
     width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    max-width: none !important;
 }
 
-/* 2. Stretch the White Box (Card) to 100% so it's not small */
-#content-main,
-.card,
-#changelist {
+.change-form form, 
+.change-form form > div {
     width: 100% !important;
-    max-width: 100% !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    max-width: none !important;
+    margin: 0 !important;
+    display: block !important;
+    box-sizing: border-box !important;
 }
 
-/* 3. FIX THE OVERLAP: Space out the columns and stretch the table */
-table#result_list {
+form fieldset.module {
     width: 100% !important;
-    table-layout: auto !important;
-    /* Let columns breathe based on content */
-}
-
-/* 4. SHRINK HEIGHT & ADD BREATHING ROOM */
-table#result_list th,
-table#result_list td {
-    white-space: nowrap !important;
-    /* Prevent text from stacking vertically */
-    padding: 10px 20px !important;
-    /* Reduced height (10px) but wider sides (20px) */
-    vertical-align: middle !important;
-    font-size: 0.95rem !important;
-    border-bottom: 1px solid #eee !important;
-}
-
-/* 5. Formal Header Styling */
-table#result_list thead th {
-    background-color: #f8fafc !important;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: #475569 !important;
-}
-
-/* 6. Clean up the search and filter area to be flush left */
-#changelist-form {
+    max-width: 100% !important; /* Force to take full space without breaking bounds */
+    min-width: 600px !important; /* Prevent collapsing to oval columns */
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    padding: 30px 40px !important; 
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
     display: block !important;
 }
 
-/* =========================================
-   NAFTER AI PREMIUM SPLIT-SCREEN LOGIN
-   ========================================= */
+.form-row {
+    padding: 15px 0 !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    display: flex !important;
+    flex-wrap: wrap !important; /* Allow wrapping */
+    align-items: center !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    float: none !important;
+    margin: 0 !important;
+}
 
-/* 1. Reset Login Page to standard centered layout */
-body.login-page {
-    background-color: #f1f5f9 !important;
-    height: 100vh !important;
+.form-row:last-child {
+    border-bottom: none !important;
+}
+
+/* Django wraps rows in a div, unwrap it gracefully */
+.form-row > div {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 15px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Labels */
+.form-row label {
+    flex: 0 0 160px !important; 
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    font-size: 0.9rem !important;
+    margin: 0 !important;
+    text-align: left !important;
+}
+
+/* Inputs and Widgets */
+.form-row input:not([type="checkbox"]):not([type="radio"]), 
+.form-row select, 
+.form-row textarea,
+.form-row .related-widget-wrapper {
+    flex: 1 1 300px !important; /* Take up remaining space robustly */
+    width: 100% !important;
+    max-width: 800px !important; /* Cap width for aesthetics */
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Re-style input boxes explicitly */
+.form-row input:not([type="checkbox"]):not([type="radio"]), 
+.form-row select, 
+.form-row textarea {
+    padding: 12px 14px !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    background: #f8fafc !important;
+    font-size: 0.9rem !important;
+    transition: var(--transition) !important;
+    box-sizing: border-box !important;
+    min-height: 45px !important; /* Prevent oval squishing */
+}
+
+.form-row .help,
+.form-row .helptext {
+    flex: 1 1 100% !important;
+    margin-left: 175px !important;
+    color: #64748b !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+.form-row ul {
+    flex: 1 1 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    list-style: none !important;
 }
 
-.login-auth-container {
+.form-row ul li {
+    margin-bottom: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    color: #1e293b !important;
+    font-weight: 600 !important;
+}
+
+.form-row input:focus {
+    border-color: var(--primary-green) !important;
+    background: #ffffff !important;
+    outline: none !important;
+}
+
+/* Selector Widget (Permissions, etc.) */
+.selector {
     width: 100% !important;
-    max-width: 420px !important;
-    margin: auto !important;
+    display: flex !important;
+    gap: 20px !important;
+    max-width: 1000px !important;
+    align-items: center !important;
+}
+
+.selector-available, .selector-chosen {
+    flex: 1 !important;
+    min-width: 250px !important;
+}
+
+.selector select {
+    width: 100% !important;
+    height: 300px !important;
+    border-radius: 12px !important;
+    border: 2px solid #e2e8f0 !important;
+}
+
+.selector-filter {
+    padding: 10px !important;
+    background: #f8fafc !important;
+    border-radius: 12px 12px 0 0 !important;
+}
+
+.selector .selector-chosen h2, .selector .selector-available h2 {
+    background: var(--primary-green) !important;
+    color: white !important;
+    border-radius: 12px 12px 0 0 !important;
+    text-transform: uppercase !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 1px !important;
+}
+
+ul.selector-chooser {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.selector-chooser li a {
+    display: block !important;
+    width: 30px !important;
+    height: 30px !important;
+    background: #f1f5f9 !important;
+    border-radius: 8px !important;
+    text-align: center !important;
+    line-height: 28px !important;
+    color: var(--primary-green) !important;
+    font-weight: 800 !important;
+}
+
+/* Submit Row */
+.submit-row {
     background: transparent !important;
+    padding: 40px 0 !important;
     display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    z-index: 100 !important;
-    box-shadow: none !important;
+    gap: 15px !important;
+    justify-content: flex-start !important;
+    border: none !important;
 }
 
-/* 2. Style the Login Box (Anti-Gravity Card) */
-.login-page .login-box {
-    width: 100% !important;
-    max-width: 420px !important;
+.submit-row input {
     margin: 0 !important;
 }
 
-.login-page .login-card-body {
-    border-radius: 24px !important;
-    padding: 40px !important;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08) !important;
-    border: 1px solid rgba(0, 0, 0, 0.05) !important;
-    background: #ffffff !important;
-}
-
-/* 3. The Green "Log In" Button & Interaction States */
-.login-page .btn-primary,
-.login-page .btn-primary:hover,
-.login-page .btn-primary:focus,
-.login-page .btn-primary:active,
-.login-page .btn-primary:not(:disabled):not(.disabled):active {
-    background-color: #115e3b !important;
-    border-color: #115e3b !important;
-    border-radius: 50px !important;
-    padding: 14px !important;
+/* Logout Button */
+.logout-btn {
+    margin-top: auto;
+    background: #fee2e2 !important;
+    color: #ef4444 !important;
+    padding: 12px !important;
+    border-radius: 12px !important;
     font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 1px !important;
-    box-shadow: 0 8px 25px rgba(17, 94, 59, 0.2) !important;
-}
-
-/* 4. Input Field Styling - REMOVE BLUE */
-.login-page .form-control {
-    border-radius: 12px 0 0 12px !important;
-    background-color: #f8fafc !important;
-    border: 1.5px solid #e2e8f0 !important;
-    padding: 12px 18px !important;
-    height: 50px !important;
-    font-size: 15px !important;
-    color: #1e293b !important;
-}
-
-.login-page .form-control:focus {
-    border-color: #115e3b !important;
-    box-shadow: none !important;
-    /* Kill the blue glow */
-    background: #ffffff !important;
-}
-
-/* Autocomplete fix */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #f8fafc inset !important;
-    -webkit-text-fill-color: #1e293b !important;
-}
-
-/* Style the icon container next to inputs */
-.login-page .input-group-text {
-    border-radius: 0 12px 12px 0 !important;
-    background-color: #f1f5f9 !important;
-    border: 1.5px solid #e2e8f0 !important;
-    border-left: none !important;
-    color: #115e3b !important;
-    /* Green icons */
-}
-
-.login-page .input-group:focus-within .input-group-text {
-    border-color: #115e3b !important;
-    background-color: #ecfdf5 !important;
-}
-
-/* 5. Checkbox & Radio - REMOVE BLUE */
-.icheck-primary>input:first-child:checked+label::before,
-.icheck-primary>input:first-child:checked+input[type="hidden"]+label::before {
-    background-color: #115e3b !important;
-    border-color: #115e3b !important;
-}
-
-/* 6. Links - REMOVE BLUE */
-.login-page a {
-    color: #115e3b !important;
-    font-weight: 600 !important;
-    transition: var(--transition);
-}
-
-.login-page a:hover {
-    color: #064e3b !important;
-    text-decoration: underline !important;
-}
-
-/* 7. Centered Box for Logout/Password Success */
-.login-page .login-box .card-header {
-    background: transparent !important;
-    border: none !important;
     text-align: center !important;
-    padding-bottom: 10px !important;
+    border: none !important;
+    cursor: pointer;
+    width: 100%;
 }
 
-.login-page .login-box .card-header a {
-    color: #115e3b !important;
-    font-size: 2rem !important;
-    font-weight: 900 !important;
-    letter-spacing: -1px !important;
+
+
+/* 4. Remove Bloat & Fix Layout Jumps */
+#nav-sidebar, .toggle-nav-sidebar, #footer {
+    display: none !important;
 }
 
-/* =========================================
-   MOBILE LOGIN FIX (FOR NAFTER AI)
-   ========================================= */
-@media (max-width: 600px) {
-    .login-page .login-box {
-        width: 95% !important;
-        padding: 0 10px !important;
+/* Responsiveness */
+@media (max-width: 992px) {
+    #header {
+        transform: translateX(-100%);
+        transition: var(--transition);
     }
-
-    .login-card-body {
-        border-radius: 20px !important;
-        padding: 30px 20px !important;
-    }
-}
-
-/* =========================================
-   5. ADMIN PANEL MOBILE RESPONSIVENESS
-   ========================================= */
-
-/* Fix the content shift on tablet and mobile */
-@media (max-width: 991.98px) {
-
-    .app-main,
-    .main-header,
-    .main-footer,
-    .content-wrapper,
-    .main-header.navbar {
+    #main {
         margin-left: 0 !important;
         width: 100% !important;
-        left: 0 !important;
     }
-
-    .main-sidebar,
-    aside.main-sidebar {
-        transform: translateX(-250px) !important;
-        display: none !important;
-    }
-
-    .sidebar-open .main-sidebar,
-    .sidebar-open aside.main-sidebar {
-        transform: translateX(0) !important;
-        display: block !important;
-        z-index: 1050 !important;
+    .header-open #header {
+        transform: translateX(0);
     }
 }
 
-/* Table and Card refinements for mobile */
-@media (max-width: 768px) {
 
-    table#result_list th,
-    table#result_list td {
-        white-space: normal !important;
-        /* Allow wrapping on mobile */
-        padding: 12px 10px !important;
-        font-size: 0.85rem !important;
-    }
-
-    .card-header {
-        padding: 15px !important;
-    }
-
-    .card-title {
-        font-size: 1.1rem !important;
-    }
-
-    /* Hide less important columns on very small screens if needed */
-    .column-action_checkbox,
-    .column-id {
-        display: none !important;
-    }
-
-    .content-header .breadcrumb {
-        float: none !important;
-        margin-bottom: 10px;
-    }
+/* --- LOGIN PAGE STYLES --- */
+body.login-page, body.logout {
+    background: radial-gradient(circle at top right, #115e3b, #051a10) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    margin: 0 !important;
+    overflow: hidden !important;
 }
+
+.premium-auth-container {
+    width: 100% !important;
+    max-width: 480px !important;
+    padding: 10px !important;
+}
+
+.premium-auth-card {
+    background: #ffffff !important;
+    padding: 25px 35px !important;
+    border-radius: 40px !important;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4) !important;
+    text-align: center !important;
+}
+
+.premium-auth-title {
+    color: #115e3b !important;
+    font-size: 1.8rem !important;
+    font-weight: 800 !important;
+    margin-bottom: 0 !important;
+}
+
+.premium-auth-subtitle {
+    color: #64748b !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 15px !important;
+}
+
+.premium-auth-card h2 {
+    text-align: left !important;
+    color: #1e293b !important;
+    margin-bottom: 12px !important;
+    font-size: 1.1rem !important;
+    margin-top: 0 !important;
+}
+
+.form-group {
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.form-control {
+    width: 100%;
+    height: 44px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    padding: 0 15px;
+}
+
+.btn-premium {
+    width: 100%;
+    height: 50px;
+    background: #115e3b !important;
+    color: white !important;
+    border-radius: 50px !important;
+    font-weight: 700 !important;
+    border: none !important;
+    cursor: pointer;
+    margin-top: 0;
+}
+
+

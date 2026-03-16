@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Nafter Web Technologies</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.3">
     <link rel="icon" type="image/png" href="{% static 'images/favicon_new.png' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -51,11 +51,14 @@
             <li>
                 <a href="{% url 'services' %}">Services <i class="fas fa-chevron-down"></i></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{% url 'services' %}#tech">Web Development</a></li>
-                    <li><a href="{% url 'services' %}#shopify">Shopify Expert</a></li>
-                    <li><a href="{% url 'services' %}#digital">Digital Marketing</a></li>
-                    <li><a href="{% url 'services' %}#seo">SEO Optimization</a></li>
-                    <li><a href="{% url 'services' %}#branding">Branding</a></li>
+                    <li><a href="{% url 'services' %}#consulting">AI Strategy & Consulting</a></li>
+                    <li><a href="{% url 'services' %}#genai">Generative AI Solutions</a></li>
+                    <li><a href="{% url 'services' %}#mlops">AI Engineering & MLOps</a></li>
+                    <li><a href="{% url 'services' %}#agents">Autonomous Agents</a></li>
+                    <li><a href="{% url 'services' %}#automation">Workflows & Automation</a></li>
+                    <li><a href="{% url 'services' %}#drone">Autonomous Drone Solutions</a></li>
+                    <li><a href="{% url 'services' %}#fullstack">Full Stack Development</a></li>
+                    <li><a href="{% url 'services' %}#mkt">AI Digital Marketing</a></li>
                 </ul>
             </li>
             <li>
@@ -155,39 +158,39 @@
                 <div class="expertise-grid">
                     <div class="expertise-item">
                         <div class="expertise-icon-box">
-                            <i class="fas fa-ad"></i>
+                            <i class="fas fa-brain"></i>
                         </div>
-                        <h3>PPC & Paid Ads</h3>
+                        <h3>AI Strategy</h3>
                     </div>
                     <div class="expertise-item">
                         <div class="expertise-icon-box">
-                            <i class="fas fa-chess-knight"></i>
+                            <i class="fas fa-robot"></i>
                         </div>
-                        <h3>Brand Strategy</h3>
+                        <h3>Autonomous Agents</h3>
                     </div>
                     <div class="expertise-item">
                         <div class="expertise-icon-box">
-                            <i class="fas fa-funnel-dollar"></i>
+                            <i class="fas fa-magic"></i>
                         </div>
-                        <h3>Conversion Optimization</h3>
+                        <h3>Generative AI</h3>
                     </div>
                     <div class="expertise-item">
                         <div class="expertise-icon-box">
-                            <i class="fas fa-chart-line"></i>
+                            <i class="fas fa-cogs"></i>
                         </div>
-                        <h3>Performance Marketing</h3>
+                        <h3>Smart Automation</h3>
                     </div>
                     <div class="expertise-item">
                         <div class="expertise-icon-box">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-microchip"></i>
                         </div>
-                        <h3>Social Media Growth</h3>
+                        <h3>AI Engineering</h3>
                     </div>
                     <div class="expertise-item">
                         <div class="expertise-icon-box">
-                            <i class="fas fa-pen-nib"></i>
+                            <i class="fas fa-bullhorn"></i>
                         </div>
-                        <h3>Content Marketing</h3>
+                        <h3>AI Marketing</h3>
                     </div>
                 </div>
             </div>
@@ -379,12 +382,12 @@
             <div class="footer-col" style="text-align: center;">
                 <h4>Our Services</h4>
                 <ul class="footer-links-arrow">
-                    <li><a href="#">Social Media Marketing</a></li>
-                    <li><a href="#">SEO Optimization</a></li>
-                    <li><a href="#">PPC Advertising</a></li>
-                    <li><a href="#">Content Marketing</a></li>
-                    <li><a href="#">Branding Strategy</a></li>
-                    <li><a href="#">Email Marketing</a></li>
+                    <li><a href="{% url 'services' %}#mkt">AI Digital Marketing</a></li>
+                    <li><a href="{% url 'services' %}#consulting">AI Strategy & Consulting</a></li>
+                    <li><a href="{% url 'services' %}#genai">Generative AI Solutions</a></li>
+                    <li><a href="{% url 'services' %}#mlops">AI Engineering & MLOps</a></li>
+                    <li><a href="{% url 'services' %}#agents">Autonomous Agents</a></li>
+                    <li><a href="{% url 'services' %}#automation">Workflows & Automation</a></li>
                 </ul>
             </div>
 
@@ -416,8 +419,8 @@
                 Reserved.</p>
         </div>
     </footer>
-    <script src="{% static 'js/script.js' %}"></script>
-    <script src="{% static 'js/particles.js' %}"></script>
+    <script src="{% static 'js/script.js' %}?v=1.3"></script>
+    <script src="{% static 'js/particles.js' %}?v=1.3"></script>
     <!-- WhatsApp Integration -->
     <a href="https://wa.me/918015795921" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>

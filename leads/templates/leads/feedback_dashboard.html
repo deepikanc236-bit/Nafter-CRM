@@ -10,10 +10,6 @@ Analytics
 
 {% block extra_css %}
 <style>
-    /* Hide Dashboard link on analytics page */
-    .nav-link.dashboard-link {
-        display: none;
-    }
 
     .analytics-grid {
         display: grid;
@@ -25,39 +21,51 @@ Analytics
     .stats-sidebar {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 24px;
     }
 
     .stat-card {
-        padding: 24px;
+        padding: 30px;
         text-align: left;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        transition: var(--transition);
+    }
+
+    .stat-card:hover {
+        transform: translateX(10px);
+        border-color: rgba(255, 255, 255, 0.2);
     }
 
     .stat-label {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         font-weight: 700;
         color: var(--text-muted);
         text-transform: uppercase;
-        margin-bottom: 8px;
-        letter-spacing: 0.1em;
+        margin-bottom: 12px;
+        letter-spacing: 2px;
     }
 
     .stat-value {
-        font-size: 2.5rem;
+        font-size: 3rem;
         font-weight: 800;
         line-height: 1;
     }
 
     .pos {
-        color: #10b981;
+        color: #34d399;
+        text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
     }
 
     .neu {
-        color: #64748b;
+        color: #94a3b8;
     }
 
     .neg {
-        color: #ef4444;
+        color: #f87171;
+        text-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
     }
 
     .chart-card {
@@ -65,6 +73,10 @@ Analytics
         display: flex;
         flex-direction: column;
         align-items: center;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
+        border-radius: 32px;
     }
 
     .chart-container {
@@ -78,22 +90,23 @@ Analytics
 {% block content %}
 <div class="analytics-grid">
     <div class="stats-sidebar">
-        <div class="stat-card card" style="border-left: 6px solid #10b981;">
+        <div class="stat-card card" style="border-left: 6px solid #34d399;">
             <div class="stat-label">Positive Feedback</div>
             <div class="stat-value pos">{{ positive }}</div>
         </div>
-        <div class="stat-card card" style="border-left: 6px solid #64748b;">
+        <div class="stat-card card" style="border-left: 6px solid #94a3b8;">
             <div class="stat-label">Neutral Samples</div>
             <div class="stat-value neu">{{ neutral }}</div>
         </div>
-        <div class="stat-card card" style="border-left: 6px solid #ef4444;">
+        <div class="stat-card card" style="border-left: 6px solid #f87171;">
             <div class="stat-label">Negative Flags</div>
             <div class="stat-value neg">{{ negative }}</div>
         </div>
     </div>
 
     <div class="chart-card card">
-        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 32px; align-self: flex-start;">Overall Sentiment
+        <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 32px; align-self: flex-start; color: white;">
+            Overall Sentiment
             Distribution</h3>
         <div class="chart-container">
             <canvas id="sentimentChart"></canvas>

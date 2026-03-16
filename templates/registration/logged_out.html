@@ -1,27 +1,32 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/login.html" %}
 {% load i18n static %}
+
+{% block extrahead %}{{ block.super }}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock %}
 
 {% block extrastyle %}{{ block.super }}
 <link rel="stylesheet" href="{% static 'admin_custom.css' %}">
 {% endblock %}
 
-{% block bodyclass %}{{ block.super }} login-page{% endblock %}
-
 {% block content %}
-<div class="login-box">
-    <div class="card card-outline card-primary">
-        <div class="card-header text-center">
-            <a href="{% url 'admin:index' %}" class="h1"><b>Nafter AI</b></a>
+<div class="premium-auth-container">
+    <div class="premium-auth-card">
+        <div class="premium-auth-logo-wrapper">
+            <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 30C20 24.4772 24.4772 20 30 20H70C75.5228 20 80 24.4772 80 30V70C80 75.5228 75.5228 80 70 80H30C24.4772 80 20 75.5228 20 70V30Z" stroke="#0d462f" stroke-width="8"/>
+                <path d="M40 40H60V60H40V40Z" fill="#0d462f"/>
+            </svg>
+            <h1 class="premium-auth-title">Nafter AI</h1>
+            <p class="premium-auth-subtitle">Enterprise CRM Solution</p>
         </div>
-        <div class="card-body login-card-body">
-            <p class="login-box-msg">{% trans 'Logged out' %}</p>
-            <div class="text-center">
-                <p>{% trans "Thanks for spending some quality time with the Web site today." %}</p>
-                <div class="mt-4">
-                    <a href="{% url 'admin:login' %}" class="btn btn-primary btn-block">{% trans 'Log in again' %}</a>
-                </div>
-            </div>
-        </div>
+
+        <h2>Session Secured</h2>
+        <p style="color: #64748b; margin-bottom: 25px; font-size: 1rem; text-align: center;">You have been successfully logged out of the system. Thank you for your work today.</p>
+        
+        <a href="{% url 'admin:login' %}" style="text-decoration: none;">
+            <button type="button" class="btn-premium">Enter System</button>
+        </a>
     </div>
 </div>
 {% endblock %}

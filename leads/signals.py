@@ -15,7 +15,7 @@ def log_lead_changes(sender, instance, created, **kwargs):
             LeadActivity.objects.create(
                 lead=instance,
                 action="Lead Created (Public Form)",
-                user=None
+                changed_by=None
             )
     else:
         # Field change tracking

@@ -38,19 +38,23 @@ def calculate_conversion_probability(lead, sentiment_score):
         elif lead.budget_inr_value > 500_000:
             probability += 20
             
-    # 2. Returning Status
+    # 2. Returning Status & Engagement
     if lead.is_returning:
-        probability += 20
+        probability += 25
+    
+    # Engagement Score (adds up to 15%)
+    engagement_bonus = int((lead.engagement_score / 100) * 15)
+    probability += min(engagement_bonus, 15)
         
     # 3. Sentiment Impact
     if sentiment_score > 0: # Positive
-        probability += 30
+        probability += 25
     elif sentiment_score < 0: # Negative
-        probability -= 10
+        probability -= 15
         
-    # 4. TF-IDF Urgency Score (Feature 4)
+    # 4. TF-IDF Urgency Score
     urgency_multiplier = get_urgency_score_tfidf(lead.project_details or "")
-    probability += int(urgency_multiplier * 20) # Add up to 20% for high urgency
+    probability += int(urgency_multiplier * 15) 
     
     # Safety: Clamp between 0 and 100
     return max(0, min(100, probability))
