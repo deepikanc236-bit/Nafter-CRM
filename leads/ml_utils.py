@@ -1,29 +1,29 @@
-import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
+import re
 from .sentiment import analyze_sentiment
 
 def get_urgency_score_tfidf(text):
     """
-    Feature 4: Uses TF-IDF to score urgency based on key project details keywords.
+    Feature 4: Uses keyword frequency to score urgency based on key project details keywords.
+    Replaces scikit-learn TF-IDF to speed up builds.
     Returns a score multiplier (0.0 to 1.0).
     """
     if not text:
         return 0.0
 
-    # Define urgency keywords for TF-IDF
-    urgency_vocabulary = ["urgent", "asap", "immediately", "quickly", "priority", "critical", "soon"]
+    # Define urgency keywords
+    urgency_keywords = ["urgent", "asap", "immediately", "quickly", "priority", "critical", "soon"]
     
-    # Initialize TF-IDF Vectorizer with specific vocabulary
-    vectorizer = TfidfVectorizer(vocabulary=urgency_vocabulary, stop_words='english')
+    text = text.lower()
+    matches = 0
+    for word in urgency_keywords:
+        # Simple word boundary check
+        if re.search(rf'\b{word}\b', text):
+            matches += 1
     
-    try:
-        tfidf_matrix = vectorizer.fit_transform([text.lower()])
-        # Sum of TF-IDF scores for the vocabulary
-        score = np.sum(tfidf_matrix.toarray())
-        # Normalize score to a reasonable multiplier (capped at 1.0)
-        return min(float(score) * 2.0, 1.0) 
-    except Exception:
-        return 0.0
+    # Normalize score: 1 match = 0.5, 2+ matches = 1.0 (approximates the previous TF-IDF intent)
+    score = (matches / 2.0)
+    return min(float(score), 1.0)
+
 
 def calculate_conversion_probability(lead, sentiment_score):
     """
