@@ -14,4 +14,5 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('feedback/', views.feedback, name='feedback'),
     path('check-roles/', views.check_roles_debug, name='check_roles_debug'),
+    path('ping/', views.ping_debug, name='ping_debug'),
 ]
