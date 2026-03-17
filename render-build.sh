@@ -9,6 +9,5 @@ if [ ! -d "/opt/render/project/src/.venv/lib/python3.12/site-packages/textblob/e
     python -m textblob.download_corpora
 fi
 
-echo ">>> Running Database Migrations..."
+python manage.py collectstatic --no-input
 python manage.py migrate
-echo ">>> Migrations Complete."
