@@ -11,6 +11,7 @@ fi
 
 python manage.py collectstatic --no-input
 python manage.py migrate
+python setup_groups.py
 
 # Create superuser automatically if environment variables are set
 if [ "$DJANGO_SUPERUSER_USERNAME" ]; then
