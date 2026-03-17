@@ -20,18 +20,21 @@ def create_role_users():
     for username, group_name in users_to_create:
         # Create user if not exists
         user, created = User.objects.get_or_create(username=username)
+        
+        # Always update password and staff status
+        user.set_password(password)
+        user.is_staff = True
+        user.save()
+        
         if created:
-            user.set_password(password)
-            user.is_staff = True  # Must be staff to see dashboard
-            user.save()
             print(f"Created user: {username}")
         else:
-            print(f"User already exists: {username}")
+            print(f"Updated existing user: {username}")
         
-        # Assign to group
+        # Always ensure group membership
         group = Group.objects.get(name=group_name)
         user.groups.add(group)
-        print(f"Assigned {username} to {group_name}")
+        print(f"Ensured {username} is in group {group_name}")
 
 if __name__ == '__main__':
     create_role_users()
