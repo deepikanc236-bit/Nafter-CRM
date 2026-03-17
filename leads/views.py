@@ -417,6 +417,9 @@ def assign_lead(request, lead_id):
             
     return JsonResponse({'success': False, 'message': 'Invalid request'})
 
+def ping_debug(request):
+    return JsonResponse({'status': 'ok', 'message': 'Deployment is working!'})
+
 def check_roles_debug(request):
     """
     TEMPORARY DEBUG VIEW: Verifies if all role-based users and groups were created.

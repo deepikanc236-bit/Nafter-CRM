@@ -8,5 +8,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("dashboard/", include("leads.dashboard_urls")),
     path("check-roles/", lead_views.check_roles_debug, name='check_roles_debug_root'),
+    path("ping/", lead_views.ping_debug, name='ping_debug'),
     path("", include("leads.urls")),
 ]
