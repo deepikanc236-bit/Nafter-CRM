@@ -424,6 +424,7 @@ def export_leads_csv(request):
     """
     import csv
     from django.http import HttpResponse
+    from datetime import datetime
     
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(content_type='text/csv')
@@ -446,3 +447,16 @@ def export_leads_csv(request):
         ])
         
     return response
+
+def check_admin_existence(request):
+    """
+    TEMPORARY DEBUG VIEW: Checks if any superusers exist.
+    Delete this after the first successful login!
+    """
+    from django.contrib.auth.models import User
+    superusers = User.objects.filter(is_superuser=True).values_list('username', flat=True)
+    return JsonResponse({
+        'superuser_count': len(superusers),
+        'usernames': list(superusers),
+        'message': 'If count is 0, check your Render build logs for errors.'
+    })

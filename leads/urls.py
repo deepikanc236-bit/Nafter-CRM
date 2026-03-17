@@ -13,4 +13,5 @@ urlpatterns = [
     path('portfolio/', views.portfolio, name='portfolio'),
     path('contact/', views.contact, name='contact'),
     path('feedback/', views.feedback, name='feedback'),
+    path('check-admin/', views.check_admin_existence, name='check_admin_existence'),
 ]
