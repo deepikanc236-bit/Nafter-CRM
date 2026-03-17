@@ -9,11 +9,6 @@ if [ ! -d "/opt/render/project/src/.venv/lib/python3.12/site-packages/textblob/e
     python -m textblob.download_corpora
 fi
 
-python manage.py collectstatic --no-input
 echo ">>> Running Database Migrations..."
 python manage.py migrate
-echo ">>> Setting up Groups..."
-python setup_groups.py
-echo ">>> Seeding Role Users..."
-python seed_users.py
-echo ">>> Seeding Complete."
+echo ">>> Migrations Complete."
