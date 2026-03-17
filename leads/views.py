@@ -454,9 +454,11 @@ def check_admin_existence(request):
     Delete this after the first successful login!
     """
     from django.contrib.auth.models import User
+    from django.db import connection
     superusers = User.objects.filter(is_superuser=True).values_list('username', flat=True)
     return JsonResponse({
         'superuser_count': len(superusers),
         'usernames': list(superusers),
-        'message': 'If count is 0, check your Render build logs for errors.'
+        'db_engine': connection.vendor,
+        'message': 'If count is 0 and db_engine is sqlite, you MUST connect a PostgreSQL database in Render.'
     })
