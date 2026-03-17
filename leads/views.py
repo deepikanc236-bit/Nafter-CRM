@@ -451,14 +451,24 @@ def export_leads_csv(request):
 def check_admin_existence(request):
     """
     TEMPORARY DEBUG VIEW: Checks if any superusers exist.
-    Delete this after the first successful login!
     """
+    import os
     from django.contrib.auth.models import User
     from django.db import connection
+    
     superusers = User.objects.filter(is_superuser=True).values_list('username', flat=True)
+    
+    # Check if vars are visible to the web process
+    user_env = os.environ.get('DJANGO_SUPERUSER_USERNAME')
+    pass_env = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
+    
     return JsonResponse({
         'superuser_count': len(superusers),
         'usernames': list(superusers),
         'db_engine': connection.vendor,
-        'message': 'If count is 0 and db_engine is sqlite, you MUST connect a PostgreSQL database in Render.'
+        'env_vars': {
+            'username_set': bool(user_env),
+            'password_set': bool(pass_env),
+        },
+        'message': 'If counts are 0 and env_vars are false, your Render Environment Variables are missing!'
     })
