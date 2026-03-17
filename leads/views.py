@@ -418,7 +418,27 @@ def assign_lead(request, lead_id):
     return JsonResponse({'success': False, 'message': 'Invalid request'})
 
 @role_required
-def export_leads_csv(request):
+def check_roles_debug(request):
+    """
+    TEMPORARY DEBUG VIEW: Verifies if all role-based users and groups were created.
+    """
+    from django.contrib.auth.models import User, Group
+    from django.db import connection
+    
+    users = User.objects.all().values('username', 'is_staff', 'is_superuser')
+    groups = Group.objects.all().values_list('name', flat=True)
+    
+    user_groups = {}
+    for user in User.objects.all():
+        user_groups[user.username] = list(user.groups.values_list('name', flat=True))
+        
+    return JsonResponse({
+        'db_engine': connection.vendor,
+        'groups_present': list(groups),
+        'users_found': list(users),
+        'user_group_mapping': user_groups,
+        'message': 'Check this to see if sales_manager, etc. exist and have groups.'
+    })
     """
     Exports all leads to a CSV file.
     """
