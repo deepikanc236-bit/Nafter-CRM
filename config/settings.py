@@ -1,4 +1,6 @@
+import os
 import sys
+import dj_database_url
 print(f"DEBUG: settings.py loading. ROOT_URLCONF={globals().get('ROOT_URLCONF', 'N/A')}")
 # raise Exception("DEBUG CRASH") # Keep it here as a comment to quickly test reloads
 """
@@ -76,10 +78,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-
-
-import os
-import dj_database_url
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
