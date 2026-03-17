@@ -12,6 +12,10 @@ def create_admin_user():
     password = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
     email = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
 
+    print(f"DEBUG: DJANGO_SUPERUSER_USERNAME is {'SET' if username else 'NOT SET'}")
+    print(f"DEBUG: DJANGO_SUPERUSER_PASSWORD is {'SET' if password else 'NOT SET'}")
+    print(f"DEBUG: DJANGO_SUPERUSER_EMAIL is {'SET' if email else 'NOT SET'}")
+
     if not username or not password:
         print("Skipping admin creation: DJANGO_SUPERUSER_USERNAME or DJANGO_SUPERUSER_PASSWORD not set.")
         return
