@@ -441,6 +441,9 @@ def check_roles_debug(request):
         'user_group_mapping': user_groups,
         'message': 'Check this to see if sales_manager, etc. exist and have groups.'
     })
+
+@role_required
+def export_leads_csv(request):
     """
     Exports all leads to a CSV file.
     """
