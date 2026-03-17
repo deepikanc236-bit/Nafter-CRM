@@ -450,7 +450,8 @@ def export_leads_csv(request):
 
 def check_admin_existence(request):
     """
-    TEMPORARY DEBUG VIEW: Checks if any superusers exist.
+    PROACTIVE DEBUG VIEW: Checks if any superusers exist.
+    If 0 exist and ENV vars are present, it ATTEMPTS to create one.
     """
     import os
     from django.contrib.auth.models import User
@@ -461,6 +462,18 @@ def check_admin_existence(request):
     # Check if vars are visible to the web process
     user_env = os.environ.get('DJANGO_SUPERUSER_USERNAME')
     pass_env = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
+    email_env = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
+    
+    creation_status = "Skipped"
+    
+    if len(superusers) == 0 and user_env and pass_env:
+        try:
+            User.objects.create_superuser(username=user_env, password=pass_env, email=email_env)
+            creation_status = "SUCCESS: Superuser created via live request."
+            # Refresh list
+            superusers = User.objects.filter(is_superuser=True).values_list('username', flat=True)
+        except Exception as e:
+            creation_status = f"FAILED: {str(e)}"
     
     return JsonResponse({
         'superuser_count': len(superusers),
@@ -470,5 +483,6 @@ def check_admin_existence(request):
             'username_set': bool(user_env),
             'password_set': bool(pass_env),
         },
+        'creation_attempt': creation_status,
         'message': 'If counts are 0 and env_vars are false, your Render Environment Variables are missing!'
     })
