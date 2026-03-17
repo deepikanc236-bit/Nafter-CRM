@@ -442,6 +442,30 @@ def check_roles_debug(request):
         'message': 'Check this to see if sales_manager, etc. exist and have groups.'
     })
 
+def trigger_seed(request):
+    """
+    Manually triggers the seeding logic and returns the log.
+    """
+    import io
+    from contextlib import redirect_stdout
+    from setup_groups import create_groups
+    from seed_users import create_role_users
+    
+    f = io.StringIO()
+    with redirect_stdout(f):
+        print("--- STARTING SEEDING ---")
+        try:
+            create_groups()
+            create_role_users()
+            print("--- SEEDING COMPLETED SUCCESS ---")
+        except Exception as e:
+            print(f"ERROR DURING SEEDING: {e}")
+            
+    return JsonResponse({
+        'output': f.getvalue(),
+        'status': 'finished'
+    })
+
 @role_required
 def export_leads_csv(request):
     """
