@@ -448,18 +448,14 @@ def trigger_seed(request):
     """
     import io
     from contextlib import redirect_stdout
-    from setup_groups import create_groups
-    from seed_users import create_role_users
+    from final_seed import run_seeding
     
     f = io.StringIO()
     with redirect_stdout(f):
-        print("--- STARTING SEEDING ---")
         try:
-            create_groups()
-            create_role_users()
-            print("--- SEEDING COMPLETED SUCCESS ---")
+            run_seeding()
         except Exception as e:
-            print(f"ERROR DURING SEEDING: {e}")
+            print(f"ERROR: {e}")
             
     return JsonResponse({
         'output': f.getvalue(),
