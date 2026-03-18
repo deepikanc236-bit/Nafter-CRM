@@ -40,17 +40,17 @@ def run_seeding():
     for username, group_name in users_to_create:
         user, created = User.objects.get_or_create(username=username)
         
-        # Always ensure permissions and password
-        user.set_password(password)
-        user.is_staff = True
-        user.save()
-        
+        # Only set password for NEWLY created users
+        # This allows you to change passwords in Admin and have them persist!
         if created:
+            user.set_password(password)
+            user.is_staff = True
+            user.save()
             print(f">>> [FINAL SEED] Created user: {username}")
         else:
-            print(f">>> [FINAL SEED] Updated user: {username}")
+            print(f">>> [FINAL SEED] Account already exists: {username} (Skipping password overwrite)")
         
-        # Ensure group assignment
+        # Always ensure group assignment
         try:
             group = Group.objects.get(name=group_name)
             user.groups.add(group)
