@@ -52,74 +52,80 @@ def portfolio(request):
 
 def contact(request):
     if request.method == "POST":
-        details = request.POST.get("details")
-        
-        # Smart NLP Extraction (Multi-Currency)
-        nlp_data = extract_lead_info(details)
-
-        # Feature 2: Returning Lead Detection
-        email = request.POST.get("work_email")
-        existing_lead = Lead.objects.filter(work_email=email).first()
-        is_returning = False
-        engagement_score = 0
-        
-        if existing_lead:
-            is_returning = True
-            engagement_score = existing_lead.engagement_score + 25
+        try:
+            details = request.POST.get("details")
             
-            # Record the repeat interest
-            LeadActivity.objects.create(
-                lead=existing_lead,
-                action_type='system_update',
-                action=f"Returning lead detected: {email}. Engagement score increased."
+            # Smart NLP Extraction (Multi-Currency)
+            nlp_data = extract_lead_info(details)
+
+            # Feature 2: Returning Lead Detection
+            email = request.POST.get("work_email")
+            existing_lead = Lead.objects.filter(work_email=email).first()
+            is_returning = False
+            engagement_score = 0
+            
+            if existing_lead:
+                is_returning = True
+                engagement_score = existing_lead.engagement_score + 25
+                
+                # Record the repeat interest
+                LeadActivity.objects.create(
+                    lead=existing_lead,
+                    action_type='system_update',
+                    action=f"Returning lead detected: {email}. Engagement score increased."
+                )
+            
+            # Sentiment Analysis for Probability
+            sentiment_score, sentiment_label = analyze_sentiment(details)
+
+            # Apply score boost for returning customers
+            base_lead_score = nlp_data.get('lead_score', 0)
+            final_priority = nlp_data.get('priority', 'Medium')
+            
+            if is_returning:
+                # Boost score by 20, cap at 100
+                base_lead_score = min(base_lead_score + 20, 100)
+                
+                # Recalculate priority based on new score
+                if base_lead_score >= 70 or nlp_data.get('urgency') == 'High':
+                    final_priority = 'High'
+                elif base_lead_score >= 40:
+                    final_priority = 'Medium'
+                else:
+                    final_priority = 'Low'
+
+            new_lead = Lead.objects.create(
+                first_name=request.POST.get("first_name"),
+                last_name=request.POST.get("last_name"),
+                work_email=email,
+                company_name=request.POST.get("company_name"),
+                country=request.POST.get("country"),
+                interest=request.POST.get("interest"),
+                
+                service=nlp_data.get('service'),
+                urgency=nlp_data.get('urgency'),
+                budget=nlp_data.get('budget'), 
+                budget_inr_value=extract_smart_budget(details), 
+                timeline=nlp_data.get('timeline'),
+                lead_score=base_lead_score,
+                project_details=details,
+                priority=final_priority,
+                
+                # New Features
+                is_returning=is_returning,
+                engagement_score=engagement_score
             )
-        
-        # Sentiment Analysis for Probability
-        sentiment_score, sentiment_label = analyze_sentiment(details)
-
-        # Apply score boost for returning customers
-        base_lead_score = nlp_data.get('lead_score', 0)
-        final_priority = nlp_data.get('priority', 'Medium')
-        
-        if is_returning:
-            # Boost score by 20, cap at 100
-            base_lead_score = min(base_lead_score + 20, 100)
             
-            # Recalculate priority based on new score
-            if base_lead_score >= 70 or nlp_data.get('urgency') == 'High':
-                final_priority = 'High'
-            elif base_lead_score >= 40:
-                final_priority = 'Medium'
-            else:
-                final_priority = 'Low'
+            # Feature 3 & 4: Calculate Conversion Probability
+            new_lead.conversion_probability = calculate_conversion_probability(new_lead, sentiment_score)
+            new_lead.save()
 
-        new_lead = Lead.objects.create(
-            first_name=request.POST.get("first_name"),
-            last_name=request.POST.get("last_name"),
-            work_email=email,
-            company_name=request.POST.get("company_name"),
-            country=request.POST.get("country"),
-            interest=request.POST.get("interest"),
-            
-            service=nlp_data.get('service'),
-            urgency=nlp_data.get('urgency'),
-            budget=nlp_data.get('budget'), 
-            budget_inr_value=extract_smart_budget(details), 
-            timeline=nlp_data.get('timeline'),
-            lead_score=base_lead_score,
-            project_details=details,
-            priority=final_priority,
-            
-            # New Features
-            is_returning=is_returning,
-            engagement_score=engagement_score
-        )
-        
-        # Feature 3 & 4: Calculate Conversion Probability
-        new_lead.conversion_probability = calculate_conversion_probability(new_lead, sentiment_score)
-        new_lead.save()
-
-        return redirect("contact")
+            return render(request, "leads/contact.html", {"success": True})
+        except Exception as e:
+            print(f">>> [CONTACT] Error: {e}")
+            import traceback
+            traceback.print_exc()
+            return render(request, "leads/contact.html", {"error": str(e)})
 
     return render(request, "leads/contact.html")
 
