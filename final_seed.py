@@ -34,9 +34,9 @@ def run_seeding():
     
     users_to_create = [
         # (username, group_name, env_var_for_password)
-        ('sales_manager', 'Sales Managers', 'SALES_MANAGER_PASSWORD'),
-        ('senior_sales_executives', 'Senior Sales Executives', 'SENIOR_EXEC_PASSWORD'),
-        ('sales_executives', 'Sales Executives', 'SALES_EXEC_PASSWORD'),
+        ('sales_manager', 'Sales Managers', 'sales_manager'),
+        ('senior_sales_executives', 'Senior Sales Executives', 'senior_sales_executives'),
+        ('sales_executives', 'Sales Executives', 'sales_executives'),
     ]
     
     for username, group_name, env_var in users_to_create:

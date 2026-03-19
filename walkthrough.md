@@ -10,9 +10,9 @@ We have implemented a robust seeding logic in `final_seed.py` that respects manu
 - **Initial Setup:** On the first deployment, the system creates default accounts for each role (Manager, Senior Exec, Junior Exec) using environment variables (e.g., `SALES_MANAGER_PASSWORD`).
 - **Persistence:** If you change a password in the Admin Panel, the seeding script **will not** overwrite it on subsequent deployments. It only sets passwords for *newly created* users.
 - **Environment Variables:**
-  - `SALES_MANAGER_PASSWORD`: Password for `sales_manager`
-  - `SENIOR_EXEC_PASSWORD`: Password for `senior_sales_executives`
-  - `SALES_EXEC_PASSWORD`: Password for `sales_executives`
+  - `sales_manager`: Password for `sales_manager`
+  - `senior_sales_executives`: Password for `senior_sales_executives`
+  - `sales_executives`: Password for `sales_executives`
   - `DJANGO_SUPERUSER_PASSWORD`: Fallback for all roles and default for superuser.
 
 ### 2. Diagnostic Cleanup
@@ -42,10 +42,19 @@ web: python3 final_seed.py && gunicorn config.wsgi
 ```
 This ensures that the necessary groups and default users exist on every deployment.
 
-### Best Practices
-1. **Set Secret Keys:** Ensure `SECRET_KEY` and `DEBUG=False` are set in Render Environment Variables.
-2. **Database:** Use the Render Postgres connection string in `DATABASE_URL`.
-3. **Passwords:** Configure the role-specific password environment variables mentioned above for maximum security.
+### 🛠️ Manual Steps Required
+
+To ensure your CRM is fully functional and secure on Render, you **must** manually configure the following in the Render Dashboard (Environment tab):
+
+1. **Role Passwords:** Set `sales_manager`, `senior_sales_executives`, and `sales_executives`.
+2. **Persistence Key:** Set `DJANGO_SUPERUSER_PASSWORD` (used as a fallback and for the main admin).
+3. **Core Django Settings:**
+   - `SECRET_KEY`: A long, random string.
+   - `DEBUG`: Set to `False`.
+   - `DATABASE_URL`: Your Render Postgres connection string.
+4. **Site URL:** Set `SITE_URL` to your production domain (e.g., `https://nafter-crm.onrender.com`) for correct email links.
+
+**Everything else (Database migrations, static files, role creation, and permission setup) is automated.**
 
 ---
 
