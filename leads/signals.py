@@ -17,12 +17,32 @@ def log_lead_changes(sender, instance, created, **kwargs):
                 action="Lead Created (Public Form)",
                 changed_by=None
             )
+            
+        # Feature 3: High-Value Notifications (> 10 Lakhs)
+        if instance.budget_inr_value and instance.budget_inr_value > 1000000:
+            from .alerts import send_high_value_alerts
+            send_high_value_alerts(instance)
+            
     else:
         # Field change tracking
-        if hasattr(instance, '_Lead__old_status') and instance._Lead__old_status != instance.status:
-            # Only create if not already handled by save_model (which would set user)
-            # Actually, signals don't know about request.user. 
-            # If we log in Admin save_model, we set the user. 
-            # We skip here if an activity with the same action exists for this timestamp range? 
-            # Simpler: just keep logging here as fallback or check if user is attached.
-            pass
+        # ... existing logic ...
+        
+        # Automated Feedback when Closed
+        if hasattr(instance, '_old_status') and instance._old_status != 'Closed' and instance.status == 'Closed':
+            from .alerts import send_feedback_email
+            send_feedback_email(instance)
+
+def remember_status(sender, instance, **kwargs):
+    instance._old_status = instance.status
+
+from django.db.models.signals import pre_save
+@receiver(pre_save, sender=Lead)
+def store_old_status(sender, instance, **kwargs):
+    if instance.pk:
+        try:
+            old_obj = Lead.objects.get(pk=instance.pk)
+            instance._old_status = old_obj.status
+        except Lead.DoesNotExist:
+            instance._old_status = None
+    else:
+        instance._old_status = None

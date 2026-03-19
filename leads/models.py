@@ -65,22 +65,10 @@ class Lead(models.Model):
         is_new = self._state.adding
         
         
-        # Feature 3: High-Value Notifications (> 10 Lakhs)
         if self.budget_inr_value and self.budget_inr_value > 1000000:
             if "🚨 HIGH VALUE" not in self.first_name:
                 self.first_name = f"{self.first_name} 🚨 HIGH VALUE"
-            
-            # Trigger notifications only for new leads or if budget just became high-value
-            if is_new:
-                from .alerts import send_high_value_alerts
-                send_high_value_alerts(self)
                 
-        if not is_new:
-            old_instance = Lead.objects.get(pk=self.pk)
-            if old_instance.status != 'Closed' and self.status == 'Closed':
-                from .alerts import send_feedback_email
-                send_feedback_email(self)
-
         super().save(*args, **kwargs)
         
 
