@@ -50,6 +50,7 @@ def services(request):
 def portfolio(request):
     return render(request, "leads/portfolio.html")
 
+def contact(request):
     if request.method == "POST":
         try:
             # Bare minimum data capture to guarantee stability
