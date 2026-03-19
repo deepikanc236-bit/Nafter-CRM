@@ -30,15 +30,20 @@ def run_seeding():
             print(f">>> [FINAL SEED] Group exists: {name}")
 
     # 2. Setup Role Users
-    password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'Nafter2026!')
+    main_password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'Nafter2026!')
+    
     users_to_create = [
-        ('sales_manager', 'Sales Managers'),
-        ('senior_sales_executives', 'Senior Sales Executives'),
-        ('sales_executives', 'Sales Executives'),
+        # (username, group_name, env_var_for_password)
+        ('sales_manager', 'Sales Managers', 'SALES_MANAGER_PASSWORD'),
+        ('senior_sales_executives', 'Senior Sales Executives', 'SENIOR_EXEC_PASSWORD'),
+        ('sales_executives', 'Sales Executives', 'SALES_EXEC_PASSWORD'),
     ]
     
-    for username, group_name in users_to_create:
+    for username, group_name, env_var in users_to_create:
         user, created = User.objects.get_or_create(username=username)
+        
+        # Determine the password: Use specific env var, fallback to main superuser password
+        password = os.environ.get(env_var, main_password)
         
         # Only set password for NEWLY created users
         # This allows you to change passwords in Admin and have them persist!
@@ -46,7 +51,7 @@ def run_seeding():
             user.set_password(password)
             user.is_staff = True
             user.save()
-            print(f">>> [FINAL SEED] Created user: {username}")
+            print(f">>> [FINAL SEED] Created user: {username} (using {env_var} or fallback)")
         else:
             print(f">>> [FINAL SEED] Account already exists: {username} (Skipping password overwrite)")
         

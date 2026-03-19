@@ -4,7 +4,6 @@ from . import views
 
 urlpatterns = [
     path('kanban/', views.kanban_board, name='kanban'),
-    path('test-routing/', views.home, name='test_routing'),
     path('update-lead-status/', views.update_lead_status, name='update_lead_status'),
     path('feedback-dashboard/', views.feedback_dashboard, name='feedback_dashboard'),
     path('', views.home, name='home'),
