@@ -72,13 +72,13 @@ class Lead(models.Model):
             
             # Trigger notifications only for new leads or if budget just became high-value
             if is_new:
-                from .views import send_high_value_alerts
+                from .alerts import send_high_value_alerts
                 send_high_value_alerts(self)
                 
         if not is_new:
             old_instance = Lead.objects.get(pk=self.pk)
             if old_instance.status != 'Closed' and self.status == 'Closed':
-                from .views import send_feedback_email
+                from .alerts import send_feedback_email
                 send_feedback_email(self)
 
         super().save(*args, **kwargs)
