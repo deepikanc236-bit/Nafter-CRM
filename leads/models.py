@@ -61,14 +61,6 @@ class Lead(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-    def save(self, *args, **kwargs):
-        is_new = self._state.adding
-        
-        
-        if self.budget_inr_value and self.budget_inr_value > 1000000:
-            if "🚨 HIGH VALUE" not in self.first_name:
-                self.first_name = f"{self.first_name} 🚨 HIGH VALUE"
-                
         super().save(*args, **kwargs)
         
 
