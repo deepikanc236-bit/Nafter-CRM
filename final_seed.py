@@ -11,6 +11,7 @@ except Exception as e:
     sys.exit(1)
 
 from django.contrib.auth.models import User, Group
+from leads.models import Lead
 
 def run_seeding():
     print(">>> [FINAL SEED] Starting...")
@@ -62,6 +63,44 @@ def run_seeding():
             print(f">>> [FINAL SEED] Verified {username} in {group_name}")
         except Group.DoesNotExist:
             print(f">>> [FINAL SEED] ERROR: Group {group_name} missing!")
+
+    # 3. Setup Sample Leads (if none exist)
+    if Lead.objects.count() == 0:
+        print(">>> [FINAL SEED] Seeding sample leads for RBAC verification...")
+        sample_leads = [
+            {
+                'first_name': 'Small', 'last_name': 'Project', 'work_email': 'small@test.com',
+                'project_details': 'Simple website. Budget is ₹2,00,000.', 'status': 'New'
+            },
+            {
+                'first_name': 'Medium', 'last_name': 'Project', 'work_email': 'med@test.com',
+                'project_details': 'AI Chatbot. Budget is ₹7,50,000.', 'status': 'Contacted'
+            },
+            {
+                'first_name': 'Enterprise', 'last_name': 'Project', 'work_email': 'big@test.com',
+                'project_details': 'Custom ERP System. Budget is ₹25,00,000.', 'status': 'Negotiation'
+            }
+        ]
+        
+        from leads.views import extract_smart_budget
+        from leads.nlp_utils import extract_lead_info
+        
+        for data in sample_leads:
+            details = data['project_details']
+            nlp_data = extract_lead_info(details)
+            Lead.objects.create(
+                first_name=data['first_name'],
+                last_name=data['last_name'],
+                work_email=data['work_email'],
+                project_details=details,
+                status=data['status'],
+                budget_inr_value=extract_smart_budget(details),
+                service=nlp_data.get('service'),
+                priority=nlp_data.get('priority', 'Medium')
+            )
+        print(f">>> [FINAL SEED] Created {len(sample_leads)} sample leads.")
+    else:
+        print(">>> [FINAL SEED] Leads already exist, skipping sample seeding.")
 
     print(">>> [FINAL SEED] Seeding Complete.")
 
