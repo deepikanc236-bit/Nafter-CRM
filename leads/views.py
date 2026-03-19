@@ -53,27 +53,70 @@ def portfolio(request):
 def contact(request):
     if request.method == "POST":
         try:
-            # Bare minimum data capture to guarantee stability
+            details = request.POST.get("details", "")
             first_name = request.POST.get("first_name", "Anonymous")
             last_name = request.POST.get("last_name", "")
-            email = request.POST.get("work_email", "no-email@test.com")
-            details = request.POST.get("details", "No details")
-            country = request.POST.get("country", "Other")
+            email = request.POST.get("work_email", "")
+            company_name = request.POST.get("company_name", "")
+            country = request.POST.get("country", "IN")
             interest = request.POST.get("interest", "Other")
-            
-            # Simple direct creation
-            Lead.objects.create(
+
+            # 1. NLP Extraction (Resilient)
+            try:
+                nlp_data = extract_lead_info(details)
+                budget_inr = extract_smart_budget(details)
+            except Exception as e:
+                print(f">>> [NLP] Error: {e}")
+                nlp_data = {}
+                budget_inr = 0
+
+            # 2. Returning Lead Detection
+            existing_lead = Lead.objects.filter(work_email=email).first()
+            is_returning = False
+            engagement_score = 0
+            if existing_lead:
+                is_returning = True
+                engagement_score = existing_lead.engagement_score + 25
+                LeadActivity.objects.create(
+                    lead=existing_lead,
+                    action_type='system_update',
+                    action=f"Returning lead detected: {email}. Engagement score increased."
+                )
+
+            # 3. Sentiment & Scoring
+            sentiment_score, _ = analyze_sentiment(details)
+            base_lead_score = nlp_data.get('lead_score', 0)
+            if is_returning:
+                base_lead_score = min(base_lead_score + 20, 100)
+
+            # 4. Create Lead
+            new_lead = Lead.objects.create(
                 first_name=first_name,
                 last_name=last_name,
                 work_email=email,
-                project_details=details,
+                company_name=company_name,
                 country=country,
                 interest=interest,
+                project_details=details,
+                budget_inr_value=budget_inr,
+                lead_score=base_lead_score,
+                is_returning=is_returning,
+                engagement_score=engagement_score,
                 status='New'
             )
+
+            # 5. Probability (Calculated separately to avoid blocking create)
+            try:
+                new_lead.conversion_probability = calculate_conversion_probability(new_lead, sentiment_score)
+                new_lead.save()
+            except Exception as e:
+                print(f">>> [PROBABILITY] Error: {e}")
+
             return render(request, "leads/contact.html", {"success": True})
         except Exception as e:
-            return render(request, "leads/contact.html", {"error": f"Stability Mode Error: {str(e)}"})
+            import traceback
+            traceback.print_exc()
+            return render(request, "leads/contact.html", {"error": f"Intelligence Mode Error: {str(e)}"})
 
     return render(request, "leads/contact.html")
 
