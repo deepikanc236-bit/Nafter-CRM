@@ -48,13 +48,13 @@ def run_seeding():
         
         # Only set password for NEWLY created users
         # This allows you to change passwords in Admin and have them persist!
+        user.set_password(password)
+        user.is_staff = True
+        user.save()
         if created:
-            user.set_password(password)
-            user.is_staff = True
-            user.save()
-            print(f">>> [FINAL SEED] Created user: {username} (using {env_var} or fallback)")
+            print(f">>> [FINAL SEED] Created user: {username}")
         else:
-            print(f">>> [FINAL SEED] Account already exists: {username} (Skipping password overwrite)")
+            print(f">>> [FINAL SEED] Updated password for existing user: {username}")
         
         # Always ensure group assignment
         try:

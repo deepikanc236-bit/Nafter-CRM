@@ -14,7 +14,7 @@ def extract_lead_info(text):
 
     # 1. Multi-Currency Budget Extraction
     # Rates (Static)
-    RATES = {'usd': 83, 'aed': 22, 'eur': 90, 'inr': 1, '$': 83, '€': 90}
+    RATES = {'usd': 83, 'aed': 22, 'eur': 90, 'inr': 1, '$': 83, '€': 90, '₹': 1}
     
     budget_raw = None
     budget_inr = 0
@@ -42,6 +42,9 @@ def extract_lead_info(text):
             return data # Skip plain numbers that aren't clearly budgets
             
         currency = (currency or 'inr').strip().lower().replace('.', '')
+        # Handle the case where currency might be just the symbol
+        if currency not in RATES and currency == '₹':
+            currency = '₹'
         
         multipliers = {
             'lakh': 100000, 'lakhs': 100000, 'lac': 100000, 'lacs': 100000,
