@@ -38,9 +38,12 @@ def role_required(view_func):
 
 def send_high_value_alerts(lead):
     # Email alert
-    subject = f"🚨 HIGH VALUE LEAD: {lead.first_name} {lead.last_name}"
-    message = f"Details:\nName: {lead.first_name} {lead.last_name}\nBudget: {lead.budget}\nINR Value: ₹{lead.budget_inr_value}\nService: {lead.interest}\nText: {lead.project_details}"
-    send_mail(subject, message, 'alerts@nafterweb.com', ['admin@nafterweb.com'])
+    try:
+        subject = f"🚨 HIGH VALUE LEAD: {lead.first_name} {lead.last_name}"
+        message = f"Details:\nName: {lead.first_name} {lead.last_name}\nBudget: {lead.budget}\nINR Value: ₹{lead.budget_inr_value}\nService: {lead.interest}\nText: {lead.project_details}"
+        send_mail(subject, message, 'alerts@nafterweb.com', ['admin@nafterweb.com'])
+    except Exception as e:
+        print(f"Admin Alert Email Error: {e}")
 
     # WhatsApp Alert (Twilio)
     # Note: Requires twilio package and credentials

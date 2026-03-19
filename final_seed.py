@@ -65,7 +65,7 @@ def run_seeding():
             print(f">>> [FINAL SEED] ERROR: Group {group_name} missing!")
 
     # 3. Setup Sample Leads (if none exist)
-    if Lead.objects.count() == 0:
+    if not Lead.objects.filter(first_name='Small').exists():
         print(">>> [FINAL SEED] Seeding sample leads for RBAC verification...")
         sample_leads = [
             {
