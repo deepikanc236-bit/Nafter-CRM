@@ -10,8 +10,9 @@ except Exception as e:
     print(f"FAILED TO SETUP DJANGO: {e}")
     sys.exit(1)
 
-from django.contrib.auth.models import User, Group
-from leads.models import Lead
+from django.contrib.auth.models import User, Group, Permission
+from django.contrib.contenttypes.models import ContentType
+from leads.models import Lead, Feedback, LeadActivity
 
 def run_seeding():
     print(">>> [FINAL SEED] Starting...")
@@ -29,6 +30,32 @@ def run_seeding():
             print(f">>> [FINAL SEED] Created group: {name}")
         else:
             print(f">>> [FINAL SEED] Group exists: {name}")
+            
+        # Assign Permissions
+        model_names = ['lead', 'feedback', 'leadactivity']
+        actions = ['view', 'add', 'change', 'delete']
+        
+        for model_name in model_names:
+            content_type = ContentType.objects.get(app_label='leads', model=model_name)
+            
+            # Managers get ALL actions
+            if name == 'Sales Managers':
+                perms = actions
+            # Senior Executives get View/Add/Change
+            elif name == 'Senior Sales Executives':
+                perms = ['view', 'add', 'change']
+            # Executives get View/Add
+            else:
+                perms = ['view', 'add']
+                
+            for action in perms:
+                codename = f"{action}_{model_name}"
+                try:
+                    permission = Permission.objects.get(content_type=content_type, codename=codename)
+                    group.permissions.add(permission)
+                    print(f">>> [FINAL SEED] Assigned {codename} to {name}")
+                except Permission.DoesNotExist:
+                    print(f">>> [FINAL SEED] WARNING: Permission {codename} not found")
 
     # 2. Setup Role Users
     main_password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'Nafter2026!')
