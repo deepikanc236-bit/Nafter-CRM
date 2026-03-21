@@ -231,13 +231,13 @@ html, body {
 
 /* Global Sticky Top Header */
 .top-header-bar {
+    display: none; /* Hidden by default on desktop */
     position: sticky;
     top: 0;
-    z-index: 1001; /* Above standard content */
+    z-index: 1001;
     background: var(--bg-body);
     padding: 15px 20px;
     margin-bottom: 10px;
-    display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 15px;
@@ -688,8 +688,11 @@ ul.selector-chooser {
     }
     
     .top-header-bar {
-        padding: 10px 20px;
-        gap: 15px;
+        display: flex;
+        padding: 10px 15px;
+        gap: 10px;
+        background: transparent !important; /* Make it transparent so it doesn't look like a box in the sidebar */
+        margin-bottom: 0;
     }
     
     #content {
