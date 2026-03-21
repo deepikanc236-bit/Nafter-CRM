@@ -163,8 +163,8 @@
         }
 
         .chart-card {
-            height: auto;
-            min-height: 350px;
+            height: 350px;
+            min-height: auto;
         }
     }
 
@@ -192,6 +192,7 @@
         }
         
         .chart-card {
+            height: 300px;
             padding: 20px;
             border-radius: 20px;
         }
@@ -330,21 +331,28 @@
             },
     options: {
         responsive: true,
-            maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
+        maintainAspectRatio: false,
+        plugins: { 
+            legend: { display: false },
+            tooltip: {
+                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                padding: 12,
+                borderRadius: 8
+            }
+        },
         scales: {
             y: {
                 beginAtZero: true,
-                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                ticks: { color: '#94a3b8' }
+                grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                ticks: { color: '#64748b' }
             },
             x: {
                 grid: { display: false },
-                ticks: { color: '#94a3b8' }
+                ticks: { color: '#64748b' }
             }
         }
     }
-        });
+});
 
     // Priority Chart
     const prioCtx = document.getElementById('priorityChart').getContext('2d');
@@ -361,16 +369,20 @@
             },
     options: {
         responsive: true,
-            maintainAspectRatio: false,
-                plugins: {
+        maintainAspectRatio: window.innerWidth < 768,
+        plugins: {
             legend: {
                 position: 'bottom',
-                    labels: { usePointStyle: true, padding: 20 }
+                labels: { 
+                    usePointStyle: true, 
+                    padding: 20,
+                    font: { size: 12 }
+                }
             }
         },
         cutout: '70%'
     }
-        });
+});
     });
 </script>
 {% endblock %}
