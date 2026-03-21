@@ -730,6 +730,15 @@ ul.selector-chooser {
     .submit-row input {
         width: 100% !important;
     }
+    
+    .button-text {
+        display: none !important;
+    }
+    
+    .addlink, .changelink, .viewlink {
+        padding: 8px 10px !important;
+        margin-right: 5px !important;
+    }
 }
 
 

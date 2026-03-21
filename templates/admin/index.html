@@ -87,15 +87,21 @@
                                             <th scope="row">{{ model.name }}</th>
                                         {% endif %}
     
-                                        <td style="text-align: right;">
+                                        <td style="text-align: right; white-space: nowrap;">
                                             {% if model.add_url %}
-                                                <a href="{{ model.add_url }}" class="addlink" style="color: #115e3b; font-weight: 600; text-decoration: none; margin-right: 15px;">{% translate 'Add' %}</a>
+                                                <a href="{{ model.add_url }}" class="addlink" style="color: #ffffff !important; font-weight: 600; text-decoration: none; margin-right: 8px; padding: 8px 12px !important;">
+                                                    <i class="fa-solid fa-plus"></i> <span class="button-text">{% translate 'Add' %}</span>
+                                                </a>
                                             {% endif %}
                                             {% if model.admin_url %}
                                                 {% if model.view_only %}
-                                                    <a href="{{ model.admin_url }}" class="viewlink" style="color: #64748b; font-weight: 600; text-decoration: none;">{% translate 'View' %}</a>
+                                                    <a href="{{ model.admin_url }}" class="viewlink" style="color: #ffffff !important; font-weight: 600; text-decoration: none; padding: 8px 12px !important;">
+                                                        <i class="fa-solid fa-eye"></i> <span class="button-text">{% translate 'View' %}</span>
+                                                    </a>
                                                 {% else %}
-                                                    <a href="{{ model.admin_url }}" class="changelink" style="color: #64748b; font-weight: 600; text-decoration: none;">{% translate 'Change' %}</a>
+                                                    <a href="{{ model.admin_url }}" class="changelink" style="color: #ffffff !important; font-weight: 600; text-decoration: none; padding: 8px 12px !important;">
+                                                        <i class="fa-solid fa-pen-to-square"></i> <span class="button-text">{% translate 'Change' %}</span>
+                                                    </a>
                                                 {% endif %}
                                             {% endif %}
                                         </td>
