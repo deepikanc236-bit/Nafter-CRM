@@ -14,10 +14,17 @@
     .ranking-card {
         background: var(--glass-bg);
         border-radius: 28px;
-        padding: 40px;
+        padding: 30px;
         box-shadow: var(--card-shadow);
         border: 1px solid var(--glass-border);
         backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 768px) {
+        .ranking-card {
+            padding: 15px;
+            border-radius: 20px;
+        }
     }
 
     .rank-table {
@@ -43,7 +50,7 @@
     }
 
     .rank-row:hover {
-        transform: scale(1.01) translateX(5px);
+        transform: translateY(-2px);
         background: rgba(255, 255, 255, 0.05);
     }
 
@@ -105,8 +112,29 @@
 
     @media (max-width: 768px) {
         .rank-table th:nth-child(3),
-        .rank-table td:nth-child(3) {
+        .rank-table td:nth-child(3),
+        .rank-table th:nth-child(5),
+        .rank-table td:nth-child(5) {
             display: none;
+        }
+        
+        .rank-row td {
+            padding: 12px 10px;
+        }
+        
+        .rank-row td:first-child {
+            width: 50px;
+            font-size: 1rem;
+        }
+        
+        .score-badge {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+            min-width: 45px;
+        }
+        
+        .medal-icon {
+            font-size: 1.2rem;
         }
     }
 </style>
