@@ -233,16 +233,16 @@ html, body {
 .top-header-bar {
     position: sticky;
     top: 0;
-    z-index: 100;
-    background: rgba(244, 247, 246, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 15px 0;
-    margin-bottom: 20px;
+    z-index: 1001; /* Above standard content */
+    background: var(--bg-body);
+    padding: 15px 20px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Aligned to left */
-    gap: 20px;
+    justify-content: flex-start;
+    gap: 15px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .top-header-bar h1 {
@@ -279,10 +279,10 @@ html, body {
     background: var(--primary-green);
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 12px;
+    padding: 8px 12px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     align-items: center;
     justify-content: center;
     transition: var(--transition);
@@ -290,6 +290,7 @@ html, body {
 
 .mobile-toggle-btn:hover {
     background: #1a8e59;
+    transform: scale(1.05);
 }
 
 .results {

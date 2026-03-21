@@ -57,12 +57,14 @@
 </div>
 {% endblock %}
 
-{% block content %}
+{% endblock %}
+
+{% block nav-global %}
     <div class="top-header-bar">
         <button id="admin-mobile-toggle" class="mobile-toggle-btn">
             <i class="fa-solid fa-bars"></i>
         </button>
-        {% if not is_dashboard and title != 'Site administration' %}
+        {% if title and title != 'Site administration' %}
             <a href="{% url 'admin:index' %}" class="back-dashboard-btn">
                 <i class="fa-solid fa-arrow-left"></i> {% translate 'Back to Dashboard' %}
             </a>
@@ -71,8 +73,6 @@
             <h1>Nafter AI Admin Panel</h1>
         {% endif %}
     </div>
-    
-    {{ block.super }}
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
