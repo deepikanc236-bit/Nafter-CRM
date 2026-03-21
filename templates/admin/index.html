@@ -18,12 +18,13 @@
 
     .dashboard-tables {
         flex: 3;
-        min-width: 300px;
+        min-width: 0; /* Allow shrinking below 300px if needed */
+        width: 100%;
     }
 
     #content-related {
         flex: 1;
-        min-width: 300px;
+        min-width: 250px;
         background: #ffffff;
         border-radius: 20px;
         padding: 24px;
@@ -42,8 +43,8 @@
 
     .app-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 24px;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
     }
 
     @media (max-width: 640px) {

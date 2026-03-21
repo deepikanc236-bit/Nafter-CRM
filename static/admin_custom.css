@@ -690,6 +690,10 @@ ul.selector-chooser {
         padding: 10px 20px;
         gap: 15px;
     }
+    
+    #content {
+        padding: 15px !important;
+    }
 }
 
 @media (max-width: 600px) {
