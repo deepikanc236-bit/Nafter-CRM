@@ -14,7 +14,11 @@ def extract_lead_info(text):
 
     # 1. Multi-Currency Budget Extraction
     # Rates (Static)
-    RATES = {'usd': 83, 'aed': 22, 'eur': 90, 'inr': 1, '$': 83, '€': 90, '₹': 1}
+    RATES = {
+        'usd': 83, 'aed': 22, 'eur': 90, 'inr': 1, 
+        'gbp': 105, 'aud': 55, 'sgd': 62, 'cad': 61,
+        '$': 83, '€': 90, '₹': 1, '£': 105
+    }
     
     budget_raw = None
     budget_inr = 0
@@ -26,7 +30,7 @@ def extract_lead_info(text):
     # 3. Or being preceded by "budget"
     # or being preceded by "budget"
     # Also added negative lookahead to skip numbers followed by timeline units (mon, weeks, days)
-    pattern = r'(?:budget[:\s]+(?:is|of)?\s*)?(?P<currency>[\$€₹]|usd|aed|eur|gbp|inr)?\s*(?P<number>[\d,]+(?:\.\d+)?)\s*(?P<suffix>lakhs?|lacs?|crores?|cr|millions?|m|k|thousands?|k)?\b(?!\s*(?:month|week|day|year))'
+    pattern = r'(?:budget[:\s]+(?:is|of)?\s*)?(?P<currency>[\$€₹£]|usd|aed|eur|gbp|aud|sgd|cad|inr)?\s*(?P<number>[\d,]+(?:\.\d+)?)\s*(?P<suffix>lakhs?|lacs?|crores?|cr|millions?|m|k|thousands?|k)?\b(?!\s*(?:month|week|day|year))'
     
     match = re.search(pattern, text_lower)
     if match:

@@ -13,6 +13,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.getElementById('admin-mobile-toggle');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function() {
+                document.body.classList.toggle('header-open');
+            });
+        }
+    });
+</script>
 {% endblock %}
 
 {% block branding %}
@@ -49,6 +59,9 @@
 
 {% block content %}
     <div class="top-header-bar">
+        <button id="admin-mobile-toggle" class="mobile-toggle-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
         {% if not is_dashboard and title != 'Site administration' %}
             <a href="{% url 'admin:index' %}" class="back-dashboard-btn">
                 <i class="fa-solid fa-arrow-left"></i> {% translate 'Back to Dashboard' %}

@@ -274,6 +274,24 @@ html, body {
     color: #ffffff !important;
 }
 
+.mobile-toggle-btn {
+    display: none;
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.mobile-toggle-btn:hover {
+    background: #1a8e59;
+}
+
 .results {
     width: 100% !important;
     overflow-x: auto !important; /* Enable horizontal scroll for broad tables */
@@ -655,13 +673,54 @@ ul.selector-chooser {
     #header {
         transform: translateX(-100%);
         transition: var(--transition);
+        width: 280px !important;
     }
-    #main {
+    #main, .content-wrapper {
         margin-left: 0 !important;
         width: 100% !important;
     }
     .header-open #header {
         transform: translateX(0);
+    }
+    .mobile-toggle-btn {
+        display: flex;
+    }
+    
+    .top-header-bar {
+        padding: 10px 20px;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    .form-row label {
+        flex: none !important;
+        width: 100% !important;
+        margin-bottom: 5px !important;
+    }
+    .form-row input:not([type="checkbox"]):not([type="radio"]), 
+    .form-row select, 
+    .form-row textarea {
+        width: 100% !important;
+        max-width: none !important;
+    }
+    
+    fieldset.module {
+        padding: 20px !important;
+        min-width: 0 !important;
+    }
+    
+    .submit-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .submit-row input {
+        width: 100% !important;
     }
 }
 

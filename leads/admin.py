@@ -95,7 +95,7 @@ class LeadAdmin(admin.ModelAdmin):
 
     list_filter = ("service", "priority", "status", "created_at", "country")
     search_fields = ("first_name", "last_name", "work_email", "project_details", "company_name")
-    actions = ['mark_as_done_and_email', 'export_to_csv']
+    actions = ['delete_selected', 'mark_as_done_and_email', 'export_to_csv']
 
     @admin.action(description="Export Selected Leads to CSV")
     def export_to_csv(self, request, queryset):
