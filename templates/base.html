@@ -118,6 +118,7 @@
             text-align: center;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -334,6 +335,17 @@
             <div class="logo-box">N</div>
             <span class="logo-text">Nafter AI</span>
         </a>
+        
+        <!-- Global Search Bar -->
+        <div class="search-container" style="margin-bottom: 30px; position: relative;">
+            <form action="{% url 'lead_search' %}" method="GET">
+                <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem;"></i>
+                <input type="text" name="q" placeholder="Search leads, emails..." 
+                    style="width: 100%; padding: 12px 15px 12px 40px; background: rgba(0,0,0,0.03); border: 1px solid var(--glass-border); border-radius: 14px; font-size: 0.85rem; font-weight: 600; color: var(--text-main); transition: var(--transition); outline: none;"
+                    onfocus="this.style.borderColor='var(--primary)'; this.style.background='#fff'; this.style.boxShadow='0 0 0 4px rgba(16, 185, 129, 0.1)';"
+                    onblur="this.style.borderColor='var(--glass-border)'; this.style.background='rgba(0,0,0,0.03)'; this.style.boxShadow='none';">
+            </form>
+        </div>
 
         <nav class="nav-list">
             <a href="{% url 'dashboard' %}"

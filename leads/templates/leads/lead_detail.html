@@ -39,6 +39,7 @@
     .card-title i {
         background: var(--primary-gradient);
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
         font-size: 1.4rem;
     }
@@ -330,12 +331,12 @@
             
             {% if is_manager %}
             <!-- Assignment Management for Sales Managers -->
-            <div class="card" style="border-left: 4px solid var(--accent); margin-bottom: 32px;">
-                <div class="card-title">
+            <div class="card" style="border-left: 4px solid var(--accent); margin-bottom: 32px; padding: 20px;">
+                <div class="card-title" style="font-size: 1rem; margin-bottom: 15px;">
                     <i class="fa-solid fa-user-plus"></i>
                     Manual Assignment
                 </div>
-                <div class="detail-item">
+                <div class="detail-item" style="margin-bottom: 15px;">
                     <div class="detail-label">Current Assignee</div>
                     <div class="detail-value" id="current-assignee">
                         {% if lead.assigned_user %}
@@ -345,10 +346,10 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="form-group" style="margin-top: 20px;">
+                <div class="form-group">
                     <label class="detail-label">Assign To Executive</label>
                     <div style="display: flex; gap: 10px;">
-                        <select id="assignee-select" class="form-control" style="height: 50px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-main);">
+                        <select id="assignee-select" class="form-control" style="height: 40px; background: rgba(0,0,0,0.03); border: 1px solid var(--glass-border); color: var(--text-main); font-size: 0.85rem; border-radius: 10px;">
                             <option value="">Select Executive...</option>
                             {% for user in assignable_users %}
                                 <option value="{{ user.id }}" {% if lead.assigned_user == user %}selected{% endif %}>
@@ -356,11 +357,28 @@
                                 </option>
                             {% endfor %}
                         </select>
-                        <button id="assign-btn" class="btn-premium" style="width: auto; padding: 0 20px; height: 50px; margin-top: 0;">Assign</button>
+                        <button id="assign-btn" class="btn-premium" style="width: auto; padding: 0 15px; height: 40px; margin-top: 0; font-size: 0.8rem; border-radius: 10px;">Assign</button>
                     </div>
                 </div>
             </div>
             {% endif %}
+
+            <!-- Manual Notes Section -->
+            <div class="card" style="border-left: 4px solid var(--primary); margin-bottom: 32px; padding: 20px;">
+                <div class="card-title" style="font-size: 1rem; margin-bottom: 15px;">
+                    <i class="fa-solid fa-note-sticky"></i>
+                    Add Follow-up Note
+                </div>
+                <div class="form-group">
+                    <textarea id="note-text" placeholder="Type a note about this lead..." 
+                        style="width: 100%; height: 80px; background: rgba(0,0,0,0.03); border: 1px solid var(--glass-border); border-radius: 12px; padding: 12px; font-size: 0.85rem; color: var(--text-main); transition: var(--transition); resize: none; outline: none;"
+                        onfocus="this.style.borderColor='var(--primary)'; this.style.background='#fff';"
+                        onblur="this.style.borderColor='var(--glass-border)'; this.style.background='rgba(0,0,0,0.03)';"></textarea>
+                    <button id="save-note-btn" class="btn-premium" style="width: 100%; height: 40px; margin-top: 12px; font-size: 0.85rem; border-radius: 10px;">
+                        <i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> Save Note
+                    </button>
+                </div>
+            </div>
 
             <div class="timeline">
                 {% for activity in activities %}
@@ -438,6 +456,48 @@
                 .finally(() => {
                     assignBtn.disabled = false;
                     assignBtn.innerText = 'Assign';
+                });
+            });
+        }
+
+        const noteBtn = document.getElementById('save-note-btn');
+        const noteText = document.getElementById('note-text');
+
+        if (noteBtn && noteText) {
+            noteBtn.addEventListener('click', function () {
+                const note = noteText.value.trim();
+                if (!note) {
+                    alert('Please enter a note.');
+                    return;
+                }
+
+                noteBtn.disabled = true;
+                noteBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+                fetch("{% url 'add_lead_note' lead.id %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: `note=${encodeURIComponent(note)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        noteText.value = '';
+                        location.reload(); // Reload to show new note in timeline
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                })
+                .finally(() => {
+                    noteBtn.disabled = false;
+                    noteBtn.innerHTML = '<i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> Save Note';
                 });
             });
         }
