@@ -111,11 +111,14 @@ def run_seeding():
         
         from leads.views import extract_smart_budget
         from leads.nlp_utils import extract_lead_info
+        from leads.sentiment import analyze_sentiment
+        from leads.ml_utils import calculate_conversion_probability
         
         for data in sample_leads:
             details = data['project_details']
             nlp_data = extract_lead_info(details)
-            Lead.objects.create(
+            score, _ = analyze_sentiment(details)
+            new_lead = Lead.objects.create(
                 first_name=data['first_name'],
                 last_name=data['last_name'],
                 work_email=data['work_email'],
@@ -123,8 +126,11 @@ def run_seeding():
                 status=data['status'],
                 budget_inr_value=extract_smart_budget(details),
                 service=nlp_data.get('service'),
-                priority=nlp_data.get('priority', 'Medium')
+                priority=nlp_data.get('priority', 'Medium'),
+                lead_score=nlp_data.get('lead_score', 0)
             )
+            new_lead.conversion_probability = calculate_conversion_probability(new_lead, score)
+            new_lead.save()
         print(f">>> [FINAL SEED] Created {len(sample_leads)} sample leads.")
     else:
         print(">>> [FINAL SEED] Leads already exist, skipping sample seeding.")

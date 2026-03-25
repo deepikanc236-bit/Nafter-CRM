@@ -366,10 +366,15 @@ def export_leads_csv(request):
 
 @login_required
 def lead_search(request):
-    query = request.GET.get('q', '')
+    query = request.GET.get('q', '').strip()
     if query:
-        from django.db.models import Q
-        leads = Lead.get_role_restricted_queryset(request.user).filter(
+        from django.db.models import Q, Value
+        from django.db.models.functions import Concat
+        
+        leads = Lead.get_role_restricted_queryset(request.user).annotate(
+            full_name=Concat('first_name', Value(' '), 'last_name')
+        ).filter(
+            Q(full_name__icontains=query) |
             Q(first_name__icontains=query) |
             Q(last_name__icontains=query) |
             Q(work_email__icontains=query) |
