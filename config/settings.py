@@ -32,11 +32,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.22', '192.168.1.5', '127.0.0.1', 'localhost', '.render.com', '.railway.app', '.koyeb.app', '.b4a.run', '.back4app.io']
 
-if not DEBUG:
-    render_hostname = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
-    if render_hostname:
-        ALLOWED_HOSTS += [render_hostname]
-        CSRF_TRUSTED_ORIGINS = [f"https://{render_hostname}"]
+render_hostname = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if render_hostname:
+    ALLOWED_HOSTS += [render_hostname, f".{render_hostname}"]
+    CSRF_TRUSTED_ORIGINS = [f"https://{render_hostname}"]
 
 # Handle HTTPS correctly on Render
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
