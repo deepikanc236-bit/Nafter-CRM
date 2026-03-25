@@ -120,6 +120,7 @@ def contact(request):
 
     return render(request, "leads/contact.html")
 
+@login_required
 def dashboard(request):
     from django.utils import timezone
     from datetime import timedelta

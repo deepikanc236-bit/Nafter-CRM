@@ -78,6 +78,10 @@ class Lead(models.Model):
         if queryset is None:
             queryset = Lead.objects.all()
         
+        # Protect against AnonymousUser
+        if not user.is_authenticated:
+            return queryset.none()
+
         group_names = [g.name.lower() for g in user.groups.all()]
         
         # Superusers and Sales Managers can see all leads
