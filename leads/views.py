@@ -364,3 +364,38 @@ def export_leads_csv(request):
         
     return response
 
+@login_required
+def lead_search(request):
+    query = request.GET.get('q', '')
+    if query:
+        from django.db.models import Q
+        leads = Lead.get_role_restricted_queryset(request.user).filter(
+            Q(first_name__icontains=query) |
+            Q(last_name__icontains=query) |
+            Q(work_email__icontains=query) |
+            Q(company_name__icontains=query)
+        ).distinct()
+    else:
+        leads = Lead.objects.none()
+    
+    return render(request, 'leads/search_results.html', {'leads': leads, 'query': query})
+
+@login_required
+def add_lead_note(request, lead_id):
+    if request.method == 'POST':
+        note_text = request.POST.get('note')
+        if not note_text:
+            return JsonResponse({'success': False, 'message': 'Note cannot be empty'})
+            
+        try:
+            lead = Lead.objects.get(id=lead_id)
+            LeadActivity.objects.create(
+                lead=lead,
+                changed_by=request.user,
+                action_type='note_added',
+                action=f"Note: {note_text}"
+            )
+            return JsonResponse({'success': True})
+        except Lead.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Lead not found'})
+    return JsonResponse({'success': False, 'message': 'Invalid request'})
