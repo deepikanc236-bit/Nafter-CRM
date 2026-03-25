@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timezone
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 import os
 import re
@@ -241,7 +242,7 @@ def feedback_dashboard(request):
     }
     return render(request, 'leads/feedback_dashboard.html', context)
 
-class LeadListView(ListView):
+class LeadListView(LoginRequiredMixin, ListView):
     model = Lead
     template_name = 'leads/leads_list.html'
     context_object_name = 'leads'
@@ -275,7 +276,7 @@ class LeadListView(ListView):
         context['current_sort'] = self.request.GET.get('sort', 'Newest First')
         return context
 
-class LeadDetailView(DetailView):
+class LeadDetailView(LoginRequiredMixin, DetailView):
     model = Lead
     template_name = 'leads/lead_detail.html'
     context_object_name = 'lead'

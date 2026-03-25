@@ -1,7 +1,7 @@
 {
   "name": "Nafter AI CRM",
   "short_name": "Nafter AI",
-  "start_url": "/admin/",
+  "start_url": "/dashboard/",
   "display": "standalone",
   "theme_color": "#115e3b",
   "background_color": "#115e3b",
