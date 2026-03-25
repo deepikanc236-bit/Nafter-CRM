@@ -453,7 +453,44 @@
         const currentAssigneeDisplay = document.getElementById('current-assignee');
 
         if (assignBtn && assigneeSelect) {
-            // ... (rest of assignBtn logic is already there)
+            assignBtn.addEventListener('click', function () {
+                const userId = assigneeSelect.value;
+                if (!userId) {
+                    alert('Please select an executive first.');
+                    return;
+                }
+
+                assignBtn.disabled = true;
+                assignBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+                fetch("{% url 'assign_lead' lead.id %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: `user_id=${userId}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const selectedText = assigneeSelect.options[assigneeSelect.selectedIndex].text;
+                        if (currentAssigneeDisplay) currentAssigneeDisplay.textContent = selectedText;
+                        alert('Lead assigned successfully!');
+                        location.reload(); // Reload to update timeline
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                })
+                .finally(() => {
+                    assignBtn.disabled = false;
+                    assignBtn.innerText = 'Assign';
+                });
+            });
         }
 
         // Win Probability Gauge Chart
