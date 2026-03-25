@@ -277,13 +277,7 @@
 </style>
 {% endblock %}
 
-{% block header_actions %}
-<div class="header-actions">
-    <button onclick="window.print()" class="btn-premium" style="background: var(--text-main); color: #fff; width: auto; padding: 0 20px; border-radius: 12px; height: 45px; display: flex; align-items: center; gap: 8px; font-weight: 700;">
-        <i class="fa-solid fa-file-pdf"></i> Export Report
-    </button>
-</div>
-{% endblock %}
+
 
 {% block content %}
 <div class="profile-grid">
@@ -503,7 +497,7 @@
 
         // Win Probability Gauge Chart
         const gaugeCtx = document.getElementById('winProbabilityGauge').getContext('2d');
-        const probValue = {{ lead.conversion_probability }};
+        const probValue = Number("{{ lead.conversion_probability|default:0 }}");
         
         let gaugeColor = '#10b981'; // Green
         if (probValue < 40) gaugeColor = '#ef4444'; // Red

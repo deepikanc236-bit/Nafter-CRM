@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-$*ukm3g^w9-&8yc3yvg9+x1d=#nfrd+u($r5cslu&rk%6ylo#w")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.22', '192.168.1.5', '127.0.0.1', 'localhost', '.render.com', '.railway.app', '.koyeb.app', '.b4a.run', '.back4app.io']
 
