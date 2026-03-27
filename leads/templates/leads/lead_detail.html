@@ -11,8 +11,8 @@
 
 {% block header_actions %}
 <div class="header-actions" style="display: flex; gap: 15px; align-items: center;">
-    <a href="{% url 'dashboard' %}" class="btn-premium" style="background: var(--card-bg); color: var(--text-main); border: 2px solid var(--primary); padding: 0 25px; border-radius: 12px; height: 45px; display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-        <i class="fa-solid fa-house"></i> Back to Dashboard
+    <a href="{% url 'lead_list' %}" class="btn-premium" style="background: var(--card-bg); color: var(--text-main); border: 2px solid var(--primary); padding: 0 25px; border-radius: 12px; height: 45px; display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <i class="fa-solid fa-house"></i> Back to Leads
     </a>
     <span class="status-badge status-{{ lead.status|lower }}" style="padding: 10px 20px; font-size: 0.9rem; margin-bottom: 0;">
         {{ lead.get_status_display }}
