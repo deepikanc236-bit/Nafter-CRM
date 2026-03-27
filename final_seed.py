@@ -135,6 +135,33 @@ def run_seeding():
     else:
         print(">>> [FINAL SEED] Leads already exist, skipping sample seeding.")
 
+    # 3. Recalculate and update scores for ALL existing leads
+    print(">>> [FINAL SEED] Updating existing lead scores...")
+    from leads.nlp_utils import extract_lead_info
+    from leads.views import extract_smart_budget
+    from leads.ml_utils import calculate_conversion_probability
+    from leads.sentiment import analyze_sentiment
+    
+    all_leads = Lead.objects.all()
+    updated_count = 0
+    for lead in all_leads:
+        if lead.project_details:
+            nlp_data = extract_lead_info(lead.project_details)
+            sentiment_score, _ = analyze_sentiment(lead.project_details)
+            
+            new_score = nlp_data.get('lead_score', 0)
+            new_budget = extract_smart_budget(lead.project_details)
+            new_priority = nlp_data.get('priority', lead.priority)
+            
+            if lead.lead_score != new_score or lead.budget_inr_value != new_budget or lead.priority != new_priority:
+                lead.lead_score = new_score
+                lead.budget_inr_value = new_budget
+                lead.priority = new_priority
+                lead.conversion_probability = calculate_conversion_probability(lead, sentiment_score)
+                lead.save()
+                updated_count += 1
+    
+    print(f">>> [FINAL SEED] Updated {updated_count} existing lead scores.")
     print(">>> [FINAL SEED] Seeding Complete.")
 
 if __name__ == '__main__':
