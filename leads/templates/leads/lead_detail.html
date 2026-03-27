@@ -11,6 +11,9 @@
 
 {% block header_actions %}
 <div class="header-actions" style="display: flex; gap: 15px; align-items: center;">
+    <a href="{% url 'dashboard' %}" class="btn-premium" style="background: var(--card-bg); color: var(--text-main); border: 2px solid var(--primary); padding: 0 25px; border-radius: 12px; height: 45px; display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <i class="fa-solid fa-house"></i> Back to Dashboard
+    </a>
     <span class="status-badge status-{{ lead.status|lower }}" style="padding: 10px 20px; font-size: 0.9rem; margin-bottom: 0;">
         {{ lead.get_status_display }}
     </span>
@@ -253,7 +256,7 @@
 
     /* Print Styles for Professional Reports */
     @media print {
-        .sidebar, .header-section, .header-actions, .actions, .sidebar-details, #save-note-btn, #note-text, #assign-btn, #assignee-select {
+        .sidebar, .header-section, .header-actions, .actions, .sidebar-details .card:has(#note-text), .sidebar-details .card:has(#assignee-select), #save-note-btn, #note-text, #assign-btn, #assignee-select {
             display: none !important;
         }
         .main-container {
@@ -262,8 +265,11 @@
         }
         .card {
             box-shadow: none !important;
-            border: 1px solid #eee !important;
+            border: 1px solid #ddd !important;
+            background: #fff !important;
+            color: #000 !important;
             break-inside: avoid;
+            margin-bottom: 20px !important;
         }
         body {
             background: white !important;
@@ -272,9 +278,22 @@
         .profile-grid {
             display: block !important;
         }
+        .sidebar-details {
+            display: block !important;
+            width: 100% !important;
+        }
         .sentiment-badge-large {
             box-shadow: none !important;
             border: 2px solid #ccc !important;
+            background: #f8f9fa !important;
+            color: #333 !important;
+        }
+        .detail-value {
+            color: #000 !important;
+        }
+        canvas {
+            max-width: 100% !important;
+            height: auto !important;
         }
     }
 </style>

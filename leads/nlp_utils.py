@@ -40,7 +40,9 @@ def extract_lead_info(text):
         currency = match.group('currency')
         
         # If we have neither currency nor suffix, we check if it was explicitly called "budget"
-        has_context = "budget" in text_lower[:match.start()] or "budget" in text_lower[match.end():match.end()+20]
+        # We also count it as having context if the word "budget" is part of the match itself
+        match_text = match.group(0).lower()
+        has_context = "budget" in match_text or "budget" in text_lower[:match.start()] or "budget" in text_lower[match.end():match.end()+20]
         
         if not currency and not suffix and not has_context:
             return data # Skip plain numbers that aren't clearly budgets
@@ -99,7 +101,7 @@ def extract_lead_info(text):
     else:
         # Fallback to keyword check if TF-IDF is low but some words exist
         urgency_keywords = ['asap', 'urgent', 'immediately', 'now']
-        if any(kw in text_lower for kw in keywords):
+        if any(kw in text_lower for kw in urgency_keywords):
             data['urgency'] = 'High'
         else:
             data['urgency'] = 'Normal'
