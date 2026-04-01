@@ -256,6 +256,23 @@
 
     /* Print Styles for Professional Reports */
     @media print {
+        /* Force color printing */
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        /* Reset layout for print */
+        html, body {
+            background: #fff !important;
+            color: #000 !important;
+            display: block !important;
+            overflow: visible !important;
+            height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
         /* Hide app-specific UI elements */
         .sidebar, 
         .mobile-toggle, 
@@ -268,51 +285,58 @@
         #note-text, 
         #assign-btn, 
         #assignee-select,
+        .sidebar-footer,
         .btn-premium {
             display: none !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
         .main-container {
             margin-left: 0 !important;
-            padding: 0 !important;
+            padding: 20px !important;
             width: 100% !important;
+            display: block !important;
+            position: static !important;
         }
         
         .header-section {
             margin-bottom: 30px !important;
             display: block !important;
+            width: 100% !important;
         }
 
         .page-title {
-            font-size: 2.5rem !important;
+            font-size: 2rem !important;
+            font-weight: 800 !important;
             color: #000 !important;
-            margin-bottom: 20px !important;
+            margin-bottom: 25px !important;
             display: block !important;
+        }
+
+        .profile-grid, .main-details, .sidebar-details {
+            display: block !important;
+            width: 100% !important;
+            gap: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
         .card {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: relative !important;
             box-shadow: none !important;
-            border: 1px solid #eee !important;
+            border: 1px solid #ddd !important;
             background: #fff !important;
             color: #000 !important;
-            break-inside: avoid;
-            margin-bottom: 30px !important;
-            padding: 30px !important;
-            border-radius: 12px !important;
-        }
-
-        body {
-            background: white !important;
-            color: black !important;
-        }
-
-        .profile-grid {
-            display: block !important;
-        }
-
-        .sidebar-details {
-            display: block !important;
-            width: 100% !important;
+            margin-bottom: 25px !important;
+            padding: 25px !important;
+            border-radius: 15px !important;
+            break-inside: auto !important;
+            page-break-inside: auto !important;
         }
 
         /* Fix visibility of sentiment analysis message */
@@ -320,6 +344,7 @@
             color: #333 !important;
             background: #f8f9fa !important;
             border: 1px solid #eee !important;
+            padding: 20px !important;
         }
 
         .sentiment-badge-large {
@@ -327,23 +352,42 @@
             border: 2px solid #ccc !important;
             background: #f8f9fa !important;
             color: #333 !important;
+            padding: 15px 25px !important;
+            font-size: 1.5rem !important;
+        }
+
+        .detail-item {
+            margin-bottom: 20px !important;
+            page-break-inside: avoid;
+        }
+
+        .detail-label {
+            color: #666 !important;
+            font-size: 0.75rem !important;
         }
 
         .detail-value {
             color: #000 !important;
+            font-size: 1rem !important;
         }
 
         canvas {
             max-width: 100% !important;
             height: auto !important;
         }
+
+        .timeline-item {
+            page-break-inside: avoid;
+        }
+        
+        .timeline-content {
+            border: 1px solid #eee !important;
+            background: #fff !important;
+            box-shadow: none !important;
+        }
     }
 </style>
 {% endblock %}
-
-
-
-
 
 {% block content %}
 <div class="profile-grid">
