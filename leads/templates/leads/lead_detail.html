@@ -256,41 +256,83 @@
 
     /* Print Styles for Professional Reports */
     @media print {
-        .sidebar, .header-section, .header-actions, .actions, .sidebar-details .card:has(#note-text), .sidebar-details .card:has(#assignee-select), #save-note-btn, #note-text, #assign-btn, #assignee-select {
+        /* Hide app-specific UI elements */
+        .sidebar, 
+        .mobile-toggle, 
+        .breadcrumb, 
+        .header-actions, 
+        .actions, 
+        .sidebar-details .card:has(#note-text), 
+        .sidebar-details .card:has(#assignee-select), 
+        #save-note-btn, 
+        #note-text, 
+        #assign-btn, 
+        #assignee-select,
+        .btn-premium {
             display: none !important;
         }
+
         .main-container {
             margin-left: 0 !important;
             padding: 0 !important;
+            width: 100% !important;
         }
+        
+        .header-section {
+            margin-bottom: 30px !important;
+            display: block !important;
+        }
+
+        .page-title {
+            font-size: 2.5rem !important;
+            color: #000 !important;
+            margin-bottom: 20px !important;
+            display: block !important;
+        }
+
         .card {
             box-shadow: none !important;
-            border: 1px solid #ddd !important;
+            border: 1px solid #eee !important;
             background: #fff !important;
             color: #000 !important;
             break-inside: avoid;
-            margin-bottom: 20px !important;
+            margin-bottom: 30px !important;
+            padding: 30px !important;
+            border-radius: 12px !important;
         }
+
         body {
             background: white !important;
             color: black !important;
         }
+
         .profile-grid {
             display: block !important;
         }
+
         .sidebar-details {
             display: block !important;
             width: 100% !important;
         }
+
+        /* Fix visibility of sentiment analysis message */
+        .card p[style*="color: white"] {
+            color: #333 !important;
+            background: #f8f9fa !important;
+            border: 1px solid #eee !important;
+        }
+
         .sentiment-badge-large {
             box-shadow: none !important;
             border: 2px solid #ccc !important;
             background: #f8f9fa !important;
             color: #333 !important;
         }
+
         .detail-value {
             color: #000 !important;
         }
+
         canvas {
             max-width: 100% !important;
             height: auto !important;

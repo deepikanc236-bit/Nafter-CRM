@@ -269,6 +269,7 @@ Leads
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Win %</th>
                         <th>Temperature</th>
                         <th>Status</th>
                         <th>Sentiment</th>
@@ -284,6 +285,9 @@ Leads
                             </a>
                         </td>
                         <td style="color: var(--text-main);">{{ lead.work_email }}</td>
+                        <td>
+                            <div style="font-weight: 800; color: var(--accent);">{{ lead.conversion_probability }}%</div>
+                        </td>
                         <td>
                             <div style="display: flex; align-items: center;">
                                 <span style="font-weight: 800; font-size: 1.1rem; color: white;">{{ lead.lead_score }}</span>
