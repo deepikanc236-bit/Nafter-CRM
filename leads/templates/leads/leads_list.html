@@ -14,14 +14,18 @@ Leads
 
     .dashboard-layout {
         display: flex;
-        gap: 32px;
+        gap: 20px;
         align-items: flex-start;
     }
 
     .leads-container {
         flex: 1;
         overflow: hidden;
-        max-width: calc(100% - 300px); /* Constrain width to give sidebar room */
+        min-width: 0; /* Critical for flex items to not overflow */
+    }
+
+    .leads-container.card {
+        padding: 24px;
     }
 
     /* Table Styles */
@@ -57,11 +61,19 @@ Leads
     .leads-table th:nth-child(7) { width: 20%; } /* Actions */
 
     td {
-        padding: 16px 8px;
-        font-size: 0.9rem;
+        padding: 12px 10px;
+        font-size: 0.85rem;
         color: var(--text-main);
         border-bottom: 1px solid var(--glass-border);
         vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    /* Wrap email only if needed */
+    td:nth-child(2) {
+        max-width: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     tr:hover td {
@@ -267,7 +279,7 @@ Leads
 <div class="dashboard-layout">
     <div class="leads-container card">
         <div class="table-responsive">
-            <table>
+            <table class="leads-table">
                 <thead>
                     <tr>
                         <th>Name</th>
