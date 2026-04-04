@@ -10,7 +10,7 @@
 {% block page_title %}{{ lead.first_name }} {{ lead.last_name }}{% endblock %}
 
 {% block header_actions %}
-<div class="header-actions" style="display: flex; gap: 15px; align-items: center;">
+<div class="header-actions no-print" style="display: flex; gap: 15px; align-items: center;">
     <a href="{% url 'lead_list' %}" class="btn-premium" style="background: var(--card-bg); color: var(--text-main); border: 2px solid var(--primary); padding: 0 25px; border-radius: 12px; height: 45px; display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
         <i class="fa-solid fa-house"></i> Back to Leads
     </a>
@@ -260,67 +260,64 @@
         * {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
+            color-adjust: exact !important;
         }
 
-        /* Reset layout for print */
-        html, body {
+        /* Reset layout for print - crucial for flex/grid containers */
+        html, body, .main-container, .content, .profile-grid, .main-details, .sidebar-details {
             background: #fff !important;
             color: #000 !important;
             display: block !important;
+            float: none !important;
             overflow: visible !important;
             height: auto !important;
+            min-height: auto !important;
+            max-height: none !important;
+            position: static !important;
             margin: 0 !important;
             padding: 0 !important;
+            width: 100% !important;
+            border: none !important;
+            box-shadow: none !important;
+            transform: none !important;
         }
 
-        /* Hide app-specific UI elements */
+        .main-container {
+            padding: 30px !important;
+        }
+
+        /* Hide elements that shouldn't be in the report */
+        .no-print,
         .sidebar, 
         .mobile-toggle, 
         .breadcrumb, 
         .header-actions, 
         .actions, 
-        .sidebar-details .card:has(#note-text), 
-        .sidebar-details .card:has(#assignee-select), 
-        #save-note-btn, 
-        #note-text, 
-        #assign-btn, 
-        #assignee-select,
         .sidebar-footer,
-        .btn-premium {
+        .btn-premium,
+        button,
+        select,
+        textarea {
             display: none !important;
+            visibility: hidden !important;
             height: 0 !important;
-            margin: 0 !important;
-            padding: 0 !important;
+            width: 0 !important;
+            overflow: hidden !important;
         }
 
-        .main-container {
-            margin-left: 0 !important;
-            padding: 20px !important;
-            width: 100% !important;
-            display: block !important;
-            position: static !important;
-        }
-        
         .header-section {
-            margin-bottom: 30px !important;
+            margin-bottom: 40px !important;
+            border-bottom: 2px solid #333 !important;
+            padding-bottom: 20px !important;
             display: block !important;
-            width: 100% !important;
         }
 
         .page-title {
-            font-size: 2rem !important;
+            font-size: 2.2rem !important;
             font-weight: 800 !important;
             color: #000 !important;
-            margin-bottom: 25px !important;
-            display: block !important;
-        }
-
-        .profile-grid, .main-details, .sidebar-details {
-            display: block !important;
-            width: 100% !important;
-            gap: 0 !important;
             margin: 0 !important;
-            padding: 0 !important;
+            display: block !important;
         }
 
         .card {
@@ -332,58 +329,77 @@
             border: 1px solid #ddd !important;
             background: #fff !important;
             color: #000 !important;
-            margin-bottom: 25px !important;
-            padding: 25px !important;
-            border-radius: 15px !important;
-            break-inside: auto !important;
-            page-break-inside: auto !important;
+            margin-bottom: 30px !important;
+            padding: 30px !important;
+            border-radius: 12px !important;
+            width: 100% !important;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
         }
 
-        /* Fix visibility of sentiment analysis message */
-        .card p[style*="color: white"] {
-            color: #333 !important;
-            background: #f8f9fa !important;
-            border: 1px solid #eee !important;
-            padding: 20px !important;
-        }
-
-        .sentiment-badge-large {
-            box-shadow: none !important;
-            border: 2px solid #ccc !important;
-            background: #f8f9fa !important;
-            color: #333 !important;
-            padding: 15px 25px !important;
-            font-size: 1.5rem !important;
-        }
-
+        /* Force visibility of all detail items */
         .detail-item {
+            display: block !important;
             margin-bottom: 20px !important;
-            page-break-inside: avoid;
+            page-break-inside: avoid !important;
         }
 
+        /* Fix visibility of sentiment analysis message and large badges */
+        .sentiment-badge-large {
+            display: inline-block !important;
+            background: #f0fdf4 !important;
+            color: #166534 !important;
+            border: 2px solid #bbf7d0 !important;
+            padding: 10px 20px !important;
+            font-size: 1.2rem !important;
+            border-radius: 8px !important;
+            margin-bottom: 15px !important;
+        }
+
+        .sentiment-negative {
+            background: #fef2f2 !important;
+            color: #991b1b !important;
+            border-color: #fecaca !important;
+        }
+
+        .sentiment-neutral {
+            background: #f8fafc !important;
+            color: #475569 !important;
+            border-color: #e2e8f0 !important;
+        }
+
+        p[style*="color: white"], p[style*="color:white"] {
+            color: #1e293b !important;
+            background: #f1f5f9 !important;
+            border: 1px solid #e2e8f0 !important;
+            padding: 15px !important;
+            font-style: italic !important;
+            border-radius: 8px !important;
+            display: block !important;
+        }
+        
         .detail-label {
-            color: #666 !important;
-            font-size: 0.75rem !important;
+            color: #64748b !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
         }
 
         .detail-value {
-            color: #000 !important;
-            font-size: 1rem !important;
+            color: #0f172a !important;
+            font-weight: 600 !important;
         }
 
-        canvas {
-            max-width: 100% !important;
-            height: auto !important;
-        }
-
-        .timeline-item {
-            page-break-inside: avoid;
-        }
-        
         .timeline-content {
-            border: 1px solid #eee !important;
+            border: 1px solid #e2e8f0 !important;
             background: #fff !important;
-            box-shadow: none !important;
+        }
+
+        /* Ensure Canvas/Charts fit correctly */
+        canvas {
+            max-width: 300px !important;
+            height: auto !important;
+            margin: 0 auto !important;
+            display: block !important;
         }
     }
 </style>
@@ -476,7 +492,7 @@
             
             {% if is_manager %}
             <!-- Assignment Management for Sales Managers -->
-            <div class="card" style="border-left: 4px solid var(--accent); margin-bottom: 32px; padding: 20px;">
+            <div class="card no-print" style="border-left: 4px solid var(--accent); margin-bottom: 32px; padding: 20px;">
                 <div class="card-title" style="font-size: 1rem; margin-bottom: 15px;">
                     <i class="fa-solid fa-user-plus"></i>
                     Manual Assignment
@@ -509,7 +525,7 @@
             {% endif %}
 
             <!-- Manual Notes Section -->
-            <div class="card" style="border-left: 4px solid var(--primary); margin-bottom: 32px; padding: 20px;">
+            <div class="card no-print" style="border-left: 4px solid var(--primary); margin-bottom: 32px; padding: 20px;">
                 <div class="card-title" style="font-size: 1rem; margin-bottom: 15px;">
                     <i class="fa-solid fa-note-sticky"></i>
                     Add Follow-up Note
