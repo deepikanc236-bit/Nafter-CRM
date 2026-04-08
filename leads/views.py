@@ -214,6 +214,13 @@ def update_lead_status(request):
             lead = Lead.objects.get(id=lead_id)
             old_status = lead.status
             lead.status = new_status
+            
+            # Feature: Direct Email Trigger for Kanban moves to 'Closed'
+            if old_status != 'Closed' and new_status == 'Closed':
+                from .alerts import send_feedback_email
+                send_feedback_email(lead)
+                lead._feedback_sent = True
+                
             lead.save()
             
             # Record the manual status change with actor

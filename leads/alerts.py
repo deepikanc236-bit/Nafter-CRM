@@ -87,15 +87,31 @@ The Nafter AI Team
     """
     def _send():
         try:
+            print(f">>> [ALERTS] Attempting to send feedback email to {lead.work_email}...")
             send_mail(subject, message, from_email, [lead.work_email], fail_silently=False)
-            # Log the activity
+            
+            # Log successful activity
             from .models import LeadActivity
             LeadActivity.objects.create(
                 lead=lead,
                 action_type='system_update',
                 action=f"Automated feedback email sent to {lead.work_email}"
             )
+            print(f">>> [ALERTS] Feedback email sent successfully to {lead.work_email}")
+            
         except Exception as e:
-            print(f">>> [ALERTS] Feedback email error: {e}")
+            error_msg = f"Feedback email error: {str(e)}"
+            print(f">>> [ALERTS] {error_msg}")
+            
+            # Log failure activity
+            try:
+                from .models import LeadActivity
+                LeadActivity.objects.create(
+                    lead=lead,
+                    action_type='system_update',
+                    action=f"FAILED: Feedback email to {lead.work_email}. Error: {str(e)[:100]}"
+                )
+            except Exception as log_e:
+                print(f">>> [ALERTS] Could not log email failure: {log_e}")
 
-    threading.Thread(target=_send).start()
+    threading.Thread(target=_send, name=f"EMailThread_{lead.id}").start()

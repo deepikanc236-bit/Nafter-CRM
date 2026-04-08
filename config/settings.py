@@ -152,12 +152,15 @@ EMAIL_HOST_PASSWORD = 'nrvp ksnf psua kfcf'
 DEFAULT_FROM_EMAIL = 'deepikanc236@gmail.com'
 MANAGEMENT_EMAIL = 'deepikanc236@gmail.com'
 
-# For automated email links (Update this with your live domain when you host it!)
+# For automated email links
 RENDER_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_HOSTNAME:
     SITE_URL = f"https://{RENDER_HOSTNAME}"
+elif os.environ.get("SITE_URL"):
+    SITE_URL = os.environ.get("SITE_URL")
 else:
-    SITE_URL = os.environ.get("SITE_URL", "http://127.0.0.1:8000")
+    # Production fallback
+    SITE_URL = "https://nafter-crm.onrender.com"
 
 
 # Authentication Settings

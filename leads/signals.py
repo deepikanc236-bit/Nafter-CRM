@@ -1,11 +1,19 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_init
 from django.dispatch import receiver
 from .models import Lead, LeadActivity
+
+@receiver(post_init, sender=Lead)
+def store_initial_status(sender, instance, **kwargs):
+    """
+    Stores the initial status when a Lead object is loaded from the database.
+    """
+    instance._old_status = instance.status
 
 @receiver(post_save, sender=Lead)
 def log_lead_changes(sender, instance, created, **kwargs):
     """
     Feature 1: Automatically logs changes to Lead Status or Assigned User.
+    Also triggers automated feedback emails when a lead is moved to 'Closed'.
     """
     from .models import LeadActivity
     
@@ -24,25 +32,13 @@ def log_lead_changes(sender, instance, created, **kwargs):
             send_high_value_alerts(instance)
             
     else:
-        # Field change tracking
-        # ... existing logic ...
-        
         # Automated Feedback when Closed
-        if hasattr(instance, '_old_status') and instance._old_status != 'Closed' and instance.status == 'Closed':
+        # Using the status stored during post_init to detect changes reliably
+        old_status = getattr(instance, '_old_status', None)
+        
+        if old_status != 'Closed' and instance.status == 'Closed' and not getattr(instance, '_feedback_sent', False):
             from .alerts import send_feedback_email
             send_feedback_email(instance)
-
-def remember_status(sender, instance, **kwargs):
-    instance._old_status = instance.status
-
-from django.db.models.signals import pre_save
-@receiver(pre_save, sender=Lead)
-def store_old_status(sender, instance, **kwargs):
-    if instance.pk:
-        try:
-            old_obj = Lead.objects.get(pk=instance.pk)
-            instance._old_status = old_obj.status
-        except Lead.DoesNotExist:
-            instance._old_status = None
-    else:
-        instance._old_status = None
+        
+        # Update the stored status in case the object is saved again in the same instance
+        instance._old_status = instance.status
