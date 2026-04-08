@@ -147,13 +147,17 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'admin@nafterweb.com' # Replace with your email
-EMAIL_HOST_PASSWORD = 'your-app-password' # Replace with your app password
-DEFAULT_FROM_EMAIL = 'support@nafterweb.com'
-MANAGEMENT_EMAIL = 'manager@nafterweb.com'
+EMAIL_HOST_USER = 'deepikanc236@gmail.com'
+EMAIL_HOST_PASSWORD = 'nrvp ksnf psua kfcf'
+DEFAULT_FROM_EMAIL = 'deepikanc236@gmail.com'
+MANAGEMENT_EMAIL = 'deepikanc236@gmail.com'
 
 # For automated email links (Update this with your live domain when you host it!)
-SITE_URL = 'http://127.0.0.1:8000'
+RENDER_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_HOSTNAME:
+    SITE_URL = f"https://{RENDER_HOSTNAME}"
+else:
+    SITE_URL = os.environ.get("SITE_URL", "http://127.0.0.1:8000")
 
 
 # Authentication Settings

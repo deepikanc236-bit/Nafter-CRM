@@ -128,6 +128,8 @@ class LeadAdmin(admin.ModelAdmin):
             )
             
             # Send Email
+            from django.conf import settings
+            site_url = getattr(settings, 'SITE_URL', 'http://127.0.0.1:8000')
             subject = "Project Completed! We'd love your feedback"
             message = f"""
 Hi {lead.first_name},
@@ -135,7 +137,7 @@ Hi {lead.first_name},
 We're excited to let you know that your project has been marked as completed!
 
 We'd love to hear about your experience with Nafter Web Technologies. Please take a moment to share your feedback here:
-http://127.0.0.1:8000/feedback/
+{site_url}/feedback/
 
 Thank you for choosing us!
 
