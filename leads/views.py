@@ -238,9 +238,9 @@ def update_lead_status(request):
 @role_required
 def feedback_dashboard(request):
     feedbacks = Feedback.objects.all()
-    negative = feedbacks.filter(sentiment_score__lt=0).count()
-    neutral = feedbacks.filter(sentiment_score=0).count()
-    positive = feedbacks.filter(sentiment_score__gt=0).count()
+    negative = feedbacks.filter(sentiment_label="Negative").count()
+    neutral = feedbacks.filter(sentiment_label="Neutral").count()
+    positive = feedbacks.filter(sentiment_label="Positive").count()
     
     context = {
         'negative': negative,
