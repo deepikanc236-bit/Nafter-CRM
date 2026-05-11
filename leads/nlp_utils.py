@@ -30,7 +30,7 @@ def extract_lead_info(text):
     # 3. Or being preceded by "budget"
     # or being preceded by "budget"
     # Also added negative lookahead to skip numbers followed by timeline units (mon, weeks, days)
-    pattern = r'(?:budget[:\s]+(?:is|of)?\s*)?(?P<currency>[\$€₹£]|usd|aed|eur|gbp|aud|sgd|cad|inr)?\s*(?P<number>[\d,]+(?:\.\d+)?)\s*(?P<suffix>lakhs?|lacs?|crores?|cr|millions?|m|k|thousands?|k)?\b(?!\s*(?:month|week|day|year))'
+    pattern = r'(?:budget[:\s]+(?:is|of)?\s*)?(?P<currency>[\$€₹£]|usd|aed|eur|gbp|aud|sgd|cad|inr)?\s*(?P<number>\d[\d,]*(?:\.\d+)?)\s*(?P<suffix>lakhs?|lacs?|crores?|cr|millions?|m|k|thousands?|k)?\b(?!\s*(?:month|week|day|year))'
     
     match = re.search(pattern, text_lower)
     if match:

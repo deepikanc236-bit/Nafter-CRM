@@ -92,20 +92,68 @@ def run_seeding():
             print(f">>> [FINAL SEED] ERROR: Group {group_name} missing!")
 
     # 3. Setup Sample Leads (if none exist)
-    if not Lead.objects.filter(first_name='Small').exists():
+    if not Lead.objects.filter(first_name='Arjun').exists():
         print(">>> [FINAL SEED] Seeding sample leads for RBAC verification...")
         sample_leads = [
             {
-                'first_name': 'Small', 'last_name': 'Project', 'work_email': 'small@test.com',
-                'project_details': 'Simple website. Budget is ₹2,00,000.', 'status': 'New'
+                'first_name': 'Arjun', 'last_name': 'Mehta', 'work_email': 'arjun.m@techstartup.in',
+                'project_details': 'We are an early-stage SaaS startup looking for a Generative AI Solutions partner. We need an LLM integration for our customer support. Budget is 15 lakhs. Need this asap.', 'status': 'New'
             },
             {
-                'first_name': 'Medium', 'last_name': 'Project', 'work_email': 'med@test.com',
-                'project_details': 'AI Chatbot. Budget is ₹7,50,000.', 'status': 'Contacted'
+                'first_name': 'Sarah', 'last_name': 'Connor', 'work_email': 'sarah@globalenterprises.com',
+                'project_details': 'Fortune 500 company seeking Full Stack Development for a custom internal ERP system. Our budget of $150,000 is approved. Project starts next month.', 'status': 'Contacted'
             },
             {
-                'first_name': 'Enterprise', 'last_name': 'Project', 'work_email': 'big@test.com',
-                'project_details': 'Custom ERP System. Budget is ₹25,00,000.', 'status': 'Negotiation'
+                'first_name': 'Vikram', 'last_name': 'Singh', 'work_email': 'vikram@logisticsplus.com',
+                'project_details': 'Looking to automate our supply chain workflows. Workflows & Automation needed urgently to reduce costs. Budget is ₹5,00,000.', 'status': 'Meeting Scheduled'
+            },
+            {
+                'first_name': 'Elena', 'last_name': 'Rostova', 'work_email': 'elena.r@healthcare.io',
+                'project_details': 'Healthcare clinic needing a simple website makeover and SEO. AI Digital Marketing is a plus. Budget is around 1.5 lakhs.', 'status': 'New'
+            },
+            {
+                'first_name': 'David', 'last_name': 'Chen', 'work_email': 'dchen@fintechcorp.net',
+                'project_details': 'Fintech corporation requires AI Engineering & MLOps to deploy our fraud detection model to production immediately.', 'status': 'Negotiation'
+            },
+            {
+                'first_name': 'Priya', 'last_name': 'Sharma', 'work_email': 'psharma@retailhub.in',
+                'project_details': 'We need an ecommerce platform built using Django and React. Budget is 8 lakhs. No urgent timeline.', 'status': 'Qualified'
+            },
+            {
+                'first_name': 'Marcus', 'last_name': 'Johnson', 'work_email': 'marcus.j@agritech.com',
+                'project_details': 'Exploring Autonomous Drone Solutions for crop monitoring. Budget is flexible, currently allocated 25 lakhs for MVP.', 'status': 'New'
+            },
+            {
+                'first_name': 'Neha', 'last_name': 'Gupta', 'work_email': 'neha.g@edutech.in',
+                'project_details': 'Educational agency looking for AI Strategy & Consulting to roadmap our next 5 years. Budget is ₹3,00,000.', 'status': 'Proposal Sent'
+            },
+            {
+                'first_name': 'James', 'last_name': 'Wilson', 'work_email': 'jwilson@mfgcorp.com',
+                'project_details': 'Large MNC needing Autonomous Agents to handle vendor negotiations. Budget is $50,000. Critical priority.', 'status': 'New'
+            },
+            {
+                'first_name': 'Ananya', 'last_name': 'Desai', 'work_email': 'ananya@smallbusiness.in',
+                'project_details': 'Small business needing social media marketing and basic web presence. Budget is 50k INR.', 'status': 'Closed - Lost'
+            },
+            {
+                'first_name': 'Rahul', 'last_name': 'Verma', 'work_email': 'rverma@realestate.com',
+                'project_details': 'Real estate firm. We want a chatbot (ChatGPT style) for property queries. Budget is ₹6,00,000. Urgent requirement.', 'status': 'Qualified'
+            },
+            {
+                'first_name': 'Sophia', 'last_name': 'Martinez', 'work_email': 'smartinez@travelgroup.com',
+                'project_details': 'Travel agency looking to automate booking process. Budget is 12 lakhs. Timeline is 3 months.', 'status': 'Contacted'
+            },
+            {
+                'first_name': 'Karan', 'last_name': 'Patel', 'work_email': 'karan.p@autoindustries.in',
+                'project_details': 'Industrial enterprise seeking predictive maintenance machine learning models. Budget is 1.5 Cr.', 'status': 'Negotiation'
+            },
+            {
+                'first_name': 'Emma', 'last_name': 'Thompson', 'work_email': 'ethompson@designstudio.uk',
+                'project_details': 'Design agency needs a portfolio website update. Budget is £2,000. Not urgent.', 'status': 'Closed - Won'
+            },
+            {
+                'first_name': 'Amit', 'last_name': 'Kumar', 'work_email': 'amit.k@fooddelivery.in',
+                'project_details': 'Startup building a new delivery app. Need full stack developers. Budget is ₹20,00,000. Need to launch immediately.', 'status': 'New'
             }
         ]
         
